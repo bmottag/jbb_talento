@@ -1,15 +1,12 @@
 $( document ).ready( function () {
 	
-	$("#numeroCupos").bloquearTexto().maxlength(2);
+	$("#numeroProceso").bloquearTexto().maxlength(12);
 	
-	$( "#formHorario" ).validate( {
+	$( "#form" ).validate( {
 		rules: {
-			numeroCupos: 			{ required: true, minlength: 1, maxlength:2 },
-			intervalo: 				{ required: true },
-			start_date:	 			{ required: true },
-			start_hour:	 			{ required: true },
-			finish_date:			{ required: true },
-			finish_hour:	 		{ required: true }
+			numeroProceso: 			{ required: true, minlength: 4, maxlength:12 },
+			id_tipo_proceso: 		{ required: true },
+			id_dependencia:	 		{ required: true }
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
@@ -31,7 +28,7 @@ $( document ).ready( function () {
 	
 	$("#btnSubmit").click(function(){		
 	
-		if ($("#formHorario").valid() == true){
+		if ($("#form").valid() == true){
 		
 				//Activa icono guardando
 				$('#btnSubmitWorker').attr('disabled','-1');
@@ -40,8 +37,8 @@ $( document ).ready( function () {
 			
 				$.ajax({
 					type: "POST",	
-					url: base_url + "settings/save_horarios",	
-					data: $("#formHorario").serialize(),
+					url: base_url + "settings/save_procesos",	
+					data: $("#form").serialize(),
 					dataType: "json",
 					contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 					cache: false,
@@ -60,7 +57,7 @@ $( document ).ready( function () {
 							$("#div_load").css("display", "none");
 							$('#btnSubmitWorker').removeAttr('disabled');
 
-							var url = base_url + "settings/horarios/";
+							var url = base_url + "settings/procesos";
 							$(location).attr("href", url);
 						}
 						else

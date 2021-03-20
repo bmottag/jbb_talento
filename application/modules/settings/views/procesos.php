@@ -7,8 +7,8 @@ $(function(){
 			var oID = $(this).attr("id");
             $.ajax ({
                 type: 'POST',
-				url: base_url + '/settings/cargarModalHorarios',
-                data: {'idHorario': oID},
+				url: base_url + '/settings/cargarModalProcesos',
+                data: {'idProceso': oID},
                 cache: false,
                 success: function (data) {
                     $('#tablaDatos').html(data);
@@ -39,7 +39,7 @@ function deseleccionar_todo(){
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h4 class="list-group-item-heading">
-					<i class="fa fa-briefcase  fa-fw"></i> CONFIGURACIÓN - HORARIOS
+					<i class="fa fa-briefcase  fa-fw"></i> CONFIGURACIÓN - PROCESOS
 					</h4>
 				</div>
 			</div>
@@ -52,11 +52,11 @@ function deseleccionar_todo(){
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<i class="fa fa-briefcase"></i> LISTA DE HORARIOS
+					<i class="fa fa-briefcase"></i> LISTA DE PROCESOS
 				</div>
 				<div class="panel-body">
 					<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modal" id="x">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar Horarios
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar Proceso
 					</button><br>
 <?php
 	$retornoExito = $this->session->flashdata('retornoExito');
@@ -80,7 +80,7 @@ function deseleccionar_todo(){
 ?> 
 
 				<?php
-					if($infoHorarios){
+					if($infoProcesos){
 				?>				
 <form  name="form_disponibilidad" id="form_disponibilidad" method="post" action="<?php echo base_url("settings/bloquear_horarios"); ?>">
 				<p>
@@ -90,58 +90,46 @@ function deseleccionar_todo(){
 					<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
 						<thead>
 							<tr>
-                                <th class='text-center'>ID</th>
-                                <th class='text-center'>Hora Inicial</th>
-                                <th class='text-center'>Hora Final</th>
-                                <th class='text-center'>No. Cupos</th>
-                                <th class='text-center'>No. Cupos Disponibles</th>
-                                <th class='text-center'>Disponiblidad<br>
+                                <th class='text-center'>Número Proceso</th>
+                                <th class='text-center'>Tipo Proceso</th>
+                                <th class='text-center'>Dependencia</th>
+                                <th class='text-center'>Estado<br>
 <button type="submit" class="btn btn-primary btn-xs" id="btnSubmit2" name="btnSubmit2" >
-	Bloquear/Desbloquear <span class="glyphicon glyphicon-edit" aria-hidden="true">
+	Activar/Inactivar <span class="glyphicon glyphicon-edit" aria-hidden="true">
 </button>
                                 </th>
 							</tr>
 						</thead>
 						<tbody>							
 						<?php
-							foreach ($infoHorarios as $lista):
-									echo '<tr>';
-	                                echo '<td class="text-center">' . $lista['id_horario'] . '</td>';
-	                                echo '<td class="text-center">' . $lista['hora_inicial'] . '</td>';
-	                                echo '<td class="text-center">' . $lista['hora_final'] . '</td>';
-	                                echo '<td class="text-center">' . $lista['numero_cupos'] . '</td>';
-	                                echo '<td class="text-center">' . $lista['numero_cupos_restantes'] . '</td>';
+							foreach ($infoProcesos as $lista):
+								echo '<tr>';
+                                echo '<td class="text-center">' . $lista['numero_proceso'] . '</td>';
+                                echo '<td class="text-center">' . $lista['tipo_proceso'] . '</td>';
+                                echo '<td class="text-center">' . $lista['dependencia'] . '</td>';
                                 echo '<td class="text-center">';
-                                switch ($lista['disponible']) {
+                                switch ($lista['estado_proceso']) {
                                     case 1:
-                                        $valor = 'DISPONIBLE';
+                                        $valor = 'ACTIVO';
                                         $clase = "text-success";
                                         $disponibilidad = FALSE;
                                         break;
                                     case 2:
-                                        $valor = 'BLOQUEADO: USUARIO RESERVANDO';
-                                        $clase = "text-warning";
-                                        $disponibilidad = FALSE;
-                                        break;
-                                    case 3:
-                                        $valor = 'BLOQUEDA: POR ADMINISTRACIÓN';
+                                        $valor = 'INACTIVO';
                                         $clase = "text-danger";
-                                        $disponibilidad = TRUE;
+                                        $disponibilidad = FALSE;
                                         break;
                                 }
                                 echo '<p class="' . $clase . '"><strong>' . $valor . '</strong>';
 
-                                if($lista['numero_cupos'] == $lista['numero_cupos_restantes']){
-
-									$data = array(
-										'name' => 'disponibilidad[]',
-										'id' => 'disponibilidad',
-										'value' => $lista['id_horario'],
-										'checked' => $disponibilidad,
-										'style' => 'margin:10px'
-									);
-									echo form_checkbox($data);
-								}
+								$data = array(
+									'name' => 'disponibilidad[]',
+									'id' => 'disponibilidad',
+									'value' => $lista['id_proceso'],
+									'checked' => $disponibilidad,
+									'style' => 'margin:10px'
+								);
+								echo form_checkbox($data);
 
                                 echo '</p></td>';
                                 echo '</tr>';

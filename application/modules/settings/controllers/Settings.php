@@ -217,64 +217,40 @@ class Settings extends CI_Controller {
 	}
 	
 	/**
-	 * Lista de horarios
-     * @since 16/2/2021
+	 * Lista de candidatos
+     * @since 19/3/2021
      * @author BMOTTAG
 	 */
-	public function horarios()
+	public function candidatos()
 	{
-			//eliminar imagenes de QR de mas de 15 dias
-			$files = glob('images/reservas/QR/*.png'); //obtenemos el nombre de todos los ficheros
-			foreach($files as $file){
-			    $lastModifiedTime = filemtime($file);
-			    $currentTime = time();
-			    
-			    $timeDiff = abs($currentTime - $lastModifiedTime)/(60*60*24); //en dias
-
-			    if(is_file($file) && $timeDiff > 15){
-			    	unlink($file); //elimino el fichero
-			    }
-			}
-
-			//eliminar imagenes de captcha
-			$files = glob('images/captcha_images/*.jpg'); //obtenemos todos los nombres de los ficheros
-
-			foreach($files as $file){
-			    if(is_file($file))
-			    unlink($file); //elimino el fichero
-			}
-
 			$arrParam = array(
 				'from' => date('Y-m-d')
 			);
-			$data['infoHorarios'] = $this->general_model->get_horario_info($arrParam);
+			$data['infoCandidatos'] = $this->general_model->get_candidatos_info($arrParam);
 			
-			$data["view"] = 'horarios';
+			$data["view"] = 'candidatos';
 			$this->load->view("layout_calendar", $data);
 	}
 	
     /**
-     * Cargo modal - formulario horarios
-     * @since 16/2/2021
+     * Cargo modal - formulario CANDIDATOS
+     * @since 19/3/2021
      */
-    public function cargarModalHorarios() 
+    public function cargarModalCandidatos() 
 	{
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
 			
 			$data['information'] = FALSE;
-			$data["idHorario"] = $this->input->post("idHorario");	
+			$data["idCandidato"] = $this->input->post("idCandidato");	
 			
-			if ($data["idHorario"] != 'x') {
+			if ($data["idCandidato"] != 'x') {
 				$arrParam = array(
-					"table" => "param_proveedores",
-					"order" => "id_proveedor",
-					"column" => "id_proveedor",
-					"id" => $data["idCompany"]
+					"idCandidato" => $data["idCandidato"]
 				);
-				$data['information'] = $this->general_model->get_basic_search($arrParam);
+				$data['infoCandidatos'] = $this->general_model->get_candidatos_info($arrParam);
 			}
 			
-			$this->load->view("horarios_modal", $data);
+			$this->load->view("candidatos_modal", $data);
     }
 	
 	/**
@@ -322,6 +298,82 @@ class Settings extends CI_Controller {
 
 			redirect(base_url('settings/horarios'), 'refresh');
 	}
+
+	/**
+	 * Lista de procesos
+     * @since 19/3/2021
+     * @author BMOTTAG
+	 */
+	public function procesos()
+	{
+			$arrParam = array('estadoProceso' => 1);
+			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam); 
+			$data["view"] = 'procesos';
+			$this->load->view("layout_calendar", $data);
+	}
+	
+    /**
+     * Cargo modal - formulario PROCESOS
+     * @since 19/3/2021
+     */
+    public function cargarModalProcesos() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$data["idProceso"] = $this->input->post("idProceso");	
+
+			$arrParam = array(
+				"table" => "param_dependencias",
+				"order" => "dependencia",
+				"id" => "x"
+			);
+			$data['dependencias'] = $this->general_model->get_basic_search($arrParam);
+
+			$arrParam = array(
+				"table" => "param_tipo_proceso",
+				"order" => "tipo_proceso",
+				"id" => "x"
+			);
+			$data['tipoProceso'] = $this->general_model->get_basic_search($arrParam);
+			
+			if ($data["idProceso"] != 'x') {
+				$arrParam = array(
+					"idProceso" => $data["idProceso"]
+				);
+				$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
+			}
+			
+			$this->load->view("procesos_modal", $data);
+    }
+	
+	/**
+	 * Save procesos
+     * @since 19/3/2021
+     * @author BMOTTAG
+	 */
+	public function save_procesos()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+		
+			$idProceso = $this->input->post('hddId');
+			
+			$msj = "Se adicionó un nuevo Proceso!";
+			if ($idProceso != '') {
+				$msj = "Se actualizó el Proceso!";
+			}
+
+			if ($idProceso = $this->settings_model->saveProceso()) {
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
+			}
+
+			echo json_encode($data);	
+    }
 	
 
 	
