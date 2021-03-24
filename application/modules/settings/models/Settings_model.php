@@ -140,6 +140,37 @@
 		}
 
 		/**
+		 * Actualizar estado de los procesos
+		 * @since 24/3/2021
+		 */
+		public function actualizarEstadoProcesos($state) 
+		{
+			//if it comes from the active view, then inactive everything
+			//else do nothing and continue with the activation
+			if($state == 1){
+				//update all states to inactive
+				$data['estado_proceso'] = 2;
+				$query = $this->db->update('proceso', $data);
+			}
+
+			//update states
+			$query = 1;
+			if ($procesos = $this->input->post('disponibilidad')) {
+				$tot = count($procesos);
+				for ($i = 0; $i < $tot; $i++) {
+					$data['estado_proceso'] = 1;
+					$this->db->where('id_proceso', $procesos[$i]);
+					$query = $this->db->update('proceso', $data);					
+				}
+			}
+			if ($query) {
+				return true;
+			} else{
+				return false;
+			}
+		}
+
+		/**
 		 * Actualizar disponibilidad de horarios
 		 * @since 3/3/2021
 		 */

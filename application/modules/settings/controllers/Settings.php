@@ -249,7 +249,10 @@ class Settings extends CI_Controller {
 				"id" => "x"
 			);
 			$data['nivelAcademico'] = $this->general_model->get_basic_search($arrParam);
-			
+
+			$arrParam = array("estadoProceso" => 1);
+			$data['procesos'] = $this->general_model->get_procesos_info($arrParam);
+	pr($data['procesos']); exit;		
 			if ($data["idCandidato"] != 'x') {
 				$arrParam = array(
 					"idCandidato" => $data["idCandidato"]
@@ -311,9 +314,11 @@ class Settings extends CI_Controller {
      * @since 19/3/2021
      * @author BMOTTAG
 	 */
-	public function procesos()
+	public function procesos($state)
 	{
-			$arrParam = array('estadoProceso' => 1);
+			$data['state'] = $state;
+
+			$arrParam = array('estadoProceso' => $state);
 			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam); 
 			$data["view"] = 'procesos';
 			$this->load->view("layout_calendar", $data);
@@ -345,9 +350,7 @@ class Settings extends CI_Controller {
 			$data['tipoProceso'] = $this->general_model->get_basic_search($arrParam);
 			
 			if ($data["idProceso"] != 'x') {
-				$arrParam = array(
-					"idProceso" => $data["idProceso"]
-				);
+				$arrParam = array("idProceso" => $data["idProceso"]);
 				$data['information'] = $this->general_model->get_procesos_info($arrParam);
 			}
 			
@@ -381,6 +384,24 @@ class Settings extends CI_Controller {
 
 			echo json_encode($data);	
     }
+
+	/**
+	 * Bloquear/Desbloqear procesos
+     * @since 24/3/2021
+     * @author BMOTTAG
+	 */
+	public function bloquear_procesos($state)
+	{	
+			if ($this->settings_model->actualizarEstadoProcesos($state)) {
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', "Se actualizó el estado de los procesos!!");
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			redirect(base_url('settings/procesos/1'), 'refresh');
+	}
 	
 
 	

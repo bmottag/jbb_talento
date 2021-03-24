@@ -55,6 +55,14 @@ function deseleccionar_todo(){
 					<i class="fa fa-briefcase"></i> LISTA DE PROCESOS
 				</div>
 				<div class="panel-body">
+					<ul class="nav nav-pills">
+						<li <?php if($state == 1){ echo "class='active'";} ?>><a href="<?php echo base_url('settings/procesos/1'); ?>">Lista de Procesos Activos</a>
+						</li>
+						<li <?php if($state == 2){ echo "class='active'";} ?>><a href="<?php echo base_url('settings/procesos/2'); ?>">Lista de Procesos Inactivos</a>
+						</li>
+					</ul>
+					<br>	
+
 					<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modal" id="x">
 							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar Proceso
 					</button><br>
@@ -82,7 +90,7 @@ function deseleccionar_todo(){
 				<?php
 					if($infoProcesos){
 				?>				
-<form  name="form_disponibilidad" id="form_disponibilidad" method="post" action="<?php echo base_url("settings/bloquear_horarios"); ?>">
+<form  name="form_disponibilidad" id="form_disponibilidad" method="post" action="<?php echo base_url('settings/bloquear_procesos/' . $state); ?>">
 				<p>
 				<a href="javascript:seleccionar_todo()">Marcar Todos</a> |
 				<a href="javascript:deseleccionar_todo()">Desmarcar Todos</a>
@@ -120,7 +128,7 @@ function deseleccionar_todo(){
                                     case 1:
                                         $valor = 'ACTIVO';
                                         $clase = "text-success";
-                                        $disponibilidad = FALSE;
+                                        $disponibilidad = TRUE;
                                         break;
                                     case 2:
                                         $valor = 'INACTIVO';
