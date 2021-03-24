@@ -242,6 +242,13 @@ class Settings extends CI_Controller {
 			
 			$data['information'] = FALSE;
 			$data["idCandidato"] = $this->input->post("idCandidato");	
+
+			$arrParam = array(
+				"table" => "param_nivel_academico",
+				"order" => "nivel_academico",
+				"id" => "x"
+			);
+			$data['nivelAcademico'] = $this->general_model->get_basic_search($arrParam);
 			
 			if ($data["idCandidato"] != 'x') {
 				$arrParam = array(
@@ -341,7 +348,7 @@ class Settings extends CI_Controller {
 				$arrParam = array(
 					"idProceso" => $data["idProceso"]
 				);
-				$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
+				$data['information'] = $this->general_model->get_procesos_info($arrParam);
 			}
 			
 			$this->load->view("procesos_modal", $data);
