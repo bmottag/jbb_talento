@@ -171,25 +171,63 @@
 		}
 
 		/**
-		 * Actualizar disponibilidad de horarios
-		 * @since 3/3/2021
+		 * Add/Edit CANDIDATO
+		 * @since 24/3/2021
 		 */
-		public function actualizarDisponibilidadHorarios() 
+		public function saveCandidato() 
 		{
-			//cambiar todos los horarios VIGENTES, que estan Bloqueados por el administrador (3) a DISPONIBLES (1)
-			$data['disponible'] = 1;
-			$this->db->where('disponible', 3);
-			$query = $this->db->update('horarios', $data);
-			
+				$idCandidato = $this->input->post('hddId');
+				
+				$data = array(
+					'nombres' => $this->input->post('firstName'),
+					'apellidos' => $this->input->post('lastName'),
+					'numero_identificacion' => $this->input->post('numeroIdentificacion'),
+					'correo' => $this->input->post('email'),
+					'numero_celular' => $this->input->post('movilNumber'),
+					'edad' => $this->input->post('edad'),
+					'fk_id_nivel_academico' => $this->input->post('nivelAcademico'),
+					'profesion' => $this->input->post('profesion'),
+					'ciudad' => $this->input->post('ciudad')
+				);	
+
+				//revisar si es para adicionar o editar
+				if ($idCandidato == '') {
+					$data['estado_candidato'] = 1;//si es para adicionar se coloca estado inicial como ACTIVO
+					$query = $this->db->insert('candidatos', $data);
+				} else {
+					$data['estado_candidato'] = $this->input->post('state');
+					$this->db->where('id_candidato', $idUser);
+					$query = $this->db->update('candidatos', $data);
+				}
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Actualizar estado de los candidatos
+		 * @since 24/3/2021
+		 */
+		public function actualizarEstadoCandidatos($state) 
+		{
+			//if it comes from the active view, then inactive everything
+			//else do nothing and continue with the activation
+			if($state == 1){
+				//update all states to inactive
+				$data['estado_candidato'] = 2;
+				$query = $this->db->update('candidatos', $data);
+			}
 
 			//update states
 			$query = 1;
-			if ($disponibilidad = $this->input->post('disponibilidad')) {
-				$tot = count($disponibilidad);
+			if ($candidatos = $this->input->post('disponibilidad')) {
+				$tot = count($candidatos);
 				for ($i = 0; $i < $tot; $i++) {
-					$data['disponible'] = 3;
-					$this->db->where('id_horario', $disponibilidad[$i]);
-					$query = $this->db->update('horarios', $data);					
+					$data['estado_candidato'] = 1;
+					$this->db->where('id_candidato', $candidatos[$i]);
+					$query = $this->db->update('candidatos', $data);					
 				}
 			}
 			if ($query) {
@@ -198,6 +236,8 @@
 				return false;
 			}
 		}
+
+
 		
 		
 		

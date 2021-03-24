@@ -221,11 +221,11 @@ class Settings extends CI_Controller {
      * @since 19/3/2021
      * @author BMOTTAG
 	 */
-	public function candidatos()
+	public function candidatos($state)
 	{
-			$arrParam = array(
-				'from' => date('Y-m-d')
-			);
+			$data['state'] = $state;
+
+			$arrParam = array('estadoCandidato' => $state);
 			$data['infoCandidatos'] = $this->general_model->get_candidatos_info($arrParam);
 			
 			$data["view"] = 'candidatos';
@@ -245,14 +245,14 @@ class Settings extends CI_Controller {
 
 			$arrParam = array(
 				"table" => "param_nivel_academico",
-				"order" => "nivel_academico",
+				"order" => "id_nivel_academico",
 				"id" => "x"
 			);
 			$data['nivelAcademico'] = $this->general_model->get_basic_search($arrParam);
 
 			$arrParam = array("estadoProceso" => 1);
 			$data['procesos'] = $this->general_model->get_procesos_info($arrParam);
-	pr($data['procesos']); exit;		
+		
 			if ($data["idCandidato"] != 'x') {
 				$arrParam = array(
 					"idCandidato" => $data["idCandidato"]
@@ -264,23 +264,23 @@ class Settings extends CI_Controller {
     }
 	
 	/**
-	 * Save horarios
-     * @since 16/2/2021
+	 * Save candidato
+     * @since 24/3/2021
      * @author BMOTTAG
 	 */
-	public function save_horarios()
+	public function save_candidato()
 	{			
 			header('Content-Type: application/json');
 			$data = array();
 		
-			$idHorario = $this->input->post('hddId');
+			$idCandidato = $this->input->post('hddId');
 			
-			$msj = "Se adicionaron los horarios!";
-			if ($idHorario != '') {
-				$msj = "Se actualizó el Proveedor!";
+			$msj = "Se adicionó el Candidato!";
+			if ($idCandidato != '') {
+				$msj = "Se actualizó el Candidato!";
 			}
 
-			if ($idHorario = $this->settings_model->saveHorarios()) {
+			if ($idCandidato = $this->settings_model->saveCandidato()) {
 				$data["result"] = true;
 				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
 			} else {
@@ -292,21 +292,21 @@ class Settings extends CI_Controller {
     }
 
 	/**
-	 * Bloquear/Desbloqear horarios
-     * @since 3/3/2021
+	 * Bloquear/Desbloqear CANDIDATOS
+     * @since 24/3/2021
      * @author BMOTTAG
 	 */
-	public function bloquear_horarios()
+	public function bloquear_candidatos($state)
 	{	
-			if ($this->settings_model->actualizarDisponibilidadHorarios()) {
+			if ($this->settings_model->actualizarEstadoCandidatos($state)) {
 				$data["result"] = true;
-				$this->session->set_flashdata('retornoExito', "Se actualizó la disponibilidad de los horarios!!");
+				$this->session->set_flashdata('retornoExito', "Se actualizó el estado de los Candidatos!!");
 			} else {
 				$data["result"] = "error";
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
 			}
 
-			redirect(base_url('settings/horarios'), 'refresh');
+			redirect(base_url('settings/candidatos/1'), 'refresh');
 	}
 
 	/**
@@ -394,7 +394,7 @@ class Settings extends CI_Controller {
 	{	
 			if ($this->settings_model->actualizarEstadoProcesos($state)) {
 				$data["result"] = true;
-				$this->session->set_flashdata('retornoExito', "Se actualizó el estado de los procesos!!");
+				$this->session->set_flashdata('retornoExito', "Se actualizó el estado de los Procesos!!");
 			} else {
 				$data["result"] = "error";
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');

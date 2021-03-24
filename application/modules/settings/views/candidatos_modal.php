@@ -27,8 +27,8 @@
 		
 			<div class="col-sm-4">
 				<div class="form-group text-left">
-					<label class="control-label" for="user">No. Identificación: *</label>
-					<input type="text" id="user" name="user" class="form-control" value="<?php echo $information?$information[0]["numero_identificacion"]:""; ?>" placeholder="Nombre Usuario" required >
+					<label class="control-label" for="numeroIdentificacion">No. Identificación: *</label>
+					<input type="text" id="numeroIdentificacion" name="numeroIdentificacion" class="form-control" value="<?php echo $information?$information[0]["numero_identificacion"]:""; ?>" placeholder="No. Identificación" required >
 				</div>
 			</div>
 		</div>
@@ -37,14 +37,14 @@
 			<div class="col-sm-4">
 				<div class="form-group text-left">
 					<label class="control-label" for="email">Correo: *</label>
-					<input type="text" class="form-control" id="email" name="email" value="<?php echo $information?$information[0]["email"]:""; ?>" placeholder="Correo" />
+					<input type="text" class="form-control" id="email" name="email" value="<?php echo $information?$information[0]["correo"]:""; ?>" placeholder="Correo" />
 				</div>
 			</div>				
 	
 			<div class="col-sm-4">
 				<div class="form-group text-left">
 					<label class="control-label" for="movilNumber">Número Celular: </label>
-					<input type="text" id="movilNumber" name="movilNumber" class="form-control" value="<?php echo $information?$information[0]["movil"]:""; ?>" placeholder="Número Celular" required >
+					<input type="text" id="movilNumber" name="movilNumber" class="form-control" value="<?php echo $information?$information[0]["numero_celular"]:""; ?>" placeholder="Número Celular" required >
 				</div>
 			</div>
 				
@@ -70,11 +70,11 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="firstName">Último nivel académico alcanzado: </label>
-					<select name="id_dependencia" id="id_dependencia" class="form-control" required>
+					<label class="control-label" for="nivelAcademico">Último nivel académico alcanzado: </label>
+					<select name="nivelAcademico" id="nivelAcademico" class="form-control" required>
 						<option value="">Seleccione...</option>
-						<?php for ($i = 0; $i < count($dependencias); $i++) { ?>
-							<option value="<?php echo $dependencias[$i]["id_dependencia"]; ?>" <?php if($information && $information[0]["fk_id_dependencia"] == $dependencias[$i]["id_dependencia"]) { echo "selected"; }  ?>><?php echo $dependencias[$i]["dependencia"]; ?></option>	
+						<?php for ($i = 0; $i < count($nivelAcademico); $i++) { ?>
+							<option value="<?php echo $nivelAcademico[$i]["id_nivel_academico"]; ?>" <?php if($information && $information[0]["fk_id_nivel_academico"] == $nivelAcademico[$i]["id_nivel_academico"]) { echo "selected"; }  ?>><?php echo $nivelAcademico[$i]["nivel_academico"]; ?></option>	
 						<?php } ?>
 					</select>
 				</div>
@@ -98,11 +98,11 @@
 
 			<div class="col-sm-4">
 				<div class="form-group text-left">
-					<label class="control-label" for="ciudad">Número Proceso: *</label>
-					<select name="id_dependencia" id="id_dependencia" class="form-control" required>
+					<label class="control-label" for="numeroProceso">Número Proceso: *</label>
+					<select name="numeroProceso" id="numeroProceso" class="form-control" required>
 						<option value="">Seleccione...</option>
-						<?php for ($i = 0; $i < count($dependencias); $i++) { ?>
-							<option value="<?php echo $dependencias[$i]["id_dependencia"]; ?>" <?php if($information && $information[0]["fk_id_dependencia"] == $dependencias[$i]["id_dependencia"]) { echo "selected"; }  ?>><?php echo $dependencias[$i]["dependencia"]; ?></option>	
+						<?php for ($i = 0; $i < count($procesos); $i++) { ?>
+							<option value="<?php echo $procesos[$i]["id_proceso"]; ?>" <?php if($information && $information[0]["fk_id_proceso"] == $procesos[$i]["id_proceso"]) { echo "selected"; }  ?>><?php echo $procesos[$i]["numero_proceso"]; ?></option>	
 						<?php } ?>
 					</select>
 				</div>
