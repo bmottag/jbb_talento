@@ -196,7 +196,7 @@
 					$query = $this->db->insert('candidatos', $data);
 				} else {
 					$data['estado_candidato'] = $this->input->post('state');
-					$this->db->where('id_candidato', $idUser);
+					$this->db->where('id_candidato', $idCandidato);
 					$query = $this->db->update('candidatos', $data);
 				}
 				if ($query) {

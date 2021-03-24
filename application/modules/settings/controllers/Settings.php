@@ -254,10 +254,8 @@ class Settings extends CI_Controller {
 			$data['procesos'] = $this->general_model->get_procesos_info($arrParam);
 		
 			if ($data["idCandidato"] != 'x') {
-				$arrParam = array(
-					"idCandidato" => $data["idCandidato"]
-				);
-				$data['infoCandidatos'] = $this->general_model->get_candidatos_info($arrParam);
+				$arrParam = array("idCandidato" => $data["idCandidato"]);
+				$data['information'] = $this->general_model->get_candidatos_info($arrParam);
 			}
 			
 			$this->load->view("candidatos_modal", $data);

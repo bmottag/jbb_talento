@@ -21,7 +21,7 @@
 			<div class="col-sm-4">
 				<div class="form-group text-left">
 					<label class="control-label" for="lastName">Apellidos: *</label>
-					<input type="text" id="lastName" name="lastName" class="form-control" value="<?php echo $information?$information[0]["last_name"]:""; ?>" placeholder="Apellidos" required >
+					<input type="text" id="lastName" name="lastName" class="form-control" value="<?php echo $information?$information[0]["apellidos"]:""; ?>" placeholder="Apellidos" required >
 				</div>
 			</div>
 		
@@ -43,7 +43,7 @@
 	
 			<div class="col-sm-4">
 				<div class="form-group text-left">
-					<label class="control-label" for="movilNumber">Número Celular: </label>
+					<label class="control-label" for="movilNumber">Número Celular: *</label>
 					<input type="text" id="movilNumber" name="movilNumber" class="form-control" value="<?php echo $information?$information[0]["numero_celular"]:""; ?>" placeholder="Número Celular" required >
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 			<div class="col-sm-4">
 				<div class="form-group text-left">
 					<label class="control-label" for="id_role">Edad:</label>					
-					<select name="edad" id="edad" class="form-control" required>
+					<select name="edad" id="edad" class="form-control">
 						<option value='' >Select...</option>
 						<?php
 						for ($i = 18; $i < 62; $i++) {
@@ -71,7 +71,7 @@
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="nivelAcademico">Último nivel académico alcanzado: </label>
-					<select name="nivelAcademico" id="nivelAcademico" class="form-control" required>
+					<select name="nivelAcademico" id="nivelAcademico" class="form-control">
 						<option value="">Seleccione...</option>
 						<?php for ($i = 0; $i < count($nivelAcademico); $i++) { ?>
 							<option value="<?php echo $nivelAcademico[$i]["id_nivel_academico"]; ?>" <?php if($information && $information[0]["fk_id_nivel_academico"] == $nivelAcademico[$i]["id_nivel_academico"]) { echo "selected"; }  ?>><?php echo $nivelAcademico[$i]["nivel_academico"]; ?></option>	
@@ -92,7 +92,7 @@
 			<div class="col-sm-4">
 				<div class="form-group text-left">
 					<label class="control-label" for="ciudad">Ciudad: </label>
-					<input type="text" id="ciudad" name="ciudad" class="form-control" value="<?php echo $information?$information[0]["ciudad"]:""; ?>" placeholder="Ciudad" required >
+					<input type="text" id="ciudad" name="ciudad" class="form-control" value="<?php echo $information?$information[0]["ciudad"]:""; ?>" placeholder="Ciudad" >
 				</div>
 			</div>
 
@@ -109,13 +109,13 @@
 			</div>
 			
 	<?php if($information){ ?>
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<div class="form-group text-left">
 					<label class="control-label" for="state">Estado: *</label>
 					<select name="state" id="state" class="form-control" required>
 						<option value=''>Seleccione...</option>
-						<option value=1 <?php if($information[0]["state"] == 1) { echo "selected"; }  ?>>Activo</option>
-						<option value=2 <?php if($information[0]["state"] == 2) { echo "selected"; }  ?>>Inactivo</option>
+						<option value=1 <?php if($information[0]["estado_candidato"] == 1) { echo "selected"; }  ?>>Activo</option>
+						<option value=2 <?php if($information[0]["estado_candidato"] == 2) { echo "selected"; }  ?>>Inactivo</option>
 					</select>
 				</div>
 			</div>

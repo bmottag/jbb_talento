@@ -98,11 +98,13 @@ function deseleccionar_todo(){
 					<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
 						<thead>
 							<tr>
-                                <th class='text-center'>ID</th>
                                 <th class='text-center'>Nombres</th>
                                 <th class='text-center'>Apellidos</th>
                                 <th class='text-center'>No. Identificación</th>
                                 <th class='text-center'>Correo Electrónico</th>
+                                <th class='text-center'>Nivel Académico</th>
+                                <th class='text-center'>Proceso Actual</th>
+                                <th class='text-center'>Editar</th>
                                 <th class='text-center'>Estado<br>
 <button type="submit" class="btn btn-primary btn-xs" id="btnSubmit2" name="btnSubmit2" >
 	Bloquear/Desbloquear <span class="glyphicon glyphicon-edit" aria-hidden="true">
@@ -113,12 +115,20 @@ function deseleccionar_todo(){
 						<tbody>							
 						<?php
 							foreach ($infoCandidatos as $lista):
-									echo '<tr>';
-	                                echo '<td class="text-center">' . $lista['id_candidato'] . '</td>';
-	                                echo '<td class="text-center">' . $lista['nombres'] . '</td>';
-	                                echo '<td class="text-center">' . $lista['apellidos'] . '</td>';
-	                                echo '<td class="text-center">' . $lista['numero_identificacion'] . '</td>';
-	                                echo '<td class="text-center">' . $lista['correo'] . '</td>';
+								echo '<tr>';
+                                echo '<td class="text-center">' . $lista['nombres'] . '</td>';
+                                echo '<td class="text-center">' . $lista['apellidos'] . '</td>';
+                                echo '<td class="text-center">' . $lista['numero_identificacion'] . '</td>';
+                                echo '<td class="text-center">' . $lista['correo'] . '</td>';
+                                echo '<td class="text-center">' . $lista['nivel_academico'] . '</td>';
+                                echo '<td class="text-center">' . $lista['numero_proceso'] . '</td>';
+								echo '<td class="text-center">';
+					?>
+								<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_candidato']; ?>" >
+									Editar <span class="glyphicon glyphicon-edit" aria-hidden="true">
+								</button>
+					<?php
+								echo '</td>';
                                 echo '<td class="text-center">';
                                 switch ($lista['estado_candidato']) {
                                     case 1:

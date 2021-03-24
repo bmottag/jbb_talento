@@ -12,10 +12,8 @@ $( document ).ready( function () {
 			numeroIdentificacion: 		{ required: true, minlength: 4, maxlength:12 },
 			email: 						{ required: true, email: true },
 			movilNumber: 				{ required: true, minlength: 4, maxlength:10 },
-			edad: 						{ required: true },
-			nivelAcademico: 			{ required: true },
 			profesion: 					{ minlength: 4, maxlength:50 },
-			ciudad: 					{ required: true, minlength: 4, maxlength:50 },
+			ciudad: 					{ minlength: 4, maxlength:50 },
 			numeroProceso: 				{ required: true }
 		},
 		errorElement: "em",

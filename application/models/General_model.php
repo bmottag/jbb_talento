@@ -264,6 +264,8 @@ class General_model extends CI_Model {
 		public function get_candidatos_info($arrData)
 		{
 				$this->db->select();
+				$this->db->join('param_nivel_academico A', 'A.id_nivel_academico = C.fk_id_nivel_academico', 'INNER');
+				$this->db->join('proceso P', 'P.id_proceso = C.fk_id_proceso', 'INNER');
 				if (array_key_exists("idCandidato", $arrData)) {
 					$this->db->where('C.id_candidato', $arrData["idCandidato"]);
 				}
