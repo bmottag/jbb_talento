@@ -14,73 +14,34 @@ class Dashboard extends CI_Controller {
 	 */
 	public function admin()
 	{				
-			$arrParam = array(
-				'from' => date('Y-m-d')
-			);
-			$data['infoHorarios'] = $this->general_model->get_horario_info($arrParam);
-
-			$arrParam = array(
-				'fecha' => date('Y-m-d')
-			);			
-			$data['listaReservas'] = $this->general_model->get_info_reservas($arrParam);
-
-			//numero de visitantes para el dia de HOY
-			$data['noVisitantesHOY'] = $data['listaReservas']?count($data['listaReservas']):0;
-
-			//calculo numero de visitantes para la semana presente
-			if (date('D')=='Mon'){
-			     $lunes = date('Y-m-d');
-			} else {
-			     $lunes = date('Y-m-d', strtotime('last Monday', time()));
-			}
-			 
-			$domingo = strtotime('next Sunday', time());
- 			$domingo = date('Y-m-d', $domingo);
- 			//le sumo un dia al dia final para que ingrese ese dia en la consulta
-			$domingo = date('Y-m-d',strtotime ( '+1 day ' , strtotime ($domingo)));
-
-			$arrParam = array(
-				'from' => $lunes,
-				'to' => $domingo
-			);
-			$data['listaReservasSEMANA'] = $this->general_model->get_info_reservas($arrParam);
-			$data['noVisitantesSEMANA'] = $data['listaReservasSEMANA']?count($data['listaReservasSEMANA']):0;
-
-			//calculo numero de visitantes para el MES presente
-			$month_start = strtotime('first day of this month', time());
-			$month_start = date('Y-m-d', $month_start);
-			$month_end = strtotime('last day of this month', time());
-			$month_end = date('Y-m-d', $month_end);
- 			//le sumo un dia al dia final para que ingrese ese dia en la consulta
-			$month_end = date('Y-m-d',strtotime ( '+1 day ' , strtotime ($month_end)));
-
-			$arrParam = array(
-				'from' => $month_start,
-				'to' => $month_end
-			);
-			$data['listaReservasMES'] = $this->general_model->get_info_reservas($arrParam);
-			$data['noVisitantesMES'] = $data['listaReservasMES']?count($data['listaReservasMES']):0;
+			//Candidatos activos
+			$arrParam = array("estadoCandidato" => 1);
+			$data['infoCandidatos'] = $this->general_model->get_candidatos_info($arrParam);
+			$data['noCandidatos'] = $data['infoCandidatos']?count($data['infoCandidatos']):0;
+			//procesos activos
+			$arrParam = array("estadoProceso" => 1);
+			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
+			$data['noProcesos'] = $data['infoProcesos']?count($data['infoProcesos']):0;
 
 			$data["view"] = "dashboard";
 			$this->load->view("layout_calendar", $data);
 	}
 
 	/**
-	 * Lista de reservas
-     * @since 17/2/2021
+	 * Lista de Respuestas
+     * @since 29/3/2021
      * @author BMOTTAG
 	 */
-	public function reservas($idHorario)
+	public function respuestas_habilidades($idCandidato)
 	{		
-			$arrParam = array(
-				'idHorario' => $idHorario
-			);			
-			$data['horarioInfo'] = $this->general_model->get_horario_info($arrParam);
+			$arrParam = array('idCandidato' => $idCandidato);			
+			$data['infoFormulario'] = $this->general_model->get_formulario_habilidades($arrParam);
 
-			$data['infoReserva'] = $this->general_model->get_reserva_info($arrParam);
+			$arrParam = array('idFormulario' => $data['infoFormulario'][0]['id_form_habilidades']);
+			$data['infoRespuestas'] = $this->general_model->get_respuestas_formulario_habilidades($arrParam);
 
-			$data["view"] ='lista_reservas';
-			$this->load->view("layout_calendar", $data);
+			$data['view'] ='respuestas_habilidades';
+			$this->load->view('layout_calendar', $data);
 	}
 
     /**

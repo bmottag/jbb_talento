@@ -311,6 +311,55 @@ class General_model extends CI_Model {
 				}
 		}
 
+		/**
+		 * Consultar registros de Respuestas
+		 * @since 29/3/2021
+		 */
+		public function get_formulario_habilidades($arrData)
+		{
+				$this->db->select();
+				$this->db->join('candidatos C', 'C.id_candidato = H.fk_id_candidato_fh', 'INNER');
+				$this->db->join('proceso P', 'P.id_proceso = C.fk_id_proceso', 'INNER');
+				if (array_key_exists("idFormHabilidades", $arrData)) {
+					$this->db->where('H.id_form_habilidades', $arrData["idFormHabilidades"]);
+				}
+				if (array_key_exists("idCandidato", $arrData)) {
+					$this->db->where('H.fk_id_candidato_fh', $arrData["idCandidato"]);
+				}
+				$this->db->order_by('H.id_form_habilidades', 'desc');
+
+				$query = $this->db->get('form_habilidades H');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Consultar registros de Respuestas
+		 * @since 29/3/2021
+		 */
+		public function get_respuestas_formulario_habilidades($arrData)
+		{
+				$this->db->select();
+				$this->db->join('param_preguntas_habilidades P', 'P.id_pregunta_habilidad = H.fk_id_pregunta_habilidades ', 'INNER');
+
+				if (array_key_exists("idFormHabilidades", $arrData)) {
+					$this->db->where('H.id_form_habilidades', $arrData["idFormHabilidades"]);
+				}
+				$this->db->order_by('H.fk_id_pregunta_habilidades', 'asc');
+
+				$query = $this->db->get('form_habilidades_respuestas H');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
 
 
 
