@@ -1,18 +1,102 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/formulario/habilidades.js"); ?>"></script>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
-$(document).ready(function () {
-    //Disable full page
-    $("body").on("contextmenu",function(e){
-        return false;
-    });
-    
-    //Disable part of page
-    $("#id").on("contextmenu",function(e){
-        return false;
-    });
+posicionarMenu();
+ 
+$(window).scroll(function() {    
+    posicionarMenu();
 });
+ 
+function posicionarMenu() {
+    var altura_del_header = $('.header').outerHeight(true);
+    var altura_del_menu = $('.menu').outerHeight(true);
+ 
+    if ($(window).scrollTop() >= altura_del_header){
+        $('.menu').addClass('fixed');
+        $('.wrapper').css('margin-top', (altura_del_menu) + 'px');
+    } else {
+        $('.menu').removeClass('fixed');
+        $('.wrapper').css('margin-top', '0');
+    }
+}
+ 
 </script>
+
+<script>
+    var end = new Date();
+    var sumarsesion = 15;
+    var minutes = end.getMinutes();
+
+    end.setMinutes(minutes + sumarsesion);//adiciono 5 min a la fecha actual
+    
+    var _second = 1000;
+    var _minute = _second * 60;
+    var _hour = _minute * 60;
+    var _day = _hour * 24;
+    var timer;
+
+    function showRemaining() {
+        var now = new Date();
+
+        var distance = end - now;
+        if (distance < 0) 
+        {
+            clearInterval(timer);
+            //habilitar horario
+            var idHorario = $('#hddIdHorario').val();
+            $.ajax ({
+                type: 'POST',
+                url: base_url + 'calendario/habilitar',
+                data: {'idHorario': idHorario},
+                cache: false,
+                success: function (data)
+                {
+                    $('#company').html(data);
+                }
+            });
+            //deshabilitar y limpiar campos
+            $('#btnSubmit').attr('disabled','-1');
+            $('#email').attr('disabled','-1');
+            $('#confirmarEmail').attr('disabled','-1');
+            $('#celular').attr('disabled','-1');
+            $("#email").val('');
+            $("#confirmarEmail").val('');
+            $("#celular").val('');
+            document.getElementById('countdown').innerHTML = 'Su sesión expiró!';
+            alert("Su sesión expiró.");
+
+            return;
+        }
+        var days = Math.floor(distance / _day);
+        var hours = Math.floor((distance % _day) / _hour);
+        var minutes = Math.floor((distance % _hour) / _minute);
+        var seconds = Math.floor((distance % _minute) / _second);
+
+        seconds = actualizarHora(seconds);    
+
+        //document.getElementById('countdown').innerHTML = days + ' dias, ';
+        //document.getElementById('countdown').innerHTML += hours + ' horas, ';
+        document.getElementById('countdown').innerHTML = 'Tiempo Restante: ' + minutes + ':' + seconds;
+        //document.getElementById('countdown').innerHTML += seconds + ' segundos';
+    }
+
+    function actualizarHora(i) {
+        if (i<10) {i = "0" + i};  // Añadir el cero en números menores de 10
+            return i;
+    }
+
+    timer = setInterval(showRemaining, 1000);
+</script>
+
+<style type="text/css">
+body, html{ margin:0; padding:0;}
+    .header{ border-top:1px solid white;background:white; color:#333; height:150px; width:100%; font-family: 'Lobster', cursive; text-align:center}
+    .menu{ height:80px; width:100%; background:#333; color:white; text-align:center}
+    .wrapper{ height:2000px; width:100%; padding-top:20px}
+     
+    .fixed{position:fixed; top:0}
+</style>
 
 <div id="page-wrapper">
 	<br>	
@@ -22,7 +106,7 @@ $(document).ready(function () {
 
             <div class="row" align="center">
                 <div style="width:70%;" align="center">
-                    <img src="<?php echo base_url('images/banner_principal.png'); ?>" class="img-rounded" width="850" height="140" alt="QR CODE" />
+                    <img src="<?php echo base_url('images/banner_principal.png'); ?>" class="img-rounded" width="770" height="120" alt="QR CODE" />
                 </div>
             </div> 
         </div>
@@ -34,7 +118,14 @@ $(document).ready(function () {
         <div class="col-lg-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                   <strong>CUESTIONARIO DE HABILIDADES SOCIALES</strong>
+                    <div class="row">
+                        <div class="col-lg-7">  
+                            <h4>CUESTIONARIO DE HABILIDADES SOCIALES</h4>
+                        </div>
+                        <div class="col-lg-5" align="right">  
+                            <h4><div style="color:red; font-family: verdana, arial;" id="countdown"></div></h4>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-body">
                     <small>
@@ -170,26 +261,26 @@ $(document).ready(function () {
 
                     <?php 
                     foreach ($preguntasHabilidades as $lista):
-                        $nombrePregunta = 'pregunta' . $lista['id_pregunta_habilidad'] . '_';
+                        $nombrePregunta = $lista['id_pregunta_habilidad'];
                     ?>
                     <div class="row">
                         <div class="form-group">
                             <label class="col-sm-5 control-label" for="<?php echo $nombrePregunta; ?>"><ol start=<?php echo $lista['id_pregunta_habilidad']; ?>><li><?php echo $lista['pregunta_habilidad']; ?> </li></ol></label>
                             <div class="col-sm-7">
                                 <label class="radio-inline">
-                                    <input type="radio" name="<?php echo $nombrePregunta; ?>" id="<?php echo $nombrePregunta; ?>" value=1 <?php if($information && $information[0][$nombrePregunta] == 1) { echo "checked"; }  ?>><small class="text-primary"><strong>Nunca</strong></small>
+                                    <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_1'; ?>" value=1 <?php if($information && $information[0][$nombrePregunta] == 1) { echo "checked"; }  ?>><small class="text-primary"><strong>Nunca</strong></small>
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="question1" id="question1_2" value=2 <?php if($information && $information[0][$nombrePregunta] == 2) { echo "checked"; }  ?>><small class="text-primary"><strong>Rara vez</strong></small>
+                                    <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_2'; ?>" value=2 <?php if($information && $information[0][$nombrePregunta] == 2) { echo "checked"; }  ?>><small class="text-primary"><strong>Rara vez</strong></small>
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="question1" id="question1_3" value=3 <?php if($information && $information[0][$nombrePregunta] == 3) { echo "checked"; }  ?>><small class="text-primary"><strong>A veces</strong></small>
+                                    <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_3'; ?>" value=3 <?php if($information && $information[0][$nombrePregunta] == 3) { echo "checked"; }  ?>><small class="text-primary"><strong>A veces</strong></small>
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="question1" id="question1_4" value=4 <?php if($information && $information[0][$nombrePregunta] == 4) { echo "checked"; }  ?>><small class="text-primary"><strong>A menudo</strong></small>
+                                    <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_4'; ?>" value=4 <?php if($information && $information[0][$nombrePregunta] == 4) { echo "checked"; }  ?>><small class="text-primary"><strong>A menudo</strong></small>
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="question1" id="question1_5" value=5 <?php if($information && $information[0][$nombrePregunta] == 5) { echo "checked"; }  ?>><small class="text-primary"><strong>Siempre</strong></small>
+                                    <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_5'; ?>" value=5 <?php if($information && $information[0][$nombrePregunta] == 5) { echo "checked"; }  ?>><small class="text-primary"><strong>Siempre</strong></small>
                                 </label>
                             </div>
                         </div>

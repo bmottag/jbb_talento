@@ -49,21 +49,21 @@ class Formulario extends CI_Controller {
 
 			$idFormulario = $this->input->post('hddIdFormulario');
 			$idCandidato= $this->input->post('hddIdCandidato');
-		
+	
 			$msj = "Se guardó la información del formulario!";
 			$flag = true;
 			if ($idCandidato != '') {
 				$msj = "Se actualizó la información!";
 				$flag = false;
 			}
-			
+
 			if ($idCandidato = $this->formulario_model->saveCandidato()) 
 			{
+				$idFormulario = $this->formulario_model->saveFormulario();
 
-				echo "actualizo candidato"; exit;
+				$this->formulario_model->saveRespuestasFormulario($idFormulario);
 
-				$idCandidato = $this->formulario_model->saveCandidato();
-
+echo "guardo todo"; exit;
 				$data["result"] = true;
 				$data["idCandidato"] = $idCandidato;
 				$this->session->set_flashdata('retornoExito', $msj);
