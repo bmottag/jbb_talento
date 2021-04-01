@@ -3,15 +3,15 @@ $( document ).ready( function () {
 	$("#firstName").bloquearNumeros().maxlength(25);
 	$("#lastName").bloquearNumeros().maxlength(25);		
 	$("#numeroIdentificacion").bloquearTexto().maxlength(12);
-	$("#movilNumber").bloquearTexto().maxlength(12);
+	$("#movilNumber").bloquearTexto().maxlength(10);
 	
 	$( "#form" ).validate( {
 		rules: {
 			firstName: 					{ required: true, minlength: 3, maxlength:25 },
 			lastName: 					{ required: true, minlength: 3, maxlength:25 },
 			numeroIdentificacion: 		{ required: true, minlength: 4, maxlength:12 },
-			email: 						{ required: true, email: true },
-			movilNumber: 				{ required: true, minlength: 4, maxlength:10 },
+			email: 						{ required: true, email: true, minlength: 6, maxlength:50 },
+			movilNumber: 				{ required: true, minlength: 10, maxlength:10 },
 			profesion: 					{ minlength: 4, maxlength:50 },
 			ciudad: 					{ minlength: 4, maxlength:50 },
 			numeroProceso: 				{ required: true }

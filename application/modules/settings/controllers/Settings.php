@@ -278,12 +278,54 @@ class Settings extends CI_Controller {
 				$msj = "Se actualizó el Candidato!";
 			}
 
-			if ($idCandidato = $this->settings_model->saveCandidato()) {
-				$data["result"] = true;
-				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
-			} else {
+			$numeroIdentificacionCandidato = $this->input->post('numeroIdentificacion');
+			$emailCandidato = $this->input->post('email');
+			
+			$result_candidato = false;
+			$result_email = false;
+			
+			//verificar si ya existe el usuario
+			$arrParam = array(
+				"idCandidato" => $idCandidato,
+				"column" => "numero_identificacion",
+				"value" => $numeroIdentificacionCandidato
+			);
+			$result_candidato = $this->settings_model->verificarCandidato($arrParam);
+			
+			//verificar si ya existe el correo
+			$arrParam = array(
+				"idCandidato" => $idCandidato,
+				"column" => "correo",
+				"value" => $emailCandidato
+			);
+			$result_email = $this->settings_model->verificarCandidato($arrParam);
+
+			if ($result_candidato || $result_email)
+			{
 				$data["result"] = "error";
-				$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
+				if($result_candidato)
+				{
+					$data["mensaje"] = " Error. El número de identificación ya existe.";
+					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> El número de identificación ya existe.');
+				}
+				if($result_email)
+				{
+					$data["mensaje"] = " Error. El correo ya existe.";
+					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> El correo ya existe.');
+				}
+				if($result_candidato && $result_email)
+				{
+					$data["mensaje"] = " Error. El número de identificación y el correo ya existen.";
+					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> El número de identificación y el correo ya existen.');
+				}
+			} else {
+				if ($idCandidato = $this->settings_model->saveCandidato()) {
+					$data["result"] = true;
+					$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
+				} else {
+					$data["result"] = "error";
+					$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
+				}
 			}
 
 			echo json_encode($data);	

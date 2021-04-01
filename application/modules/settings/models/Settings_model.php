@@ -172,6 +172,25 @@
 		}
 
 		/**
+		 * Verify si el candidato ya existe por numero de identificacion
+		 * @author BMOTTAG
+		 * @since  1/4/2021
+		 */
+		public function verificarCandidato($arrData) 
+		{
+				if (array_key_exists("idCandidato", $arrData)) {
+					$this->db->where('id_candidato !=', $arrData["idCandidato"]);
+				}			
+
+				$this->db->where($arrData["column"], $arrData["value"]);
+				$query = $this->db->get("candidatos");
+
+				if ($query->num_rows() >= 1) {
+					return true;
+				} else{ return false; }
+		}
+
+		/**
 		 * Add/Edit CANDIDATO
 		 * @since 24/3/2021
 		 */
@@ -188,7 +207,8 @@
 					'edad' => $this->input->post('edad'),
 					'fk_id_nivel_academico' => $this->input->post('nivelAcademico'),
 					'profesion' => $this->input->post('profesion'),
-					'ciudad' => $this->input->post('ciudad')
+					'ciudad' => $this->input->post('ciudad'),
+					'fk_id_proceso' => $this->input->post('numeroProceso')
 				);	
 
 				//revisar si es para adicionar o editar
