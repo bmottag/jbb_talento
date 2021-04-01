@@ -101,6 +101,7 @@ function deseleccionar_todo(){
                                 <th class='text-center'>Número Proceso</th>
                                 <th class='text-center'>Tipo Proceso</th>
                                 <th class='text-center'>Dependencia</th>
+                                <th class='text-center'>Fecha Registro</th>
                                 <th class='text-center'>Editar</th>
                                 <th class='text-center'>Estado<br>
 <button type="submit" class="btn btn-primary btn-xs" id="btnSubmit2" name="btnSubmit2" >
@@ -116,6 +117,7 @@ function deseleccionar_todo(){
                                 echo '<td class="text-center">' . $lista['numero_proceso'] . '</td>';
                                 echo '<td class="text-center">' . $lista['tipo_proceso'] . '</td>';
                                 echo '<td class="text-center">' . $lista['dependencia'] . '</td>';
+                                echo '<td class="text-center">' . $lista['fecha_registro_proceso'] . '</td>';
 								echo "<td class='text-center'>";
 					?>
 								<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_proceso']; ?>" >

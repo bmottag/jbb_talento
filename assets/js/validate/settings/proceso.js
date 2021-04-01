@@ -1,7 +1,5 @@
 $( document ).ready( function () {
-	
-	$("#numeroProceso").bloquearTexto().maxlength(12);
-	
+		
 	$( "#form" ).validate( {
 		rules: {
 			numeroProceso: 			{ required: true, minlength: 4, maxlength:12 },
@@ -57,7 +55,7 @@ $( document ).ready( function () {
 							$("#div_load").css("display", "none");
 							$('#btnSubmitWorker').removeAttr('disabled');
 
-							var url = base_url + "settings/procesos";
+							var url = base_url + "settings/procesos/1";
 							$(location).attr("href", url);
 						}
 						else

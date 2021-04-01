@@ -126,6 +126,7 @@
 				if ($idProceso == '') 
 				{
 					$data['estado_proceso'] = 1;
+					$data['fecha_registro_proceso'] = date("Y-m-d");
 					$query = $this->db->insert('proceso', $data);
 				} else {
 					$data['estado_proceso'] = $this->input->post('estado');
