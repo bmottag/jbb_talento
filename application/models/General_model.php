@@ -269,6 +269,9 @@ class General_model extends CI_Model {
 				if (array_key_exists("idCandidato", $arrData)) {
 					$this->db->where('C.id_candidato', $arrData["idCandidato"]);
 				}
+				if (array_key_exists("numeroIdentificacion", $arrData)) {
+					$this->db->where('C.numero_identificacion', $arrData["numeroIdentificacion"]);
+				}
 				if (array_key_exists("estadoCandidato", $arrData)) {
 					$this->db->where('C.estado_candidato', $arrData["estadoCandidato"]);
 				}

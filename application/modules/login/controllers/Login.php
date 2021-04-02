@@ -274,7 +274,55 @@ class Login extends CI_Controller {
 			}
 	}
 
+	/**
+	 * Autenticacion de candidatos
+     * @since 1/4/2021
+     * @author BMOTTAG
+	 */
+	public function candidato()
+	{
+			$this->session->sess_destroy();
+			$data = array();
+			$this->load->view('login_candidato', $data);
+	}
 
+	/**
+	 * Validar candidato
+     * @since 1/4/2021
+     * @author BMOTTAG
+	 */
+	public function validateCandidato()
+	{
+			$login = $this->security->xss_clean($this->input->post('inputLogin'));
+						
+			//busco datos del usuario
+			$arrParam = array(
+				'numeroIdentificacion' => $login,
+				'estadoCandidato' => 1
+			);
+			$userExist = $this->general_model->get_candidatos_info($arrParam);
+
+			if ($userExist)
+			{
+					$userRole = 1000;
+					$sessionData = array(
+						'auth' => 'OK',
+						'id' => $userExist[0]['id_candidato'],
+						'firstname' => $userExist[0]['nombres'],
+						'lastname' => $userExist[0]['apellidos'],
+						'name' => $userExist[0]['nombres'] . ' ' . $userExist[0]['apellidos'],
+						'logUser' => $userExist[0]['numero_identificacion']
+					);
+											
+					$this->session->set_userdata($sessionData);
+					
+					redirect("/formulario","location",301);
+			}else{
+				$data["msj"] = "<strong>" . $login . "</strong> no está registrado.";
+				$this->session->sess_destroy();
+				$this->load->view('login_candidato', $data);
+			}
+	}
 	
 	
 	

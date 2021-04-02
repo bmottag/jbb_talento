@@ -11,13 +11,62 @@ class Formulario extends CI_Controller {
     }
 
 	/**
+	 * Ingreso del candidato
+	 */
+	public function index()
+	{				
+			$arrParam = array('idCandidato' => $this->session->id);
+			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
+
+			$arrParam = array('idProceso' => $data['information'][0]['id_proceso']);
+			$data['infoProceso'] = $this->general_model->get_procesos_info($arrParam);
+
+			$arrParam = array(
+				"table" => "param_nivel_academico",
+				"order" => "id_nivel_academico",
+				"id" => "x"
+			);
+			$data['nivelAcademico'] = $this->general_model->get_basic_search($arrParam);
+
+			$data['view'] = 'info_candidato';
+			$this->load->view('layout_calendar', $data);
+	}
+
+	/**
+	 * Save info del candidato
+     * @since 2/4/2021
+     * @author BMOTTAG
+	 */
+	public function save_candidato()
+	{
+			header('Content-Type: application/json');
+			$data = array();
+
+			$idCandidato= $this->input->post('hddIdCandidato');
+	
+			$msj = "Se guardó la información del formulario!";
+
+			if ($idCandidato = $this->formulario_model->saveCandidato()) 
+			{
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', $msj);
+			} else {
+				$data["result"] = "error";
+				$data["mensaje"] = "Error!!! Ask for help.";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			echo json_encode($data);
+    }
+
+	/**
 	 * Calendario
      * @since 6/1/2021
      * @author BMOTTAG
 	 */
-	public function habilidades($idCandidato)
+	public function habilidades()
 	{
-			$arrParam = array("idCandidato" => $idCandidato);
+			$arrParam = array('idCandidato' => $this->session->id);
 			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
 	
 			$arrParam = array(

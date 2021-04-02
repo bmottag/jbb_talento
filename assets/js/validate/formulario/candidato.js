@@ -1,21 +1,19 @@
 $( document ).ready( function () {
-
+			
 	$("#firstName").bloquearNumeros().maxlength(25);
 	$("#lastName").bloquearNumeros().maxlength(25);		
 	$("#numeroIdentificacion").bloquearTexto().maxlength(12);
-	$("#movilNumber").bloquearTexto().maxlength(10);
-	
+	$("#movilNumber").bloquearTexto().maxlength(12);
 	$( "#form" ).validate( {
 		rules: {
 			firstName: 					{ required: true, minlength: 3, maxlength:25 },
 			lastName: 					{ required: true, minlength: 3, maxlength:25 },
 			numeroIdentificacion: 		{ required: true, minlength: 4, maxlength:12 },
-			email: 						{ required: true, email: true, minlength: 6, maxlength:50 },
-			movilNumber: 				{ required: true, minlength: 10, maxlength:10 },
+			email: 						{ required: true, email: true },
+			movilNumber: 				{ required: true, minlength: 4, maxlength:10 },
 			nivelAcademico: 			{ required: true },
-			profesion: 					{ minlength: 4, maxlength:50 },
-			ciudad: 					{ minlength: 4, maxlength:50 },
-			numeroProceso: 				{ required: true }
+			profesion: 					{ required: true, minlength: 4, maxlength:50 },
+			ciudad: 					{ required: true, minlength: 4, maxlength:50 }
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
@@ -25,28 +23,28 @@ $( document ).ready( function () {
 
 		},
 		highlight: function ( element, errorClass, validClass ) {
-			$( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
+			$( element ).parents( ".col-sm-4" ).addClass( "has-error" ).removeClass( "has-success" );
 		},
 		unhighlight: function (element, errorClass, validClass) {
-			$( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
+			$( element ).parents( ".col-sm-4" ).addClass( "has-success" ).removeClass( "has-error" );
 		},
 		submitHandler: function (form) {
 			return true;
 		}
 	});
-	
+						
 	$("#btnSubmit").click(function(){		
 	
 		if ($("#form").valid() == true){
 		
 				//Activa icono guardando
 				$('#btnSubmit').attr('disabled','-1');
-				$("#div_error").css("display", "none");
 				$("#div_load").css("display", "inline");
+				$("#div_error").css("display", "none");
 			
 				$.ajax({
 					type: "POST",	
-					url: base_url + "settings/save_candidato",	
+					url: base_url + "formulario/save_candidato",
 					data: $("#form").serialize(),
 					dataType: "json",
 					contentType: "application/x-www-form-urlencoded;charset=UTF-8",
@@ -56,10 +54,12 @@ $( document ).ready( function () {
                                             
 						if( data.result == "error" )
 						{
+							alert(data.mensaje);
 							$("#div_load").css("display", "none");
-							$("#div_error").css("display", "inline");
-							$("#span_msj").html(data.mensaje);
 							$('#btnSubmit').removeAttr('disabled');							
+							
+							$("#span_msj").html(data.mensaje);
+							$("#div_error").css("display", "inline");
 							return false;
 						} 
 
@@ -68,7 +68,7 @@ $( document ).ready( function () {
 							$("#div_load").css("display", "none");
 							$('#btnSubmit').removeAttr('disabled');
 
-							var url = base_url + "settings/candidatos/1";
+							var url = base_url + "formulario";
 							$(location).attr("href", url);
 						}
 						else
@@ -86,9 +86,14 @@ $( document ).ready( function () {
 						$('#btnSubmit').removeAttr('disabled');
 					}
 					
-		
 				});	
 		
 		}//if			
+		else
+		{
+			alert('Faltan campos por diligenciar.');
+			
+		}					
 	});
+
 });
