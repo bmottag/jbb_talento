@@ -101,48 +101,54 @@ body, html{ margin:0; padding:0;}
 <div id="page-wrapper">
 	<br>	
 	<!-- /.row -->
-	<div class="row">
-		<div class="col-lg-12">	
-
-            <div class="row" align="center">
-                <div style="width:70%;" align="center">
-                    <img src="<?php echo base_url('images/banner_principal.png'); ?>" class="img-rounded" width="770" height="120" alt="QR CODE" />
-                </div>
-            </div> 
-        </div>
-    </div>
 
     <div class="row">
-        <!-- /.col-lg-4 -->
-        <div class="col-lg-2"></div>
-        <div class="col-lg-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-lg-7">  
-                            <h4>CUESTIONARIO DE HABILIDADES SOCIALES</h4>
-                        </div>
-                        <div class="col-lg-5" align="right">  
-                            <h4><div style="color:red; font-family: verdana, arial;" id="countdown"></div></h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <small>
-                        <p>Proceso de valoración candidatos Jardín botánico de Bogotá
-                        <br><br>
-                        Este cuestionario tiene un tiempo límite de 15 minutos. Si ve que el tiempo se le agota, envíe sus respuestas (así no haya terminado) con el botón "enviar".
-                        </p>
-                    </small>
-                </div>
-                <div class="panel-footer">
-                    <small><p class="text-danger text-left">Los campos con * son obligatorios.</p></small>
-                </div>
+        <div class="col-lg-3">
+            <div class="list-group">
+                <a href="<?php echo base_url('formulario'); ?>" class="btn btn-outline btn-default btn-block">
+                    <i class="fa fa-user"></i> Información del Candidato
+                </a>
+                <a href="<?php echo base_url('formulario/habilidades'); ?>" class="btn btn-success btn-block">
+                    <i class="fa fa-tags"></i> Cuestionario Habilidades Sociales
+                </a>
+                <a href="<?php echo base_url('equipos/foto/'); ?>" class="btn btn-outline btn-default btn-block">
+                    <i class="fa fa-photo"></i> Cuestionario Aspectos de Interes
+                </a>
             </div>
         </div>
 
-        <div class="col-lg-2"></div>
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-7">  
+                                    <i class="fa fa-user"></i> <strong>CUESTIONARIO DE HABILIDADES SOCIALES</strong>
+                                </div>
+                                <div class="col-lg-5" align="right">  
+                                    <div style="color:red; font-family: verdana, arial;" id="countdown"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <small>
+                                <p>Proceso de valoración candidatos Jardín botánico de Bogotá
+                                <br><br>
+                                Este cuestionario tiene un tiempo límite de 15 minutos. Si ve que el tiempo se le agota, envíe sus respuestas (así no haya terminado) con el botón "enviar".
+                                </p>
+                            </small>
+                        </div>
+                        <div class="panel-footer">
+                            <small><p class="text-danger text-left">Los campos con * son obligatorios.</p></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
 <form  name="form" id="form" class="form-horizontal" method="post">
     <input type="hidden" id="hddIdFormulario" name="hddIdFormulario" value=""/>
     <input type="hidden" id="hddIdCandidato" name="hddIdCandidato" value="<?php echo $information?$information[0]["id_candidato"]:""; ?>"/>

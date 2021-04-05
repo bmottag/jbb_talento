@@ -43,8 +43,7 @@ class Formulario extends CI_Controller {
 			$data = array();
 
 			$idCandidato= $this->input->post('hddIdCandidato');
-	
-			$msj = "Se guardó la información del formulario!";
+			$msj = "Se guardó la información del Candidato!";
 
 			if ($idCandidato = $this->formulario_model->saveCandidato()) 
 			{
@@ -60,7 +59,7 @@ class Formulario extends CI_Controller {
     }
 
 	/**
-	 * Calendario
+	 * Formulario de habilidades
      * @since 6/1/2021
      * @author BMOTTAG
 	 */

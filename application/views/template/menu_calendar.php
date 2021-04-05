@@ -9,6 +9,7 @@
 		</button>
 		<?php $dashboardURL = $this->session->userdata("dashboardURL"); ?>
 		<a class="navbar-brand" href="<?php echo base_url($dashboardURL); ?>"><img src="<?php echo base_url("images/logo.png"); ?>" class="img-rounded" width="210" height="50" /></a>
+		<a class="navbar-brand" href="<?php echo base_url($dashboardURL); ?>"><img src="<?php echo base_url("images/logo_talento.png"); ?>" class="img-rounded" width="75" height="50" /></a>
 	</div>
 	<!-- /.navbar-header -->
 

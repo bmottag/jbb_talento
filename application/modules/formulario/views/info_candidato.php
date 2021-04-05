@@ -23,7 +23,7 @@
 
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <i class="fa fa-bell fa-fw"></i> PROCECO
+                    <i class="fa fa-bell fa-fw"></i> INFO PROCESO
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -48,11 +48,8 @@
                                 </span>
                             </p>
                         </a>
-
                     </div>
                     <!-- /.list-group -->
-
-
                 </div>
                 <!-- /.panel-body -->
             </div>
