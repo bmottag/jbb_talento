@@ -67,7 +67,7 @@ class Formulario extends CI_Controller {
 	{
 			$arrParam = array('idCandidato' => $this->session->id);
 			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
-	
+
 			$arrParam = array(
 				"table" => "param_nivel_academico",
 				"order" => "id_nivel_academico",
@@ -95,9 +95,8 @@ class Formulario extends CI_Controller {
 			header('Content-Type: application/json');
 			$data = array();
 
-			$idFormulario = $this->input->post('hddIdFormulario');
 			$idCandidato= $this->input->post('hddIdCandidato');
-	
+
 			$msj = "Se guardó la información del formulario!";
 			$flag = true;
 			if ($idCandidato != '') {
@@ -105,20 +104,16 @@ class Formulario extends CI_Controller {
 				$flag = false;
 			}
 
-			if ($idCandidato = $this->formulario_model->saveCandidato()) 
+			if ($idFormulario = $this->formulario_model->saveFormulario()) 
 			{
-				$idFormulario = $this->formulario_model->saveFormulario();
-
 				$this->formulario_model->saveRespuestasFormulario($idFormulario);
-
-echo "guardo todo"; exit;
 				$data["result"] = true;
-				$data["idCandidato"] = $idCandidato;
+				$data["idFormulario"] = $idFormulario;
 				$this->session->set_flashdata('retornoExito', $msj);
 			} else {
 				$data["result"] = "error";
 				$data["mensaje"] = "Error!!! Ask for help.";
-				$data["idCandidato"] = "";
+				$data["idFormulario"] = "";
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
 			}
 

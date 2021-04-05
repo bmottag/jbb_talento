@@ -1,18 +1,8 @@
 $( document ).ready( function () {
 			
-	$("#firstName").bloquearNumeros().maxlength(25);
-	$("#lastName").bloquearNumeros().maxlength(25);		
-	$("#numeroIdentificacion").bloquearTexto().maxlength(12);
-	$("#movilNumber").bloquearTexto().maxlength(12);
 	$( "#form" ).validate( {
 		rules: {
-			firstName: 					{ required: true, minlength: 3, maxlength:25 },
-			lastName: 					{ required: true, minlength: 3, maxlength:25 },
-			numeroIdentificacion: 		{ required: true, minlength: 4, maxlength:12 },
-			email: 						{ required: true, email: true },
-			movilNumber: 				{ required: true, minlength: 4, maxlength:10 },
-			profesion: 					{ minlength: 4, maxlength:50 },
-			ciudad: 					{ minlength: 4, maxlength:50 }
+
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
@@ -67,7 +57,7 @@ $( document ).ready( function () {
 							$("#div_load").css("display", "none");
 							$('#btnSubmit').removeAttr('disabled');
 
-							var url = base_url + "inspection/add_vehiculos_inspection/" + data.idInspection;
+							var url = base_url + "formulario/habilidades/" + data.idFormulario;
 							$(location).attr("href", url);
 						}
 						else

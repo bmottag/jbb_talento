@@ -13,17 +13,17 @@
 					<i class="fa fa-user"></i> Información del Candidato
 				</a>
 				<a href="<?php echo base_url('formulario/habilidades'); ?>" class="btn btn-outline btn-default btn-block">
-					<i class="fa fa-tags"></i> Cuestionario Habilidades Sociales
+					<i class="fa fa-edit"></i> Cuestionario Habilidades Sociales
 				</a>
 				<a href="<?php echo base_url('equipos/foto/'); ?>" class="btn btn-outline btn-default btn-block">
-					<i class="fa fa-photo"></i> Cuestionario Aspectos de Interes
+					<i class="fa fa-edit"></i> Cuestionario Aspectos de Interes
 				</a>
 			</div>
 
 
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <i class="fa fa-bell fa-fw"></i> INFO PROCESO
+                    <i class="fa fa-bell fa-fw"></i> <strong>Información del Proceso</strong>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
