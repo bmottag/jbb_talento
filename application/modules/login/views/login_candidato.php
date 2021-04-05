@@ -40,7 +40,7 @@
 
 </head>
 
-<body>
+<body onpaste="return false">
 
     <div class="container">
         <div class="row">
@@ -59,7 +59,7 @@
 
                             <fieldset>
                                 <div class="form-group">
-									<input type="text" id="inputLogin" name="inputLogin" class="form-control" placeholder="Numeró de Identificación" value="" required autofocus >
+									<input type="number" id="inputLogin" name="inputLogin" class="form-control" placeholder="Numeró de Identificación" value="" required autofocus >
                                 </div>
 
 								<button type="submit" class="btn btn-lg btn-success btn-block" id='btnSubmit' name='btnSubmit'>Ingresar </button>
