@@ -1,4 +1,6 @@
 		$( document ).ready( function () {
+
+			$("#inputLogin").bloquearTexto().maxlength(12);
 			
 			$( "#form" ).validate( {
 				rules: {
