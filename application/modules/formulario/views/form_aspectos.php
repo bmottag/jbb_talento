@@ -76,10 +76,10 @@
                 <a href="<?php echo base_url('formulario'); ?>" class="btn btn-outline btn-default btn-block">
                     <i class="fa fa-user"></i> Información del Candidato
                 </a>
-                <a href="<?php echo base_url('formulario/habilidades'); ?>" class="btn btn-success btn-block">
+                <a href="<?php echo base_url('formulario/habilidades'); ?>" class="btn btn-outline btn-default btn-block">
                     <i class="fa fa-edit"></i> Cuestionario Habilidades Sociales
                 </a>
-                <a href="<?php echo base_url('formulario/aspectos'); ?>" class="btn btn-outline btn-default btn-block">
+                <a href="<?php echo base_url('formulario/aspectos'); ?>" class="btn btn-success btn-block">
                     <i class="fa fa-edit"></i> Cuestionario Aspectos de Interes
                 </a>
             </div>
@@ -93,7 +93,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-lg-7">  
-                                    <i class="fa fa-edit"></i> <strong>CUESTIONARIO DE HABILIDADES SOCIALES</strong>
+                                    <i class="fa fa-edit"></i> <strong>CUESTIONARIO ASPECTOS DE INTERES PARA EL DESEMPEÑO LABORAL</strong>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-lg-7">  
-                                    <i class="fa fa-edit"></i> <strong>CUESTIONARIO DE HABILIDADES SOCIALES</strong>
+                                    <i class="fa fa-edit"></i> <strong>CUESTIONARIO ASPECTOS DE INTERES PARA EL DESEMPEÑO LABORAL</strong>
                                 </div>
                                 <div class="col-lg-5" align="right">  
                                     <div style="color:red; font-family: verdana, arial;" id="countdown"></div>
@@ -121,9 +121,8 @@
                         </div>
                         <div class="panel-body">
                             <small>
-                                <p>Proceso de valoración candidatos Jardín botánico de Bogotá
-                                <br>
-                                Este cuestionario tiene un tiempo límite de 15 minutos. Si ve que el tiempo se le agota, envíe sus respuestas (así no haya terminado) con el botón "Enviar".
+                                <p>
+                                Este cuestionario tiene por objeto recoger una idea sobre aquellos aspectos de trabajo que son de interes para Ud y sobre las acciones que esta dispuesto a realizar para conseguirlas.Todas las respuestas son importantes, no hay respuestas buenas o malas , lo que cuenta es su sinceridad.
                                 </p>
                                 <p class="text-danger text-left">Los campos con * son obligatorios.</p>
                             </small>

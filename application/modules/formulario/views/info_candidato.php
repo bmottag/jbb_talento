@@ -15,7 +15,7 @@
 				<a href="<?php echo base_url('formulario/habilidades'); ?>" class="btn btn-outline btn-default btn-block">
 					<i class="fa fa-edit"></i> Cuestionario Habilidades Sociales
 				</a>
-				<a href="<?php echo base_url('equipos/foto/'); ?>" class="btn btn-outline btn-default btn-block">
+				<a href="<?php echo base_url('formulario/aspectos'); ?>" class="btn btn-outline btn-default btn-block">
 					<i class="fa fa-edit"></i> Cuestionario Aspectos de Interes
 				</a>
 			</div>

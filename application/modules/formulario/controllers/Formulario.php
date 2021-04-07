@@ -124,6 +124,38 @@ class Formulario extends CI_Controller {
 
 			echo json_encode($data);
     }
+
+	/**
+	 * Formulario de Aspectos de interes
+     * @since 7/4/2021
+     * @author BMOTTAG
+	 */
+	public function aspectos()
+	{
+			$arrParam = array('idCandidato' => $this->session->id);
+			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
+
+			$data['infoFormulario'] = $this->general_model->get_formulario_habilidades($arrParam);
+			if(!$data['infoFormulario']){
+				$arrParam = array(
+					"table" => "param_nivel_academico",
+					"order" => "id_nivel_academico",
+					"id" => "x"
+				);
+				$data['nivelAcademico'] = $this->general_model->get_basic_search($arrParam);
+
+				$arrParam = array(
+					"table" => "param_preguntas_habilidades",
+					"order" => "id_pregunta_habilidad",
+					"id" => "x"
+				);
+				$data['preguntasHabilidades'] = $this->general_model->get_basic_search($arrParam);
+				$data['noPreguntas'] = count($data['preguntasHabilidades']);//se utiliza al guardar las respuestas
+			}
+
+			$data["view"] = 'form_aspectos';
+			$this->load->view("layout_calendar", $data);
+	}
 	
 
 	
