@@ -68,19 +68,24 @@ class Formulario extends CI_Controller {
 			$arrParam = array('idCandidato' => $this->session->id);
 			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
 
-			$arrParam = array(
-				"table" => "param_nivel_academico",
-				"order" => "id_nivel_academico",
-				"id" => "x"
-			);
-			$data['nivelAcademico'] = $this->general_model->get_basic_search($arrParam);
+			$data['infoFormulario'] = $this->general_model->get_formulario_habilidades($arrParam);
+			if(!$data['infoFormulario']){
+				$arrParam = array(
+					"table" => "param_nivel_academico",
+					"order" => "id_nivel_academico",
+					"id" => "x"
+				);
+				$data['nivelAcademico'] = $this->general_model->get_basic_search($arrParam);
 
-			$arrParam = array(
-				"table" => "param_preguntas_habilidades",
-				"order" => "id_pregunta_habilidad",
-				"id" => "x"
-			);
-			$data['preguntasHabilidades'] = $this->general_model->get_basic_search($arrParam);
+				$arrParam = array(
+					"table" => "param_preguntas_habilidades",
+					"order" => "id_pregunta_habilidad",
+					"id" => "x"
+				);
+				$data['preguntasHabilidades'] = $this->general_model->get_basic_search($arrParam);
+				$data['noPreguntas'] = count($data['preguntasHabilidades']);//se utiliza al guardar las respuestas
+			}
+
 			$data["view"] = 'form_habilidades';
 			$this->load->view("layout_calendar", $data);
 	}
@@ -100,7 +105,7 @@ class Formulario extends CI_Controller {
 			$msj = "Se guardó la información del formulario!";
 			$flag = true;
 			if ($idCandidato != '') {
-				$msj = "Se actualizó la información!";
+				$msj = "Se guardó la información!";
 				$flag = false;
 			}
 

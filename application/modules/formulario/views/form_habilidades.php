@@ -88,27 +88,26 @@
         <div class="col-lg-9">
             <div class="row">
                 <div class="col-lg-12">
-<?php
-    $retornoExito = $this->session->flashdata('retornoExito');
-    if ($retornoExito) {
-?>
-        <div class="alert alert-success ">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            <?php echo $retornoExito ?>     
-        </div>
-<?php
-    }
-    $retornoError = $this->session->flashdata('retornoError');
-    if ($retornoError) {
-?>
-        <div class="alert alert-danger ">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <?php echo $retornoError ?>
-        </div>
-<?php
-    }
-?> 
-                    
+<?php if($infoFormulario){ ?>
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-7">  
+                                    <i class="fa fa-edit"></i> <strong>CUESTIONARIO DE HABILIDADES SOCIALES</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <small>
+                                <p>Se registraron sus respuestas para el Cuestionario de Habilidades Sociales
+                                <br>
+                                Fecha y hora del registro: <strong><?php echo $infoFormulario[0]['fecha_registro'] ?></strong>
+                                </p>
+                            </small>
+                        </div>
+                    </div>
+<?php }else{ ?>
+
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <div class="row">
@@ -123,13 +122,11 @@
                         <div class="panel-body">
                             <small>
                                 <p>Proceso de valoración candidatos Jardín botánico de Bogotá
-                                <br><br>
+                                <br>
                                 Este cuestionario tiene un tiempo límite de 15 minutos. Si ve que el tiempo se le agota, envíe sus respuestas (así no haya terminado) con el botón "Enviar".
                                 </p>
+                                <p class="text-danger text-left">Los campos con * son obligatorios.</p>
                             </small>
-                        </div>
-                        <div class="panel-footer">
-                            <small><p class="text-danger text-left">Los campos con * son obligatorios.</p></small>
                         </div>
                     </div>
 
@@ -143,6 +140,7 @@
 
                         <form  name="form" id="form" class="form-horizontal" method="post">
                             <input type="hidden" id="hddIdCandidato" name="hddIdCandidato" value="<?php echo $information?$information[0]["id_candidato"]:""; ?>"/>
+                            <input type="hidden" id="hddIdNoPreguntas" name="hddIdNoPreguntas" value="<?php echo $noPreguntas; ?>"/>
                             <?php 
                             foreach ($preguntasHabilidades as $lista):
                                 $nombrePregunta = $lista['id_pregunta_habilidad'];
@@ -204,6 +202,7 @@
                         </div>
                     </div>
 <!-- FIN FORMULARIO -->
+<?php } ?>
 
                 </div>
             </div>

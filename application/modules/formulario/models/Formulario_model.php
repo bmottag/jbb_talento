@@ -39,7 +39,7 @@
 		{				
 				$data = array(
 					'fk_id_candidato_fh ' => $this->input->post('hddIdCandidato'),
-					'fecha_registro' => date("Y-m-d"),
+					'fecha_registro' => date("Y-m-d G:i:s"),
 					'duracion_prueba' => 1,
 				);	
 				$query = $this->db->insert('form_habilidades', $data);
@@ -60,18 +60,26 @@
 		{
 			//update states
 			$query = 1;
-			if ($respuesta = $this->input->post('pregunta')) {
-				$tot = count($respuesta);
-				for ($i = 1; $i <= $tot; $i++) 
+			
+			$NoPreguntas = $this->input->post('hddIdNoPreguntas');
+				
+			if ($respuesta = $this->input->post('pregunta')) 
+			{
+				for ($i = 1; $i <= $NoPreguntas; $i++) 
 				{
-					$data = array(
-						'fk_id_formulario_habilidades' => $idFormulario,
-						'fk_id_pregunta_habilidades' => $i,
-						'respuesta_habilidad' => $respuesta[$i]
-					);	
-					$query = $this->db->insert('form_habilidades_respuestas', $data);
+					if (array_key_exists($i,$respuesta))
+					{
+						$data = array(
+							'fk_id_formulario_habilidades' => $idFormulario,
+							'fk_id_pregunta_habilidades' => $i,
+							'respuesta_habilidad' => $respuesta[$i]
+						);	
+						$query = $this->db->insert('form_habilidades_respuestas', $data);
+					}
+
 				}
 			}
+
 			if ($query) {
 				return true;
 			} else{
