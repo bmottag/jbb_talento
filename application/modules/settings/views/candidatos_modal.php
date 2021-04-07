@@ -36,7 +36,7 @@
 		<div class="row">	
 			<div class="col-sm-4">
 				<div class="form-group text-left">
-					<label class="control-label" for="email">Correo: *</label>
+					<label class="control-label" for="email">Correo electrónico: *</label>
 					<input type="text" class="form-control" id="email" name="email" value="<?php echo $information?$information[0]["correo"]:""; ?>" placeholder="Correo" />
 				</div>
 			</div>				
