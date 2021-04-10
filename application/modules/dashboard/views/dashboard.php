@@ -131,7 +131,8 @@ if ($retornoError) {
                                 <th class='text-center'>Correo Electrónico</th>
                                 <th class='text-center'>Nivel Académico</th>
                                 <th class='text-center'>Proceso Actual</th>
-                                <th class='text-center'>Habilidades</th>
+                                <th class='text-center'>Habilidades Sociales</th>
+                                <th class='text-center'>Aspectos Interes</th>
                             </tr>
                         </thead>
                         <tbody>                         
@@ -149,6 +150,13 @@ if ($retornoError) {
                                 echo '<td class="text-center">';
                             ?>
                                     <a class='btn btn-success btn-xs' href='<?php echo base_url('dashboard/respuestas_habilidades/' . $lista['id_candidato']) ?>'>
+                                        Ver Respuestas <span class="fa fa-check" aria-hidden="true">
+                                    </a>
+                            <?php
+                                echo '</td>';
+                                echo '<td class="text-center">';
+                            ?>
+                                    <a class='btn btn-success btn-xs' href='<?php echo base_url('dashboard/respuestas_aspectos/' . $lista['id_candidato']) ?>'>
                                         Ver Respuestas <span class="fa fa-check" aria-hidden="true">
                                     </a>
                             <?php

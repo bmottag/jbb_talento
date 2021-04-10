@@ -364,7 +364,7 @@ class General_model extends CI_Model {
 		}
 
 		/**
-		 * Consultar registros de Respuestas
+		 * Consultar registros de formaurlo de aspectgos de interes
 		 * @since 8/4/2021
 		 */
 		public function get_formulario_aspectos_interes($arrData)
@@ -423,6 +423,56 @@ class General_model extends CI_Model {
 				$this->db->order_by('P.numero_opcion', 'asc');
 
 				$query = $this->db->get('param_opciones_aspectos_interes P');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Consultar registros de Respuestas cuestionario de aspectos de interes
+		 * @since 29/3/2021
+		 */
+		public function get_formulario_aspectos($arrData)
+		{
+				$this->db->select();
+				$this->db->join('candidatos C', 'C.id_candidato = H.fk_id_candidato_fai', 'INNER');
+				$this->db->join('proceso P', 'P.id_proceso = C.fk_id_proceso', 'INNER');
+				if (array_key_exists("idFormAspectos", $arrData)) {
+					$this->db->where('H.id_form_aspectos_interes', $arrData["idFormAspectos"]);
+				}
+				if (array_key_exists("idCandidato", $arrData)) {
+					$this->db->where('H.fk_id_candidato_fai', $arrData["idCandidato"]);
+				}
+				$this->db->order_by('H.id_form_aspectos_interes', 'desc');
+
+				$query = $this->db->get('form_aspectos_interes H');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Consultar registros de Respuestas cuestionario de aspectos de interes
+		 * @since 10/4/2021
+		 */
+		public function get_respuestas_formulario_aspectos($arrData)
+		{
+				$this->db->select();
+				$this->db->join('param_opciones_aspectos_interes O', 'O.id_opciones_aspectos_interes = H.fk_id_opciones_aspectos_interes', 'INNER');
+				$this->db->join('param_preguntas_aspectos_interes P', 'P.id_pregunta_aspecto_interes = O.fk_id_pregunta_aspecto_interes', 'INNER');
+
+				if (array_key_exists("idFormulario", $arrData)) {
+					$this->db->where('H.fk_id_formulario_aspectos_interes', $arrData["idFormulario"]);
+				}
+				$this->db->order_by('P.numero_pregunta_aspecto_interes , O.numero_opcion', 'asc');
+
+				$query = $this->db->get('form_aspectos_interes_respuestas H');
 
 				if ($query->num_rows() > 0) {
 					return $query->result_array();

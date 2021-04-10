@@ -112,6 +112,23 @@ class Dashboard extends CI_Controller {
 			$data["view"] ='lista_reservas_fecha';
 			$this->load->view("layout_calendar", $data);
 	}
+
+	/**
+	 * Lista de Respuestas Fomrulario de Aspectos de interes
+     * @since 10/4/2021
+     * @author BMOTTAG
+	 */
+	public function respuestas_aspectos($idCandidato)
+	{		
+			$arrParam = array('idCandidato' => $idCandidato);			
+			$data['infoFormulario'] = $this->general_model->get_formulario_aspectos($arrParam);
+
+			$arrParam = array('idFormulario' => $data['infoFormulario'][0]['id_form_aspectos_interes']);
+			$data['infoRespuestas'] = $this->general_model->get_respuestas_formulario_aspectos($arrParam);
+
+			$data['view'] ='respuestas_aspectos';
+			$this->load->view('layout_calendar', $data);
+	}
 	
 	
 	
