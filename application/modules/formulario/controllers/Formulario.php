@@ -60,7 +60,7 @@ class Formulario extends CI_Controller {
 
 	/**
 	 * Formulario de habilidades
-     * @since 6/1/2021
+     * @since 8/4/2021
      * @author BMOTTAG
 	 */
 	public function habilidades()
@@ -69,14 +69,8 @@ class Formulario extends CI_Controller {
 			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
 
 			$data['infoFormulario'] = $this->general_model->get_formulario_habilidades($arrParam);
-			if(!$data['infoFormulario']){
-				$arrParam = array(
-					"table" => "param_nivel_academico",
-					"order" => "id_nivel_academico",
-					"id" => "x"
-				);
-				$data['nivelAcademico'] = $this->general_model->get_basic_search($arrParam);
-
+			if(!$data['infoFormulario'])
+			{
 				$arrParam = array(
 					"table" => "param_preguntas_habilidades",
 					"order" => "id_pregunta_habilidad",
@@ -91,8 +85,8 @@ class Formulario extends CI_Controller {
 	}
 
 	/**
-	 * Save vehiculos inspection
-     * @since 18/1/2021
+	 * Save formulario de habilidades
+     * @since 8/4/2021
      * @author BMOTTAG
 	 */
 	public function save_habilidades()
@@ -127,7 +121,7 @@ class Formulario extends CI_Controller {
 
 	/**
 	 * Formulario de Aspectos de interes
-     * @since 7/4/2021
+     * @since 9/4/2021
      * @author BMOTTAG
 	 */
 	public function aspectos()
@@ -135,27 +129,57 @@ class Formulario extends CI_Controller {
 			$arrParam = array('idCandidato' => $this->session->id);
 			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
 
-			$data['infoFormulario'] = $this->general_model->get_formulario_habilidades($arrParam);
-			if(!$data['infoFormulario']){
-				$arrParam = array(
-					"table" => "param_nivel_academico",
-					"order" => "id_nivel_academico",
-					"id" => "x"
-				);
-				$data['nivelAcademico'] = $this->general_model->get_basic_search($arrParam);
+			$data['infoFormulario'] = $this->general_model->get_formulario_aspectos_interes($arrParam);
 
-				$arrParam = array(
-					"table" => "param_preguntas_habilidades",
-					"order" => "id_pregunta_habilidad",
-					"id" => "x"
-				);
-				$data['preguntasHabilidades'] = $this->general_model->get_basic_search($arrParam);
-				$data['noPreguntas'] = count($data['preguntasHabilidades']);//se utiliza al guardar las respuestas
+			if($data['infoFormulario'])
+			{
+				//buscar por parte de formulario
+				$noParteFormulario = $data['infoFormulario'][0]['numero_parte_formulario'];
+				$arrParamForm = array('numeroParte' => $noParteFormulario);
+				$data['idFormularioAspectos'] = $data['infoFormulario'][0]['id_form_aspectos_interes'];
+
+			}else{
+				//si no hay formulario entonces creo el formulario
+				$data['idFormularioAspectos'] = $this->formulario_model->saveFormularioAspectosInteres();
+				//si es primera vez de ingreso entonces empiza por la primera parte
+				$arrParamForm = array('numeroParte' => 1);
+				
+				$data['infoFormulario'] = $this->general_model->get_formulario_aspectos_interes($arrParam);
 			}
+
+			//busco preguntas de acuerdo en que parte del formulario va el usuario
+			$data['preguntasAspectosInteres'] = $this->general_model->get_preguntas_aspectos_interes($arrParamForm);
 
 			$data["view"] = 'form_aspectos';
 			$this->load->view("layout_calendar", $data);
 	}
+
+	/**
+	 * Save formulario de aspectos
+     * @since 9/4/2021
+     * @author BMOTTAG
+	 */
+	public function save_aspectos()
+	{
+			header('Content-Type: application/json');
+			$data = array();
+
+			$msj = "Se guardó la información del formulario!";
+
+			//primero actualizar informacion del formulario, en que parte va y la hora de cierre
+			if ($this->formulario_model->updateFormularioAspectosInteres()) 
+			{
+				$this->formulario_model->saveRespuestasFormularioAspectosInteres();
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', $msj);
+			} else {
+				$data["result"] = "error";
+				$data["mensaje"] = "Error!!! Ask for help.";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			echo json_encode($data);
+    }
 	
 
 	

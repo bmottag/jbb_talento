@@ -1,70 +1,4 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/formulario/habilidades.js"); ?>"></script>
-
-<script>
-    var end = new Date();
-    var sumarsesion = 15;
-    var minutes = end.getMinutes();
-
-    end.setMinutes(minutes + sumarsesion);//adiciono 5 min a la fecha actual
-    
-    var _second = 1000;
-    var _minute = _second * 60;
-    var _hour = _minute * 60;
-    var _day = _hour * 24;
-    var timer;
-
-    function showRemaining() {
-        var now = new Date();
-
-        var distance = end - now;
-        if (distance < 0) 
-        {
-            clearInterval(timer);
-            //habilitar horario
-            var idHorario = $('#hddIdHorario').val();
-            $.ajax ({
-                type: 'POST',
-                url: base_url + 'calendario/habilitar',
-                data: {'idHorario': idHorario},
-                cache: false,
-                success: function (data)
-                {
-                    $('#company').html(data);
-                }
-            });
-            //deshabilitar y limpiar campos
-            $('#btnSubmit').attr('disabled','-1');
-            $('#email').attr('disabled','-1');
-            $('#confirmarEmail').attr('disabled','-1');
-            $('#celular').attr('disabled','-1');
-            $("#email").val('');
-            $("#confirmarEmail").val('');
-            $("#celular").val('');
-            document.getElementById('countdown').innerHTML = 'Su sesión expiró!';
-            alert("Su sesión expiró.");
-
-            return;
-        }
-        var days = Math.floor(distance / _day);
-        var hours = Math.floor((distance % _day) / _hour);
-        var minutes = Math.floor((distance % _hour) / _minute);
-        var seconds = Math.floor((distance % _minute) / _second);
-
-        seconds = actualizarHora(seconds);    
-
-        //document.getElementById('countdown').innerHTML = days + ' dias, ';
-        //document.getElementById('countdown').innerHTML += hours + ' horas, ';
-        document.getElementById('countdown').innerHTML = 'Tiempo Restante: ' + minutes + ':' + seconds;
-        //document.getElementById('countdown').innerHTML += seconds + ' segundos';
-    }
-
-    function actualizarHora(i) {
-        if (i<10) {i = "0" + i};  // Añadir el cero en números menores de 10
-            return i;
-    }
-
-    timer = setInterval(showRemaining, 1000);
-</script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/formulario/aspectos.js"); ?>"></script>
 
 <div id="page-wrapper">
 	<br>	
@@ -88,7 +22,7 @@
         <div class="col-lg-9">
             <div class="row">
                 <div class="col-lg-12">
-<?php if($infoFormulario){ ?>
+<?php if($infoFormulario && $infoFormulario[0]['numero_parte_formulario'] == 4){ ?>
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <div class="row">
@@ -100,8 +34,8 @@
                         <div class="panel-body">
                             <small>
                                 <p>Se registraron sus respuestas para el Cuestionario de Habilidades Sociales
-                                <br>
-                                Fecha y hora del registro: <strong><?php echo $infoFormulario[0]['fecha_registro'] ?></strong>
+                                <br>Fecha y hora del Incicio prueba: <strong><?php echo $infoFormulario[0]['fecha_registro_inicio'] ?></strong>
+                                <br>Fecha y hora del finalización prueba: <strong><?php echo $infoFormulario[0]['fecha_registro_fin'] ?></strong>
                                 </p>
                             </small>
                         </div>
@@ -114,9 +48,7 @@
                                 <div class="col-lg-7">  
                                     <i class="fa fa-edit"></i> <strong>CUESTIONARIO ASPECTOS DE INTERES PARA EL DESEMPEÑO LABORAL</strong>
                                 </div>
-                                <div class="col-lg-5" align="right">  
-                                    <div style="color:red; font-family: verdana, arial;" id="countdown"></div>
-                                </div>
+
                             </div>
                         </div>
                         <div class="panel-body">
@@ -124,44 +56,83 @@
                                 <p>
                                 Este cuestionario tiene por objeto recoger una idea sobre aquellos aspectos de trabajo que son de interes para Ud y sobre las acciones que esta dispuesto a realizar para conseguirlas.Todas las respuestas son importantes, no hay respuestas buenas o malas , lo que cuenta es su sinceridad.
                                 </p>
+
+                                <p>
+                                Esta prueba esta dividida en tres partes de cinco (5) items cada una y cada item con 5 opciones que Ud debe escoger de 5 a 1, siendo 5 la de mayor importancia y 1 la que menos le interesa. Solo permite una respuesta por columna, si esta repetida o incompleta el borde del cuadro estará en rojo. 
+                                </p>
                                 <p class="text-danger text-left">Los campos con * son obligatorios.</p>
                             </small>
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <div class="progress progress-striped active">
+                            <?php 
+                                $numeroParte =  $preguntasAspectosInteres[0]['numero_parte']; 
+                                switch ($numeroParte) {
+                                    case 1:
+                                        $porcentaje = 30;
+                                        break;
+                                    case 2:
+                                        $porcentaje = 55;
+                                        break;
+                                    case 3:
+                                        $porcentaje = 80;
+                                        break;
+                                }
+                            ?>
+                            <div class="progress-bar" role="progressbar" style="width: <?php echo $porcentaje;?>%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">
+                                Parte <?php echo $numeroParte; ?>, Página <?php echo $numeroParte; ?> de 3
+                            </div>
+                        </div>
+                    </div>  
+
 <!-- INICIO FORMULARIO -->
+                    <form  name="form" id="form" class="form-horizontal" method="post">
+                        <input type="hidden" id="hddIdCandidato" name="hddIdCandidato" value="<?php echo $information?$information[0]["id_candidato"]:""; ?>"/>
+                        <input type="hidden" id="hddIdFormAspectos" name="hddIdFormAspectos" value="<?php echo $idFormularioAspectos; ?>"/>
+                        <input type="hidden" id="hddIdFormNoParte" name="hddIdFormNoParte" value="<?php echo $numeroParte; ?>"/>
+
+                    <?php 
+                    $noPreguntas = 0;
+                    foreach ($preguntasAspectosInteres as $lista):
+                        $nombrePregunta = $lista['id_pregunta_aspecto_interes'];
+                    ?>
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            A continuación encontrará una lista de habilidades que las personas usan en su vida diaria, señale su respuesta seleccionando una de las alternativas que se ubica en la columna derecha. 
-                            <br>Recuerde que su sinceridad es muy importante, no hay respuestas buenas ni malas, asegúrese de contestar todas.
+                            <strong><?php echo $lista['numero_pregunta_aspecto_interes'] . '. ' . $lista['pregunta_aspecto_interes']; ?></strong>
                         </div>
                         <div class="panel-body">
-
-                        <form  name="form" id="form" class="form-horizontal" method="post">
-                            <input type="hidden" id="hddIdCandidato" name="hddIdCandidato" value="<?php echo $information?$information[0]["id_candidato"]:""; ?>"/>
-                            <input type="hidden" id="hddIdNoPreguntas" name="hddIdNoPreguntas" value="<?php echo $noPreguntas; ?>"/>
+                            <?php
+                                //opciones de las preguntas
+                                $arrParam = array('idPregunta' => $lista['id_pregunta_aspecto_interes']);
+                                $opcionesPreguntas = $this->general_model->get_opciones_preguntas_aspectos_interes($arrParam);
+                                $noPreguntas = count($opcionesPreguntas) + $noPreguntas;//se utiliza al guardar las respuestas
+                                $noProximaPregunta = $infoFormulario[0]['numero_proxima_pregunta']; //se utiliza para llevar control de la ultima pregunta que va el usuario
+                            ?>
+                            <small><p class="text-danger text-left">* 1 la de menor importancia, 5 la de mayor importancia.</p></small>
                             <?php 
-                            foreach ($preguntasHabilidades as $lista):
-                                $nombrePregunta = $lista['id_pregunta_habilidad'];
+                            foreach ($opcionesPreguntas as $opciones):
+                                $nombreOpcion = $opciones['id_opciones_aspectos_interes'];
                             ?>
                             <div class="row">
                                 <div class="form-group">
-                                    <label class="col-sm-6 control-label" for="<?php echo $nombrePregunta; ?>"><ol start=<?php echo $lista['id_pregunta_habilidad']; ?>><li><?php echo $lista['pregunta_habilidad']; ?> </li></ol></label>
-                                    <div class="col-sm-6">
+                                    <label class="col-sm-8 control-label" for="<?php echo $nombreOpcion; ?>"><?php echo $opciones['opcion']; ?></label>
+                                    <div class="col-sm-4">
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_1'; ?>" value=1 ><small class="text-primary"><strong>Nunca</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_1'; ?>" value=1 ><small class="text-primary"><strong>1</strong></small>
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_2'; ?>" value=2 ><small class="text-primary"><strong>Rara vez</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_2'; ?>" value=2 ><small class="text-primary"><strong>2</strong></small>
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_3'; ?>" value=3 ><small class="text-primary"><strong>A veces</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_3'; ?>" value=3 ><small class="text-primary"><strong>3</strong></small>
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_4'; ?>" value=4 ><small class="text-primary"><strong>A menudo</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_4'; ?>" value=4 ><small class="text-primary"><strong>4</strong></small>
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_5'; ?>" value=5 ><small class="text-primary"><strong>Siempre</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_5'; ?>" value=5 ><small class="text-primary"><strong>5</strong></small>
                                         </label>
                                     </div>
                                 </div>
@@ -169,37 +140,44 @@
                             <?php
                                 endforeach;
                             ?>
-                            <div class="form-group">
-                                <div class="row" align="center">
-                                    <div style="width:80%;" align="center">
-                                        <div id="div_load" style="display:none">        
-                                            <div class="progress progress-striped active">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                                                    <span class="sr-only">45% completado</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="div_error" style="display:none">           
-                                            <div class="alert alert-danger"><span class="glyphicon glyphicon-remove" id="span_msj">&nbsp;</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>  
-
-                            <div class="form-group">
-                                <div class="row" align="center">
-                                    <div style="width:100%;" align="center">                            
-                                        <button type="button" id="btnSubmit" name="btnSubmit" class='btn btn-success'>
-                                            Enviar <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </form>
 
                         </div>
                     </div>
+
+                    <?php
+                        endforeach;
+                    ?>
+
+                    <div class="form-group">
+                        <div class="row" align="center">
+                            <div style="width:80%;" align="center">
+                                <div id="div_load" style="display:none">        
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                            <span class="sr-only">45% completado</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="div_error" style="display:none">           
+                                    <div class="alert alert-danger"><span class="glyphicon glyphicon-remove" id="span_msj">&nbsp;</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row" align="center">
+                            <div style="width:50%;" align="center">
+                                <button type="button" id="btnSubmit" name="btnSubmit" class='btn btn-success'>
+                                            Siguiente <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="hddNoPreguntas" name="hddNoPreguntas" value="<?php echo $noPreguntas; ?>"/>
+                    <input type="hidden" id="hddNoProximaPregunta" name="hddNoProximaPregunta" value="<?php echo $noProximaPregunta; ?>"/>
+                    </form>
 <!-- FIN FORMULARIO -->
 <?php } ?>
 

@@ -363,6 +363,74 @@ class General_model extends CI_Model {
 				}
 		}
 
+		/**
+		 * Consultar registros de Respuestas
+		 * @since 8/4/2021
+		 */
+		public function get_formulario_aspectos_interes($arrData)
+		{
+				$this->db->select();
+				$this->db->join('candidatos C', 'C.id_candidato = H.fk_id_candidato_fai', 'INNER');
+				$this->db->join('proceso P', 'P.id_proceso = C.fk_id_proceso', 'INNER');
+				if (array_key_exists("idFormAspectos", $arrData)) {
+					$this->db->where('H.id_form_aspectos_interes', $arrData["idFormAspectos"]);
+				}
+				if (array_key_exists("idCandidato", $arrData)) {
+					$this->db->where('H.fk_id_candidato_fai', $arrData["idCandidato"]);
+				}
+				$this->db->order_by('H.id_form_aspectos_interes', 'desc');
+
+				$query = $this->db->get('form_aspectos_interes H');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Consultar preguntas formulario de aspecto de interes
+		 * @since 8/4/2021
+		 */
+		public function get_preguntas_aspectos_interes($arrData)
+		{
+				$this->db->select();
+				if (array_key_exists("numeroParte", $arrData)) {
+					$this->db->where('P.numero_parte ', $arrData["numeroParte"]);
+				}
+				$this->db->order_by('P.id_pregunta_aspecto_interes', 'asc');
+
+				$query = $this->db->get('param_preguntas_aspectos_interes P');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Consultar opciones de las preguntas del formulario de aspecto de interes
+		 * @since 9/4/2021
+		 */
+		public function get_opciones_preguntas_aspectos_interes($arrData)
+		{
+				$this->db->select();
+				if (array_key_exists("idPregunta", $arrData)) {
+					$this->db->where('P.fk_id_pregunta_aspecto_interes', $arrData["idPregunta"]);
+				}
+				$this->db->order_by('P.numero_opcion', 'asc');
+
+				$query = $this->db->get('param_opciones_aspectos_interes P');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
 
 
 
