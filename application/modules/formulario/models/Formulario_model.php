@@ -157,7 +157,7 @@
 					{
 						$data = array(
 							'fk_id_formulario_aspectos_interes' => $idFormulario,
-							'fk_id_pregunta_aspectos_interes' => $i,
+							'fk_id_opciones_aspectos_interes' => $i,
 							'respuesta_aspectos_interes' => $respuesta[$i]
 						);	
 						$query = $this->db->insert('form_aspectos_interes_respuestas', $data);
