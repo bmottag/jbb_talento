@@ -172,6 +172,53 @@
 				return false;
 			}
 		}
+
+		/**
+		 * Crear registro de sumatoria para un formulario
+		 * @since 11/4/2021
+		 */
+		public function saveCalculoRecord($idFormularioAspectos) 
+		{				
+				$data = array(
+					'fk_id_form_aspectos_interes_c' => $idFormularioAspectos
+				);	
+				$query = $this->db->insert('form_aspectos_interes_calculos', $data);
+
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Aplico la sumatoria y guardo en la base de datos
+		 * @since 11/4/2021
+		 */
+		public function aplicar_formula_aspectos_interes($arrData)
+		{
+				$sql = "SELECT sum(respuesta_aspectos_interes) resultado FROM form_aspectos_interes_respuestas H INNER JOIN param_aspectos_interes_opciones O ON O.id_opciones_aspectos_interes = H.fk_id_opciones_aspectos_interes WHERE codigo IN(" . $arrData['formula'] . ")";
+				$query = $this->db->query($sql);
+
+				if ($query->num_rows() > 0) 
+				{
+					$resultado = $query->result_array();
+					$resultado = $resultado[0]['resultado']?$resultado[0]['resultado']:0;
+
+					$idFormulario = $arrData['idFormulario'];
+					$campo = $arrData['descripcion'];
+
+					$data = array(
+						$campo => $resultado
+					);	
+					$this->db->where('fk_id_form_aspectos_interes_c', $idFormulario);
+					$query = $this->db->update('form_aspectos_interes_calculos', $data);
+
+					return true;
+				} else {
+					return false;
+				}
+		}
 		
 
 		

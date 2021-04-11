@@ -38,7 +38,7 @@ $(function(){
 <div id="page-wrapper">
     <div class="row"><br>
 		<div class="col-md-12">
-			<div class="panel panel-success">
+			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h4 class="list-group-item-heading">
 						DASHBOARD
@@ -81,8 +81,8 @@ if ($retornoError) {
 
     <!-- /.row -->
     <div class="row">
-        <div class="col-lg-9">
-            <div class="panel panel-violeta">
+        <div class="col-lg-12">
+            <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-lg-4">
@@ -95,7 +95,7 @@ if ($retornoError) {
                             <?php
                                 if($infoProcesos){ 
                             ?>
-                                <button type="submit" class="btn btn-violeta btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
+                                <button type="submit" class="btn btn-info btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
                                     Descargar Listado PDF <span class="fa fa-file-pdf-o" aria-hidden="true" />
                                 </button>
                             <?php
@@ -150,14 +150,14 @@ if ($retornoError) {
                                 echo '<td class="text-center">';
                             ?>
                                     <a class='btn btn-success btn-xs' href='<?php echo base_url('dashboard/respuestas_habilidades/' . $lista['id_candidato']) ?>'>
-                                        Ver Respuestas <span class="fa fa-check" aria-hidden="true">
+                                        Ver Respuestas <span class="fa fa-arrow-circle-right" aria-hidden="true">
                                     </a>
                             <?php
                                 echo '</td>';
                                 echo '<td class="text-center">';
                             ?>
                                     <a class='btn btn-success btn-xs' href='<?php echo base_url('dashboard/respuestas_aspectos/' . $lista['id_candidato']) ?>'>
-                                        Ver Respuestas <span class="fa fa-check" aria-hidden="true">
+                                        Ver Respuestas <span class="fa fa-arrow-circle-right" aria-hidden="true">
                                     </a>
                             <?php
                                 echo '</td>';
@@ -176,9 +176,9 @@ if ($retornoError) {
         </div>
 
         <div class="col-lg-3">
-            <div class="panel panel-violeta">
+            <div class="panel panel-info">
                 <div class="panel-heading">
-                    <i class="fa fa-bell fa-fw"></i> INFORMACIÓN GENERAL
+                    <i class="fa fa-bell fa-fw"></i> <strong>INFORMACIÓN GENERAL</strong>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -239,3 +239,16 @@ if ($retornoError) {
     </div>
 </div>                       
 <!--FIN Modal Buscar por fecha -->
+
+<!-- Tables -->
+<script>
+$(document).ready(function() {
+    $('#dataTables').DataTable({
+        responsive: true,
+         "ordering": false,
+         paging: false,
+        "searching": false,
+        "info": false
+    });
+});
+</script>

@@ -141,9 +141,11 @@ class Formulario extends CI_Controller {
 			}else{
 				//si no hay formulario entonces creo el formulario
 				$data['idFormularioAspectos'] = $this->formulario_model->saveFormularioAspectosInteres();
+				//si no hay formulario entonces creo registro de sumatoria de datos
+				$this->formulario_model->saveCalculoRecord($data['idFormularioAspectos']);
+
 				//si es primera vez de ingreso entonces empiza por la primera parte
 				$arrParamForm = array('numeroParte' => 1);
-				
 				$data['infoFormulario'] = $this->general_model->get_formulario_aspectos_interes($arrParam);
 			}
 
@@ -172,16 +174,31 @@ class Formulario extends CI_Controller {
 				$this->formulario_model->saveRespuestasFormularioAspectosInteres();
 				$NoParte = $this->input->post('hddIdFormNoParte');
 				//si es la ultima parte entonces realizo los calculos de datos
-				if($NoParte == 3){
-					//consulta para LOG (1d+2e+3d+4e+5d)
+				if($NoParte == 3)
+				{
+					//busco las respuestas
+					$idFormulario = $this->input->post('hddIdFormAspectos');
+					$arrParam = array('idFormulario' => $idFormulario);
+					$data['infoRespuestas'] = $this->general_model->get_respuestas_formulario_aspectos($arrParam);
+
+					//busco listado de formulas
 					$arrParam = array(
-						"table" => "param_formulas_aspectos_interes",
+						"table" => "param_aspectos_interes_formulas",
 						"order" => "id_formula_aspectos_interes ",
 						"id" => "x"
 					);
 					$data['formulas'] = $this->general_model->get_basic_search($arrParam);
-					
+					$conteo = count($data['formulas']);
 
+					for ($i = 0; $i < $conteo; $i++) 
+					{
+							$arrParam = array(
+								'formula' => $data['formulas'][$i]['formula'],
+								'descripcion' =>$data['formulas'][$i]['descripcion'],
+								'idFormulario' => $idFormulario
+							);	
+							$data['sumatoria'] = $this->formulario_model->aplicar_formula_aspectos_interes($arrParam);
+					}
 				}
 
 				$data["result"] = true;

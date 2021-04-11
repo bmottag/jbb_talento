@@ -401,7 +401,7 @@ class General_model extends CI_Model {
 				}
 				$this->db->order_by('P.id_pregunta_aspecto_interes', 'asc');
 
-				$query = $this->db->get('param_preguntas_aspectos_interes P');
+				$query = $this->db->get('param_aspectos_interes_preguntas P');
 
 				if ($query->num_rows() > 0) {
 					return $query->result_array();
@@ -422,7 +422,7 @@ class General_model extends CI_Model {
 				}
 				$this->db->order_by('P.numero_opcion', 'asc');
 
-				$query = $this->db->get('param_opciones_aspectos_interes P');
+				$query = $this->db->get('param_aspectos_interes_opciones P');
 
 				if ($query->num_rows() > 0) {
 					return $query->result_array();
@@ -464,8 +464,8 @@ class General_model extends CI_Model {
 		public function get_respuestas_formulario_aspectos($arrData)
 		{
 				$this->db->select();
-				$this->db->join('param_opciones_aspectos_interes O', 'O.id_opciones_aspectos_interes = H.fk_id_opciones_aspectos_interes', 'INNER');
-				$this->db->join('param_preguntas_aspectos_interes P', 'P.id_pregunta_aspecto_interes = O.fk_id_pregunta_aspecto_interes', 'INNER');
+				$this->db->join('param_aspectos_interes_opciones O', 'O.id_opciones_aspectos_interes = H.fk_id_opciones_aspectos_interes', 'INNER');
+				$this->db->join('param_aspectos_interes_preguntas P', 'P.id_pregunta_aspecto_interes = O.fk_id_pregunta_aspecto_interes', 'INNER');
 
 				if (array_key_exists("idFormulario", $arrData)) {
 					$this->db->where('H.fk_id_formulario_aspectos_interes', $arrData["idFormulario"]);
@@ -480,37 +480,6 @@ class General_model extends CI_Model {
 					return false;
 				}
 		}
-
-		/**
-		 * Bescar respuestas de acuerdo a las formulas
-		 * @since 10/4/2021
-		 */
-		public function aplicar_formula_aspectos_interes($arrData)
-		{
-				$sql = "SELECT sum(respuesta_aspectos_interes) resultado FROM form_aspectos_interes_respuestas H INNER JOIN param_opciones_aspectos_interes O ON O.id_opciones_aspectos_interes = H.fk_id_opciones_aspectos_interes WHERE codigo IN(" . $arrData['formula'] . ")";
-				$query = $this->db->query($sql);
-
-				if ($query->num_rows() > 0) 
-				{
-					$resultado = $query->result_array();
-					$resultado = $resultado[0]['resultado']?$resultado[0]['resultado']:0;
-
-					$idFormulario = $arrData['idFormulario'];
-					$campo = $arrData['descripcion'];
-
-					$data = array(
-						'fk_id_form_aspectos_interes_c' => $idFormulario,
-						$campo => $resultado
-					);	
-					$query = $this->db->insert('form_aspectos_interes_calculos', $data);
-					return true;
-				} else {
-					return false;
-				}
-		}
-
-
-
 
 
 
