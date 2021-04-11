@@ -481,6 +481,26 @@ class General_model extends CI_Model {
 				}
 		}
 
+		/**
+		 * Consultar registros de Calculos sumatoria formulario de aspectos de interes
+		 * @since 11/4/2021
+		 */
+		public function get_calculos_formulario_aspectos($arrData)
+		{
+				$this->db->select("S.*, CONCAT(nombres, ' ', apellidos) name, C.numero_identificacion");
+				$this->db->join('form_aspectos_interes F', 'F.id_form_aspectos_interes = S.fk_id_form_aspectos_interes_c', 'INNER');
+				$this->db->join('candidatos C', 'C.id_candidato = F.fk_id_candidato_fai', 'INNER');
+				$this->db->order_by('name', 'asc');
+
+				$query = $this->db->get('form_aspectos_interes_calculos S');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
 
 
 }

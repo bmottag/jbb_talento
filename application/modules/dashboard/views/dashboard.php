@@ -141,8 +141,8 @@ if ($retornoError) {
                             foreach ($infoCandidatos as $lista):
                                 echo '<tr>';
                                 echo '<td class="text-center">' . $i . '</td>';
-                                echo '<td class="text-center">' . $lista['nombres'] . '</td>';
-                                echo '<td class="text-center">' . $lista['apellidos'] . '</td>';
+                                echo '<td>' . $lista['nombres'] . '</td>';
+                                echo '<td>' . $lista['apellidos'] . '</td>';
                                 echo '<td class="text-center">' . $lista['numero_identificacion'] . '</td>';
                                 echo '<td class="text-center">' . $lista['correo'] . '</td>';
                                 echo '<td class="text-center">' . $lista['nivel_academico'] . '</td>';
@@ -161,6 +161,90 @@ if ($retornoError) {
                                     </a>
                             <?php
                                 echo '</td>';
+                                echo '</tr>';
+                                $i++;
+                            endforeach;
+                        ?>
+                        </tbody>
+                    </table>
+                    
+<?php   } ?>                    
+                </div>
+                <!-- /.panel-body -->
+            </div>
+
+        </div>
+    </div>
+
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                        <i class="fa fa-list-ul"></i> <strong>TABULACIÓN</strong>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+
+<?php
+    if(!$infoCalculoFormAspectos){ 
+?>
+        <div class="col-lg-12">
+            <small>
+                <p class="text-danger"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> No hay Procesos activos.</p>
+            </small>
+        </div>
+<?php
+    }else{
+?>                      
+
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
+                        <thead>
+                            <tr>
+                                <th class='text-center'>#</th>
+                                <th class='text-center'>Nombres</th>
+                                <th class='text-center'>No. Identificación</th>
+                                <th class='text-center'>LOG</th>
+                                <th class='text-center'>DT</th>
+                                <th class='text-center'>SUP</th>
+                                <th class='text-center'>POD</th>
+                                <th class='text-center'>AA</th>
+                                <th class='text-center'>GT</th>
+                                <th class='text-center'>AFI</th>
+                                <th class='text-center'>ANV</th>
+                                <th class='text-center'>CT</th>
+                                <th class='text-center'>A-R</th>
+                                <th class='text-center'>REQ</th>
+                                <th class='text-center'>SAL</th>
+                                <th class='text-center'>REC</th>
+                                <th class='text-center'>EXP</th>
+                                <th class='text-center'>PRO</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>                         
+                        <?php
+                            $i = 1;
+                            foreach ($infoCalculoFormAspectos as $lista):
+                                echo '<tr>';
+                                echo '<td class="text-center">' . $i . '</td>';
+                                echo '<td>' . $lista['name'] . '</td>';
+                                echo '<td class="text-center">' . $lista['numero_identificacion'] . '</td>';
+                                echo '<td class="text-center">' . $lista['LOG'] . '</td>';
+                                echo '<td class="text-center">' . $lista['DT'] . '</td>';
+                                echo '<td class="text-center">' . $lista['SUP'] . '</td>';
+                                echo '<td class="text-center">' . $lista['POD'] . '</td>';
+                                echo '<td class="text-center">' . $lista['AA'] . '</td>';
+                                echo '<td class="text-center">' . $lista['GT'] . '</td>';
+                                echo '<td class="text-center">' . $lista['AFI'] . '</td>';
+                                echo '<td class="text-center">' . $lista['ANV'] . '</td>';
+                                echo '<td class="text-center">' . $lista['CT'] . '</td>';
+                                echo '<td class="text-center">' . $lista['A-R'] . '</td>';
+                                echo '<td class="text-center">' . $lista['REQ'] . '</td>';
+                                echo '<td class="text-center">' . $lista['SAL'] . '</td>';
+                                echo '<td class="text-center">' . $lista['REC'] . '</td>';
+                                echo '<td class="text-center">' . $lista['EXP'] . '</td>';
+                                echo '<td class="text-center">' . $lista['PRO'] . '</td>';
                                 echo '</tr>';
                                 $i++;
                             endforeach;
