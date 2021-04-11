@@ -481,6 +481,36 @@ class General_model extends CI_Model {
 				}
 		}
 
+		/**
+		 * Bescar respuestas de acuerdo a las formulas
+		 * @since 10/4/2021
+		 */
+		public function aplicar_formula_aspectos_interes($arrData)
+		{
+				$sql = "SELECT sum(respuesta_aspectos_interes) resultado FROM form_aspectos_interes_respuestas H INNER JOIN param_opciones_aspectos_interes O ON O.id_opciones_aspectos_interes = H.fk_id_opciones_aspectos_interes WHERE codigo IN(" . $arrData['formula'] . ")";
+				$query = $this->db->query($sql);
+
+				if ($query->num_rows() > 0) 
+				{
+					$resultado = $query->result_array();
+					$resultado = $resultado[0]['resultado']?$resultado[0]['resultado']:0;
+
+					$idFormulario = $arrData['idFormulario'];
+					$campo = $arrData['descripcion'];
+
+					$data = array(
+						'fk_id_form_aspectos_interes_c' => $idFormulario,
+						$campo => $resultado
+					);	
+					$query = $this->db->insert('form_aspectos_interes_calculos', $data);
+					return true;
+				} else {
+					return false;
+				}
+		}
+
+
+
 
 
 

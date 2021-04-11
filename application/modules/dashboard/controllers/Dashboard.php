@@ -126,6 +126,31 @@ class Dashboard extends CI_Controller {
 			$arrParam = array('idFormulario' => $data['infoFormulario'][0]['id_form_aspectos_interes']);
 			$data['infoRespuestas'] = $this->general_model->get_respuestas_formulario_aspectos($arrParam);
 
+			//busco listado de formulas
+			$arrParam = array(
+				"table" => "param_formulas_aspectos_interes",
+				"order" => "id_formula_aspectos_interes ",
+				"id" => "x"
+			);
+			$data['formulas'] = $this->general_model->get_basic_search($arrParam);
+			$conteo = count($data['formulas']);
+
+			for ($i = 0; $i < $conteo; $i++) 
+			{
+					$arrParam = array(
+						'formula' => $data['formulas'][$i]['formula'],
+						'descripcion' =>$data['formulas'][$i]['descripcion'],
+						'idFormulario' => $data['infoFormulario'][0]['id_form_aspectos_interes']
+					);	
+
+					$data['sumatoria'] = $this->general_model->aplicar_formula_aspectos_interes($arrParam);						
+			}
+
+
+
+
+
+ 
 			$data['view'] ='respuestas_aspectos';
 			$this->load->view('layout_calendar', $data);
 	}

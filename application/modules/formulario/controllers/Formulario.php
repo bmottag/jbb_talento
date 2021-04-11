@@ -170,6 +170,20 @@ class Formulario extends CI_Controller {
 			if ($this->formulario_model->updateFormularioAspectosInteres()) 
 			{
 				$this->formulario_model->saveRespuestasFormularioAspectosInteres();
+				$NoParte = $this->input->post('hddIdFormNoParte');
+				//si es la ultima parte entonces realizo los calculos de datos
+				if($NoParte == 3){
+					//consulta para LOG (1d+2e+3d+4e+5d)
+					$arrParam = array(
+						"table" => "param_formulas_aspectos_interes",
+						"order" => "id_formula_aspectos_interes ",
+						"id" => "x"
+					);
+					$data['formulas'] = $this->general_model->get_basic_search($arrParam);
+					
+
+				}
+
 				$data["result"] = true;
 				$this->session->set_flashdata('retornoExito', $msj);
 			} else {
