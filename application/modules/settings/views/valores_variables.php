@@ -43,7 +43,7 @@
 									echo "<tr>";
 									echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['id_relacion_competencias'] . "</strong></td>";
 									echo "<td class='" . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['competencia'] . "</strong></td>";
-									echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['descripcion'] . "<strong></td>";
+									echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['sigla'] . '-' . $lista['descripcion'] . "<strong></td>";
 									echo "<td class='" . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'>" . $lista['formula'] . "</td>";
 									echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['media'] . "<strong></td>";
 									echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['desviacion_estandar'] . "<strong></td>";

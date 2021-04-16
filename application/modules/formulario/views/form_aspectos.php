@@ -92,6 +92,7 @@
                         <input type="hidden" id="hddIdCandidato" name="hddIdCandidato" value="<?php echo $information?$information[0]["id_candidato"]:""; ?>"/>
                         <input type="hidden" id="hddIdFormAspectos" name="hddIdFormAspectos" value="<?php echo $idFormularioAspectos; ?>"/>
                         <input type="hidden" id="hddIdFormNoParte" name="hddIdFormNoParte" value="<?php echo $numeroParte; ?>"/>
+                        <input type="hidden" id="hddIdTipoProceso" name="hddIdTipoProceso" value="<?php echo  $information?$information[0]["fk_id_tipo_proceso"]:""; ?>"/>
 
                     <?php 
                     $noPreguntas = 0;

@@ -128,7 +128,7 @@ class Formulario extends CI_Controller {
 	{
 			$arrParam = array('idCandidato' => $this->session->id);
 			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
-
+			//busco si ya se guardo informacion del formulario
 			$data['infoFormulario'] = $this->general_model->get_formulario_aspectos_interes($arrParam);
 
 			if($data['infoFormulario'])
@@ -143,6 +143,8 @@ class Formulario extends CI_Controller {
 				$data['idFormularioAspectos'] = $this->formulario_model->saveFormularioAspectosInteres();
 				//si no hay formulario entonces creo registro de sumatoria de datos
 				$this->formulario_model->saveCalculoRecord($data['idFormularioAspectos']);
+				//si no hay formulario entonces creo registro de registro de valores competencias
+				$this->formulario_model->saveCalculoCompetenciasRecord($data['idFormularioAspectos']);
 
 				//si es primera vez de ingreso entonces empiza por la primera parte
 				$arrParamForm = array('numeroParte' => 1);

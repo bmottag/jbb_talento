@@ -214,6 +214,67 @@
 					$this->db->where('fk_id_form_aspectos_interes_c', $idFormulario);
 					$query = $this->db->update('form_aspectos_interes_calculos', $data);
 
+					//busco en la tabla de param_valores_competencias las datos para calculo de las desviacones estandar
+					//se busca por el valor de la competencia y por el tipo de proceso
+					$idTipoProceso = $this->input->post('hddIdTipoProceso');
+
+					$this->db->select();
+					$this->db->join('param_relacion_competencias_aspectos_interes R', 'R.id_relacion_competencias = V.fk_id_relacion_competencias', 'INNER');
+					$this->db->join('param_competencias C', 'C.id_competencia = R.fk_id_competencias', 'INNER');
+					$this->db->join('param_aspectos_interes_formulas F', 'F.id_formula_aspectos_interes = R.fk_id_formula_aspectos_interes ', 'INNER');
+					$this->db->where('V.fk_id_tipo_proceso', $idTipoProceso);
+					$this->db->where('F.descripcion', $campo);
+					$query = $this->db->get("param_valores_competencias V");
+
+					if ($query->num_rows() >= 1) {
+						$datos = $query->result_array();
+						$conteo = count($datos);
+
+						//ACTUALIZO LA TABLA CON LOS DATOS
+						for ($i = 0; $i < $conteo; $i++) 
+						{
+							$media = $datos[$i]['media'];
+							$DS = $datos[$i]['desviacion_estandar'];
+							$alto = $media + $DS;
+							$bajo = $media - $DS;
+							$columna = $datos[$i]['sigla'] . '-' . $datos[$i]['descripcion'];
+
+							if($resultado>$alto){
+								$valor = 'alto';
+							}elseif($resultado<$bajo){
+								$valor = 'bajo';
+							}else{
+								$valor = 'medio';
+							}
+
+							$data = array(
+								$columna => $valor
+							);	
+							$this->db->where('fk_id_form_aspectos_interes_cc', $idFormulario);
+							$query = $this->db->update('form_competencias_calculos', $data);
+						}
+
+
+					}
+
+					return true;
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Crear registro de valores de las competencias
+		 * @since 16/4/2021
+		 */
+		public function saveCalculoCompetenciasRecord($idFormularioAspectos) 
+		{				
+				$data = array(
+					'fk_id_form_aspectos_interes_cc' => $idFormularioAspectos
+				);	
+				$query = $this->db->insert('form_competencias_calculos', $data);
+
+				if ($query) {
 					return true;
 				} else {
 					return false;
