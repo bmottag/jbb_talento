@@ -188,11 +188,11 @@ if ($retornoError) {
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
+                    <table width="100%" class="table table-hover" id="dataTables">
                         <thead>
                             <tr>
                                 <th class='text-center'>#</th>
-                                <th class='text-center'>Nombres</th>
+                                <th>Nombres</th>
                                 <th class='text-center'>No. Identificación</th>
                                 <th class='text-center'>LOG</th>
                                 <th class='text-center'>DT</th>
@@ -258,32 +258,32 @@ if ($retornoError) {
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
+                    <table width="100%" class="table table-hover" id="dataTables">
                         <thead>
                             <tr>
                                 <th class='text-center' rowspan='2'>#</th>
-                                <th class='text-center' rowspan='2'>Nombres</th>
+                                <th rowspan='2'>Nombres</th>
                                 <th class='text-center' rowspan='2'>No. Identificación</th>
-                                <th class='text-center' colspan='3'>Aprendizaje continuo</th>
-                                <th class='text-center' colspan='3'>Orientación a resultados</th>
-                                <th class='text-center' colspan='3'>Compromiso con la Organización</th>
-                                <th class='text-center' colspan='3'>Trabajo en equipo</th>
-                                <th class='text-center'>Adaptación al cambio</th>
+                                <th class='text-center danger text-danger' colspan='3'>Aprendizaje continuo</th>
+                                <th class='text-center info text-info' colspan='3'>Orientación a resultados</th>
+                                <th class='text-center warning text-warning' colspan='3'>Compromiso con la Organización</th>
+                                <th class='text-center success text-success' colspan='3'>Trabajo en equipo</th>
+                                <th class='text-center violeta text-violeta'>Adaptación al cambio</th>
                             </tr>
                             <tr>
-                                <th class='text-center'>AA</th>
-                                <th class='text-center'>GT</th>
-                                <th class='text-center'>CT</th>
-                                <th class='text-center'>LOG</th>
-                                <th class='text-center'>SUP</th>
-                                <th class='text-center'>A-R</th>
-                                <th class='text-center'>DT</th>
-                                <th class='text-center'>AFI</th>
-                                <th class='text-center'>ANV</th>
-                                <th class='text-center'>GT</th>                                
-                                <th class='text-center'>REC</th>
-                                <th class='text-center'>EXP</th>
-                                <th class='text-center'>A-R</th>
+                                <th class='text-center danger text-danger'>AA</th>
+                                <th class='text-center danger text-danger'>GT</th>
+                                <th class='text-center danger text-danger'>CT</th>
+                                <th class='text-center info text-info'>LOG</th>
+                                <th class='text-center info text-info'>SUP</th>
+                                <th class='text-center info text-info'>A-R</th>
+                                <th class='text-center warning text-warning'>DT</th>
+                                <th class='text-center warning text-warning'>AFI</th>
+                                <th class='text-center warning text-warning'>ANV</th>
+                                <th class='text-center success text-success'>GT</th>                                
+                                <th class='text-center success text-success'>REC</th>
+                                <th class='text-center success text-success'>EXP</th>
+                                <th class='text-center violeta text-violeta'>A-R</th>
                             </tr>
                         </thead>
                         <tbody>                         
