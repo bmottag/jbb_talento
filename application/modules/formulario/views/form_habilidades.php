@@ -147,22 +147,24 @@
                             ?>
                             <div class="row">
                                 <div class="form-group">
-                                    <label class="col-sm-6 control-label" for="<?php echo $nombrePregunta; ?>"><ol start=<?php echo $lista['id_pregunta_habilidad']; ?>><li><?php echo $lista['pregunta_habilidad']; ?> </li></ol></label>
+                                    <div class="col-sm-6">
+                                        <ol start=<?php echo $lista['id_pregunta_habilidad']; ?>><li><?php echo $lista['pregunta_habilidad']; ?> </li></ol>
+                                    </div>
                                     <div class="col-sm-6">
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_1'; ?>" value=1 ><small class="text-primary"><strong>Nunca</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_1'; ?>" value=1 ><strong>Nunca</strong>
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_2'; ?>" value=2 ><small class="text-primary"><strong>Rara vez</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_2'; ?>" value=2 ><strong>Rara vez</strong>
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_3'; ?>" value=3 ><small class="text-primary"><strong>A veces</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_3'; ?>" value=3 ><strong>A veces</strong>
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_4'; ?>" value=4 ><small class="text-primary"><strong>A menudo</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_4'; ?>" value=4 ><strong>A menudo</strong>
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_5'; ?>" value=5 ><small class="text-primary"><strong>Siempre</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombrePregunta]"; ?>" id="<?php echo $nombrePregunta . '_5'; ?>" value=5 ><strong>Siempre</strong>
                                         </label>
                                     </div>
                                 </div>

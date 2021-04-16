@@ -118,7 +118,10 @@
                             ?>
                             <div class="row">
                                 <div class="form-group">
-                                    <label class="col-sm-8 control-label" for="<?php echo $nombreOpcion; ?>"><?php echo $opciones['opcion']; ?></label>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-7">
+                                        <?php echo $opciones['opcion']; ?>
+                                    </div>
                                     <div class="col-sm-4">
                                         <label class="radio-inline">
                                             <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_1'; ?>" value=1 ><small class="text-primary"><strong>1</strong></small>
