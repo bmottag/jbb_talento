@@ -509,7 +509,7 @@ class General_model extends CI_Model {
 		{			
 				$this->db->select();
 				$this->db->join('param_competencias C', 'C.id_competencia = R.fk_id_competencias', 'INNER');
-				$this->db->join('param_formulas_aspectos_interes F', 'F.id_formula_aspectos_interes = R.fk_id_formula_aspectos_interes ', 'INNER');
+				$this->db->join('param_aspectos_interes_formulas F', 'F.id_formula_aspectos_interes = R.fk_id_formula_aspectos_interes ', 'INNER');
 
 				$this->db->order_by('id_competencia', 'asc');
 				$query = $this->db->get("param_relacion_competencias_aspectos_interes R");
@@ -542,6 +542,26 @@ class General_model extends CI_Model {
 				if ($query->num_rows() >= 1) {
 					return $query->result_array();
 				}else{
+					return false;
+				}
+		}
+
+		/**
+		 * Consultar registros de Calculos para las competenias
+		 * @since 16/4/2021
+		 */
+		public function get_calculos_competencias($arrData)
+		{
+				$this->db->select("CC.*, CONCAT(nombres, ' ', apellidos) name, C.numero_identificacion");
+				$this->db->join('form_aspectos_interes F', 'F.id_form_aspectos_interes = CC.fk_id_form_aspectos_interes_cc ', 'INNER');
+				$this->db->join('candidatos C', 'C.id_candidato = F.fk_id_candidato_fai', 'INNER');
+				$this->db->order_by('name', 'asc');
+
+				$query = $this->db->get('form_competencias_calculos CC');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
 					return false;
 				}
 		}

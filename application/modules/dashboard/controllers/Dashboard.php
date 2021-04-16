@@ -24,6 +24,7 @@ class Dashboard extends CI_Controller {
 			$data['noProcesos'] = $data['infoProcesos']?count($data['infoProcesos']):0;
 
 			$data['infoCalculoFormAspectos'] = $this->general_model->get_calculos_formulario_aspectos($arrParam);
+			$data['infoCalculoCompetencias'] = $this->general_model->get_calculos_competencias($arrParam);
 
 			$data["view"] = "dashboard";
 			$this->load->view("layout_calendar", $data);
