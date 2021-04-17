@@ -1,8 +1,19 @@
 $( document ).ready( function () {
+
+jQuery.validator.addMethod("fieldSpecify", function(value, element, param) {
+
+alert(value); 
+
+	if(value != 15){
+		return false;
+	}else{
+		return true;
+	}
+}, "Error en la selección.");
 			
 	$( "#form" ).validate( {
 		rules: {
-
+			pregunta_1: 			{ fieldSpecify: true }
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
@@ -78,11 +89,7 @@ $( document ).ready( function () {
 				});	
 		
 		}//if			
-		else
-		{
-			alert('Faltan campos por diligenciar.');
-			
-		}					
+				
 	});
 
 });

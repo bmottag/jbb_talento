@@ -1,5 +1,58 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/formulario/aspectos.js"); ?>"></script>
 
+<script>
+function valid_inconvenientes() 
+{
+
+        var elementos = document.getElementsByName("pregunta[1]");
+        var valor1 = 0;
+        var valor2 = 0;
+        var valor3 = 0;
+        var valor4 = 0;
+        var valor5 = 0;
+        for(var i=0; i<elementos.length; i++) {
+              if(elementos[i].checked){
+                    valor1 = parseInt(elementos[i].value);
+              }
+        }
+
+        var elementos = document.getElementsByName("pregunta[2]");
+        for(var i=0; i<elementos.length; i++) {
+              if(elementos[i].checked){
+                     valor2 = parseInt(elementos[i].value);
+              }
+        }
+
+        var elementos = document.getElementsByName("pregunta[3]");
+        for(var i=0; i<elementos.length; i++) {
+              if(elementos[i].checked){
+                     valor3 = parseInt(elementos[i].value);
+              }
+        }
+
+        var elementos = document.getElementsByName("pregunta[4]");
+        for(var i=0; i<elementos.length; i++) {
+              if(elementos[i].checked){
+                     valor4 = parseInt(elementos[i].value);
+              }
+        }
+
+        var elementos = document.getElementsByName("pregunta[5]");
+        for(var i=0; i<elementos.length; i++) {
+              if(elementos[i].checked){
+                     valor5 = parseInt(elementos[i].value);
+              }
+        }
+
+        sumar1 = document.getElementById('pregunta_1').value = valor1+valor2+valor3+valor4+valor5;
+
+        if(sumar1 !== 15 && valor1 > 0 && valor2 > 0 && valor3 > 0 && valor4 > 0 && valor5 > 0 ){
+            alert('Error en la pregunta 1');
+        }
+
+}
+</script>
+
 <div id="page-wrapper">
 	<br>	
 	<!-- /.row -->
@@ -99,6 +152,7 @@
                     foreach ($preguntasAspectosInteres as $lista):
                         $nombrePregunta = $lista['id_pregunta_aspecto_interes'];
                     ?>
+
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <strong><?php echo $lista['numero_pregunta_aspecto_interes'] . '. ' . $lista['pregunta_aspecto_interes']; ?></strong>
@@ -124,19 +178,19 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_1'; ?>" value=1 ><small class="text-primary"><strong>1</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_1'; ?>" value=1 onclick="valid_inconvenientes()"><small class="text-primary"><strong>1</strong></small>
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_2'; ?>" value=2 ><small class="text-primary"><strong>2</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_2'; ?>" value=2 onclick="valid_inconvenientes()"><small class="text-primary"><strong>2</strong></small>
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_3'; ?>" value=3 ><small class="text-primary"><strong>3</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_3'; ?>" value=3 onclick="valid_inconvenientes()"><small class="text-primary"><strong>3</strong></small>
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_4'; ?>" value=4 ><small class="text-primary"><strong>4</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_4'; ?>" value=4 onclick="valid_inconvenientes()"><small class="text-primary"><strong>4</strong></small>
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_5'; ?>" value=5 ><small class="text-primary"><strong>5</strong></small>
+                                            <input type="radio" name="<?php echo "pregunta[$nombreOpcion]"; ?>" id="<?php echo $nombreOpcion . '_5'; ?>" value=5 onclick="valid_inconvenientes()"><small class="text-primary"><strong>5</strong></small>
                                         </label>
                                     </div>
                                 </div>
@@ -144,7 +198,7 @@
                             <?php
                                 endforeach;
                             ?>
-
+                            <input type="text" name="<?php echo 'pregunta_' . $nombrePregunta; ?>" id="<?php echo 'pregunta_' . $nombrePregunta; ?>" />
                         </div>
                     </div>
 
