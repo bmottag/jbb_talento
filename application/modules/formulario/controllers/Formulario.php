@@ -69,16 +69,29 @@ class Formulario extends CI_Controller {
 			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
 
 			$data['infoFormulario'] = $this->general_model->get_formulario_habilidades($arrParam);
-			if(!$data['infoFormulario'])
+
+			if($data['infoFormulario'])
 			{
+				$data['idFormularioHabilidades'] = $data['infoFormulario'][0]['id_form_habilidades'];
+			}else{
+				//si no hay formulario entonces creo el formulario
+				$data['idFormularioHabilidades'] = $this->formulario_model->saveFormularioHabilidades();
+				//si no hay formulario entonces creo registro de sumatoria de datos
 				$arrParam = array(
-					"table" => "param_preguntas_habilidades",
-					"order" => "id_pregunta_habilidad",
-					"id" => "x"
+					'table' => 'form_habilidades_calculos',
+					'columnaFormulario' => 'fk_id_form_habilidades_c',
+					'idFormulario' => $data['idFormularioHabilidades']
 				);
-				$data['preguntasHabilidades'] = $this->general_model->get_basic_search($arrParam);
-				$data['noPreguntas'] = count($data['preguntasHabilidades']);//se utiliza al guardar las respuestas
+				$this->formulario_model->saveCalculoRecord($arrParam);
 			}
+
+            $arrParam = array(
+                'table' => 'param_preguntas_habilidades',
+                'order' => 'id_pregunta_habilidad',
+                'id' => 'x'
+            );
+            $data['preguntasHabilidades'] = $this->general_model->get_basic_search($arrParam);
+            $data['noPreguntas'] = count($data['preguntasHabilidades']);//se utiliza al guardar las respuestas
 
 			$data["view"] = 'form_habilidades';
 			$this->load->view("layout_calendar", $data);
@@ -103,9 +116,37 @@ class Formulario extends CI_Controller {
 				$flag = false;
 			}
 
-			if ($idFormulario = $this->formulario_model->saveFormulario()) 
+			if ($this->formulario_model->updateFormularioHabilidades()) 
 			{
-				$this->formulario_model->saveRespuestasFormulario($idFormulario);
+				$this->formulario_model->saveRespuestasFormulario();
+
+				//realizo los calculos de datos
+
+				//busco las respuestas
+				$idFormulario = $this->input->post('hddIdFormHabilidades');
+				$arrParam = array('idFormHabilidades' => $idFormulario);
+				$data['infoRespuestas'] = $this->general_model->get_respuestas_formulario_aspectos($arrParam);
+
+				//busco listado de formulas
+				$arrParam = array(
+					"table" => "param_habilidades_formulas",
+					"order" => "id_formula_habilidades",
+					"id" => "x"
+				);
+				$data['formulas'] = $this->general_model->get_basic_search($arrParam);
+				$conteo = count($data['formulas']);
+
+				for ($i = 0; $i < $conteo; $i++) 
+				{
+						$arrParam = array(
+							'valMin' => $data['formulas'][$i]['valor_minimo'],
+							'valMax' => $data['formulas'][$i]['valor_maximo'],
+							'descripcion' =>$data['formulas'][$i]['descripcion'],
+							'idFormulario' => $idFormulario
+						);	
+						$data['sumatoria'] = $this->formulario_model->aplicar_formula_habilidades($arrParam);
+				}
+
 				$data["result"] = true;
 				$data["idFormulario"] = $idFormulario;
 				$this->session->set_flashdata('retornoExito', $msj);
@@ -142,7 +183,12 @@ class Formulario extends CI_Controller {
 				//si no hay formulario entonces creo el formulario
 				$data['idFormularioAspectos'] = $this->formulario_model->saveFormularioAspectosInteres();
 				//si no hay formulario entonces creo registro de sumatoria de datos
-				$this->formulario_model->saveCalculoRecord($data['idFormularioAspectos']);
+				$arrParam = array(
+					'table' => 'form_aspectos_interes_calculos',
+					'columnaFormulario' => 'fk_id_form_aspectos_interes_c',
+					'idFormulario' => $data['idFormularioAspectos']
+				);
+				$this->formulario_model->saveCalculoRecord($arrParam);
 				//si no hay formulario entonces creo registro de registro de valores competencias
 				$this->formulario_model->saveCalculoCompetenciasRecord($data['idFormularioAspectos']);
 

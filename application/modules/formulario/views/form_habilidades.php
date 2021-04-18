@@ -5,7 +5,7 @@
     var sumarsesion = 15;
     var minutes = end.getMinutes();
 
-    end.setMinutes(minutes + sumarsesion);//adiciono 5 min a la fecha actual
+    end.setMinutes(minutes + sumarsesion);//adiciono 15 min a la fecha actual
     
     var _second = 1000;
     var _minute = _second * 60;
@@ -34,12 +34,6 @@
             });
             //deshabilitar y limpiar campos
             $('#btnSubmit').attr('disabled','-1');
-            $('#email').attr('disabled','-1');
-            $('#confirmarEmail').attr('disabled','-1');
-            $('#celular').attr('disabled','-1');
-            $("#email").val('');
-            $("#confirmarEmail").val('');
-            $("#celular").val('');
             document.getElementById('countdown').innerHTML = 'Su sesión expiró!';
             alert("Su sesión expiró.");
 
@@ -88,7 +82,7 @@
         <div class="col-lg-9">
             <div class="row">
                 <div class="col-lg-12">
-<?php if($infoFormulario){ ?>
+<?php if($infoFormulario && $infoFormulario[0]['numero_parte_formulario'] == 2){ ?>
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <div class="row">
@@ -100,8 +94,8 @@
                         <div class="panel-body">
                             <small>
                                 <p>Se registraron sus respuestas para el Cuestionario de Habilidades Sociales
-                                <br>
-                                Fecha y hora del registro: <strong><?php echo $infoFormulario[0]['fecha_registro'] ?></strong>
+                                <br>Fecha y hora del Incicio prueba: <strong><?php echo $infoFormulario[0]['fecha_registro_inicio'] ?></strong>
+                                <br>Fecha y hora del finalización prueba: <strong><?php echo $infoFormulario[0]['fecha_registro_fin'] ?></strong>
                                 </p>
                             </small>
                         </div>
@@ -140,6 +134,8 @@
 
                         <form  name="form" id="form" class="form-horizontal" method="post">
                             <input type="hidden" id="hddIdCandidato" name="hddIdCandidato" value="<?php echo $information?$information[0]["id_candidato"]:""; ?>"/>
+                            <input type="hidden" id="hddIdFormHabilidades" name="hddIdFormHabilidades" value="<?php echo $idFormularioHabilidades; ?>"/>
+                             <input type="hidden" id="hddIdFormNoParte" name="hddIdFormNoParte" value=1 />
                             <input type="hidden" id="hddIdNoPreguntas" name="hddIdNoPreguntas" value="<?php echo $noPreguntas; ?>"/>
                             <?php 
                             foreach ($preguntasHabilidades as $lista):

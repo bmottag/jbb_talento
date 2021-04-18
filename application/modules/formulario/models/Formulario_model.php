@@ -32,15 +32,15 @@
 		}
 
 		/**
-		 * Guardar informacion del formulario
-		 * @since 28/3/2021
+		 * Crear formulario de habilidades
+		 * @since 17/4/2021
 		 */
-		public function saveFormulario() 
+		public function saveFormularioHabilidades() 
 		{				
 				$data = array(
-					'fk_id_candidato_fh ' => $this->input->post('hddIdCandidato'),
-					'fecha_registro' => date("Y-m-d G:i:s"),
-					'duracion_prueba' => 1,
+					'fk_id_candidato_fh' => $this->session->id,
+					'numero_parte_formulario' => 1,
+					'fecha_registro_inicio' => date("Y-m-d G:i:s")
 				);	
 				$query = $this->db->insert('form_habilidades', $data);
 
@@ -53,14 +53,39 @@
 		}
 
 		/**
+		 * Actualizar datos del formulario
+		 * @since 19/4/2021
+		 */
+		public function updateFormularioHabilidades() 
+		{				
+				$idFormulario = $this->input->post('hddIdFormHabilidades');
+				$NoParte = $this->input->post('hddIdFormNoParte') + 1;
+
+				$data = array(
+					'numero_parte_formulario' => $NoParte,
+					'fecha_registro_fin' => date("Y-m-d G:i:s")
+				);	
+
+				$this->db->where('id_form_habilidades', $idFormulario);
+				$query = $this->db->update('form_habilidades', $data);
+
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+
+		/**
 		 * Guardar informacion del formulario
 		 * @since 8/4/2021
 		 */
-		public function saveRespuestasFormulario($idFormulario) 
+		public function saveRespuestasFormulario() 
 		{
 			//update states
 			$query = 1;
 			
+			$idFormulario = $this->input->post('hddIdFormHabilidades');
 			$NoPreguntas = $this->input->post('hddIdNoPreguntas');
 				
 			if ($respuesta = $this->input->post('pregunta')) 
@@ -177,16 +202,15 @@
 		 * Crear registro de sumatoria para un formulario
 		 * @since 11/4/2021
 		 */
-		public function saveCalculoRecord($idFormularioAspectos) 
+		public function saveCalculoRecord($arrData) 
 		{				
 				$data = array(
-					'fk_id_form_aspectos_interes_c' => $idFormularioAspectos
+					$arrData['columnaFormulario'] => $arrData['idFormulario']
 				);	
-				$query = $this->db->insert('form_aspectos_interes_calculos', $data);
-
-				if ($query) {
+				$query = $this->db->insert($arrData['table'], $data);
+				if($query){
 					return true;
-				} else {
+				}else{
 					return false;
 				}
 		}
@@ -278,6 +302,39 @@
 					return true;
 				} else {
 					return false;
+				}
+		}
+
+		/**
+		 * Aplico la sumatoria y guardo en la base de datos para formulario dde habilidades
+		 * @since 17/4/2021
+		 */
+		public function aplicar_formula_habilidades($arrData)
+		{
+				$sql = "SELECT sum(respuesta_habilidad) resultado FROM form_habilidades_respuestas H WHERE fk_id_formulario_habilidades = " . $arrData['idFormulario'] . " AND fk_id_pregunta_habilidades BETWEEN " . $arrData['valMin'] . " AND " . $arrData['valMax'];
+				$query = $this->db->query($sql);
+
+				if ($query->num_rows() > 0) 
+				{
+					$resultado = $query->result_array();
+					$resultado = $resultado[0]['resultado']?$resultado[0]['resultado']:0;
+
+					$idFormulario = $arrData['idFormulario'];
+					$campo = $arrData['descripcion'];
+
+					$data = array(
+						$campo => $resultado
+					);	
+					$this->db->where('fk_id_form_habilidades_c', $idFormulario);
+					$query = $this->db->update('form_habilidades_calculos', $data);
+
+					if ($query) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return true;
 				}
 		}
 		
