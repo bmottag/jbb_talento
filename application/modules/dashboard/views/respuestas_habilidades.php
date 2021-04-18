@@ -12,11 +12,12 @@
 				<div class="panel-body">
 				
 					<div class="alert alert-success">
-						<strong>Candidato: </strong><?php echo $infoFormulario[0]['nombres']; ?>
+						<strong>Candidato: </strong><?php echo $infoFormulario[0]['nombres'] . ' ' . $infoFormulario[0]['apellidos']; ?>
 						<br><strong>No. Identificación: </strong> <?php echo $infoFormulario[0]['numero_identificacion']; ?>
 						<br><strong>No. Proceso: </strong> <?php echo $infoFormulario[0]['numero_proceso']; ?>
 						<br><strong>No. Formulario: </strong> <?php echo $infoFormulario[0]['id_form_habilidades']; ?>
-						<br><strong>Fecha Registro </strong> <?php echo $infoFormulario[0]['fecha_registro']; ?>
+						<br><strong>Fecha y hora incial: </strong> <?php echo $infoFormulario[0]['fecha_registro_inicio']; ?>
+						<br><strong>Fecha y hora final: </strong> <?php echo $infoFormulario[0]['fecha_registro_fin']; ?>
 						<?php if($infoFormulario){ ?>
 						<br><strong>Descargar Respuestas: </strong>
 						<a href='<?php echo base_url('reportes/generaReservaPDF/' . $infoFormulario[0]['id_candidato'] ); ?>' target="_blank">PDF <img src='<?php echo base_url_images('pdf.png'); ?>' ></a>
@@ -53,23 +54,23 @@
 								echo '<td>' . $lista['pregunta_habilidad'] . '</td>';
 								echo '<td class="text-center">';
 								switch ($lista['respuesta_habilidad']) {
-								    case 1:
+								    case $lista['valor_nunca']:
 								        $valor = 'Nunca';
 								        $clase = 'text-danger';
 								        break;
-								    case 2:
+								    case $lista['valor_rara_vez']:
 								        $valor = 'Rara vez';
 								        $clase = 'text-violeta';
 								        break;
-								    case 3:
+								    case $lista['valor_a_veces']:
 								        $valor = 'A veces';
 								        $clase = 'text-warning';
 								        break;
-								    case 4:
+								    case $lista['valor_a_menudo']:
 								        $valor = 'A menudo';
 								        $clase = 'text-infor';
 								        break;
-								    case 5:
+								    case $lista['valor_siempre']:
 								        $valor = 'Siempre';
 								        $clase = 'text-success';
 								        break;

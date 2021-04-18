@@ -81,7 +81,7 @@ if ($retornoError) {
 
     <!-- /.row -->
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-9">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="row">
@@ -121,18 +121,16 @@ if ($retornoError) {
     }else{
 ?>                      
 
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
+                    <table width="100%" class="table table-hover" id="dataTables">
                         <thead>
                             <tr>
                                 <th class='text-center'>#</th>
-                                <th class='text-center'>Nombres</th>
-                                <th class='text-center'>Apellidos</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
                                 <th class='text-center'>No. Identificación</th>
-                                <th class='text-center'>Correo Electrónico</th>
+                                <th>Correo Electrónico</th>
                                 <th class='text-center'>Nivel Académico</th>
                                 <th class='text-center'>Proceso Actual</th>
-                                <th class='text-center'>Habilidades Sociales</th>
-                                <th class='text-center'>Aspectos Interes</th>
                             </tr>
                         </thead>
                         <tbody>                         
@@ -144,23 +142,9 @@ if ($retornoError) {
                                 echo '<td>' . $lista['nombres'] . '</td>';
                                 echo '<td>' . $lista['apellidos'] . '</td>';
                                 echo '<td class="text-center">' . $lista['numero_identificacion'] . '</td>';
-                                echo '<td class="text-center">' . $lista['correo'] . '</td>';
+                                echo '<td>' . $lista['correo'] . '</td>';
                                 echo '<td class="text-center">' . $lista['nivel_academico'] . '</td>';
                                 echo '<td class="text-center">' . $lista['numero_proceso'] . '</td>';
-                                echo '<td class="text-center">';
-                            ?>
-                                    <a class='btn btn-success btn-xs' href='<?php echo base_url('dashboard/respuestas_habilidades/' . $lista['id_candidato']) ?>'>
-                                        Ver Respuestas <span class="fa fa-arrow-circle-right" aria-hidden="true">
-                                    </a>
-                            <?php
-                                echo '</td>';
-                                echo '<td class="text-center">';
-                            ?>
-                                    <a class='btn btn-success btn-xs' href='<?php echo base_url('dashboard/respuestas_aspectos/' . $lista['id_candidato']) ?>'>
-                                        Ver Respuestas <span class="fa fa-arrow-circle-right" aria-hidden="true">
-                                    </a>
-                            <?php
-                                echo '</td>';
                                 echo '</tr>';
                                 $i++;
                             endforeach;
@@ -170,13 +154,111 @@ if ($retornoError) {
                     
 <?php   } ?>                    
                 </div>
-                <!-- /.panel-body -->
             </div>
 
         </div>
+        <div class="col-lg-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <i class="fa fa-bell fa-fw"></i> <strong>INFORMACIÓN GENERAL</strong>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item" disabled>
+                            <p class="text-info"><i class="fa fa-tag fa-fw"></i><strong> No. Procesos</strong>
+                                <span class="pull-right text-muted small"><em><?php echo $noProcesos; ?></em>
+                                </span>
+                            </p>
+                        </a>
+
+                        <a href="#" class="list-group-item" disabled>
+                            <p class="text-success"><i class="fa fa-tag  fa-fw"></i><strong> No. Candidatos</strong>
+                                <span class="pull-right text-muted small"><em><?php echo $noCandidatos; ?></em>
+                                </span>
+                            </p>
+                        </a>
+                    </div>
+                    <!-- /.list-group -->
+
+                    <div class="list-group">
+                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal" id="x">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Candidato
+                        </button>
+
+                        <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#modalRango" id="y">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Proceso
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- /.row -->
+<?php
+    if($infoCalculoFormHabilidades){ 
+?> 
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                        <i class="fa fa-list-ul"></i> <strong>TABULACIÓN - PUNTAJE HABILIDADES SOLCIALES</strong>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-hover" id="dataTables">
+                        <thead>
+                            <tr>
+                                <th class='text-center'>#</th>
+                                <th>Nombres</th>
+                                <th class='text-center'>No. Identificación</th>
+                                <th class='text-center'>ASERTIVIDAD</th>
+                                <th class='text-center'>COMUNICACIÓN</th>
+                                <th class='text-center'>AUTOESTIMA</th>
+                                <th class='text-center'>TOMA DE DECISIONES</th>
+                                <th class='text-center'>Info. Prueba Habilidades Sociales</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>                         
+                        <?php
+                            $i = 1;
+                            foreach ($infoCalculoFormHabilidades as $lista):
+                                echo '<tr>';
+                                echo '<td class="text-center">' . $i . '</td>';
+                                echo '<td>' . $lista['name'] . '</td>';
+                                echo '<td class="text-center">' . $lista['numero_identificacion'] . '</td>';
+                                echo '<td class="text-center">' . $lista['ASE'] . '</td>';
+                                echo '<td class="text-center">' . $lista['COM'] . '</td>';
+                                echo '<td class="text-center">' . $lista['AUT'] . '</td>';
+                                echo '<td class="text-center">' . $lista['TOM'] . '</td>';
+                                echo '<td class="text-center">';
+
+                                if($lista['numero_parte_formulario'] == 2){
+                            ?>
+                                    <a class='btn btn-primary btn-xs' href='<?php echo base_url('dashboard/respuestas_habilidades/' . $lista['id_candidato']) ?>'>
+                                        Ver Respuestas <span class="fa fa-arrow-circle-right" aria-hidden="true">
+                                    </a>
+                                    <br>
+                            <?php
+                                }
+                                echo '<strong>Hora Inicio:</strong><br>' . $lista['fecha_registro_inicio'];
+                                if($lista['numero_parte_formulario'] >= 2) {
+                                    echo '<br><strong>Hora Finalización:</strong><br>' . $lista['fecha_registro_fin'];
+                                }
+                                echo '</td>';
+                                echo '</tr>';
+                                $i++;
+                            endforeach;
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php  } ?>  
+
 <?php
     if($infoCalculoFormAspectos){ 
 ?>  
@@ -184,7 +266,7 @@ if ($retornoError) {
         <div class="col-lg-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                        <i class="fa fa-list-ul"></i> <strong>TABULACIÓN</strong>
+                        <i class="fa fa-list-ul"></i> <strong>TABULACIÓN - PUNTAJE ASPECTOS DE INTERES</strong>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -209,7 +291,7 @@ if ($retornoError) {
                                 <th class='text-center'>REC</th>
                                 <th class='text-center'>EXP</th>
                                 <th class='text-center'>PRO</th>
-                                
+                                <th class='text-center'>Info. Prueba Aspectos de Interes</th>
                             </tr>
                         </thead>
                         <tbody>                         
@@ -235,6 +317,22 @@ if ($retornoError) {
                                 echo '<td class="text-center">' . $lista['REC'] . '</td>';
                                 echo '<td class="text-center">' . $lista['EXP'] . '</td>';
                                 echo '<td class="text-center">' . $lista['PRO'] . '</td>';
+                                echo '<td class="text-center">';
+                                if($lista['numero_parte_formulario'] >= 4) {
+                            ?>
+                                    <a class='btn btn-primary btn-xs' href='<?php echo base_url('dashboard/respuestas_aspectos/' . $lista['id_candidato']) ?>'>
+                                        Ver Respuestas <span class="fa fa-arrow-circle-right" aria-hidden="true">
+                                    </a>
+                                    <br>
+                            <?php
+                                }
+                                echo '<strong>Hora Inicio:</strong><br>' . $lista['fecha_registro_inicio'];
+                                if($lista['numero_parte_formulario'] >= 4) {
+                                    echo '<br><strong>Hora Finalización:</strong><br>' . $lista['fecha_registro_fin'];
+                                }else{
+                                    echo '<br><strong>No. Parte:</strong><br>' . $lista['numero_parte_formulario'];
+                                }
+                                echo '</td>';
                                 echo '</tr>';
                                 $i++;
                             endforeach;
@@ -318,50 +416,6 @@ if ($retornoError) {
         </div>
     </div>
 <?php  } ?> 
-
-    <div class="row">
-        <div class="col-lg-3">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <i class="fa fa-bell fa-fw"></i> <strong>INFORMACIÓN GENERAL</strong>
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="list-group">
-                        <a href="#" class="list-group-item" disabled>
-                            <p class="text-info"><i class="fa fa-tag fa-fw"></i><strong> No. Procesos</strong>
-                                <span class="pull-right text-muted small"><em><?php echo $noProcesos; ?></em>
-                                </span>
-                            </p>
-                        </a>
-
-                        <a href="#" class="list-group-item" disabled>
-                            <p class="text-success"><i class="fa fa-tag  fa-fw"></i><strong> No. Candidatos</strong>
-                                <span class="pull-right text-muted small"><em><?php echo $noCandidatos; ?></em>
-                                </span>
-                            </p>
-                        </a>
-                    </div>
-                    <!-- /.list-group -->
-
-                    <div class="list-group">
-                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal" id="x">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Candidato
-                        </button>
-
-                        <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#modalRango" id="y">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Proceso
-                        </button>
-                    </div>
-
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-
-        </div>
-        <!-- /.col-lg-4 -->
-    </div>
 
 </div>
 

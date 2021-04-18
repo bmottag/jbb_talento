@@ -487,7 +487,7 @@ class General_model extends CI_Model {
 		 */
 		public function get_calculos_formulario_aspectos($arrData)
 		{
-				$this->db->select("S.*, CONCAT(nombres, ' ', apellidos) name, C.numero_identificacion");
+				$this->db->select("S.*, F.numero_parte_formulario, F.fecha_registro_inicio, F.fecha_registro_fin, C.id_candidato, CONCAT(nombres, ' ', apellidos) name, C.numero_identificacion");
 				$this->db->join('form_aspectos_interes F', 'F.id_form_aspectos_interes = S.fk_id_form_aspectos_interes_c', 'INNER');
 				$this->db->join('candidatos C', 'C.id_candidato = F.fk_id_candidato_fai', 'INNER');
 				$this->db->order_by('name', 'asc');
@@ -558,6 +558,26 @@ class General_model extends CI_Model {
 				$this->db->order_by('name', 'asc');
 
 				$query = $this->db->get('form_competencias_calculos CC');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Consultar registros de Calculos sumatoria formulario de Habilidades
+		 * @since 18/4/2021
+		 */
+		public function get_calculos_formulario_habilidades($arrData)
+		{
+				$this->db->select("S.*, F.numero_parte_formulario, F.fecha_registro_inicio, F.fecha_registro_fin,  C.id_candidato, CONCAT(nombres, ' ', apellidos) name, C.numero_identificacion");
+				$this->db->join('form_habilidades F', 'F.id_form_habilidades = S.fk_id_form_habilidades_c', 'INNER');
+				$this->db->join('candidatos C', 'C.id_candidato = F.fk_id_candidato_fh', 'INNER');
+				$this->db->order_by('name', 'asc');
+
+				$query = $this->db->get('form_habilidades_calculos S');
 
 				if ($query->num_rows() > 0) {
 					return $query->result_array();

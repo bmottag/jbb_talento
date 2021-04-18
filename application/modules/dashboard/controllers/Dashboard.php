@@ -23,6 +23,7 @@ class Dashboard extends CI_Controller {
 			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
 			$data['noProcesos'] = $data['infoProcesos']?count($data['infoProcesos']):0;
 
+			$data['infoCalculoFormHabilidades'] = $this->general_model->get_calculos_formulario_habilidades($arrParam);
 			$data['infoCalculoFormAspectos'] = $this->general_model->get_calculos_formulario_aspectos($arrParam);
 			$data['infoCalculoCompetencias'] = $this->general_model->get_calculos_competencias($arrParam);
 
