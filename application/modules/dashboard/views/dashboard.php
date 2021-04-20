@@ -202,7 +202,7 @@ if ($retornoError) {
         <div class="col-lg-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                        <i class="fa fa-list-ul"></i> <strong>TABULACIÓN - PUNTAJE HABILIDADES SOLCIALES</strong>
+                        <i class="fa fa-list-ul"></i> <strong>TABULACIÓN - PUNTAJE HABILIDADES SOCIALES</strong>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
