@@ -329,6 +329,9 @@ class General_model extends CI_Model {
 				if (array_key_exists("idCandidato", $arrData)) {
 					$this->db->where('H.fk_id_candidato_fh', $arrData["idCandidato"]);
 				}
+				if (array_key_exists('estadoFormulario', $arrData)) {
+					$this->db->where('H.estado_form_habilidades', $arrData['estadoFormulario']);
+				}
 				$this->db->order_by('H.id_form_habilidades', 'desc');
 
 				$query = $this->db->get('form_habilidades H');
@@ -377,6 +380,9 @@ class General_model extends CI_Model {
 				}
 				if (array_key_exists("idCandidato", $arrData)) {
 					$this->db->where('H.fk_id_candidato_fai', $arrData["idCandidato"]);
+				}
+				if (array_key_exists('estadoFormulario', $arrData)) {
+					$this->db->where('H.estado_form_aspectos_interes', $arrData['estadoFormulario']);
 				}
 				$this->db->order_by('H.id_form_aspectos_interes', 'desc');
 
@@ -490,6 +496,9 @@ class General_model extends CI_Model {
 				$this->db->select("S.*, F.numero_parte_formulario, F.fecha_registro_inicio, F.fecha_registro_fin, C.id_candidato, CONCAT(nombres, ' ', apellidos) name, C.numero_identificacion");
 				$this->db->join('form_aspectos_interes F', 'F.id_form_aspectos_interes = S.fk_id_form_aspectos_interes_c', 'INNER');
 				$this->db->join('candidatos C', 'C.id_candidato = F.fk_id_candidato_fai', 'INNER');
+				if (array_key_exists('estadoFormulario', $arrData)) {
+					$this->db->where('F.estado_form_aspectos_interes', $arrData['estadoFormulario']);
+				}
 				$this->db->order_by('name', 'asc');
 
 				$query = $this->db->get('form_aspectos_interes_calculos S');
@@ -555,8 +564,10 @@ class General_model extends CI_Model {
 				$this->db->select("CC.*, CONCAT(nombres, ' ', apellidos) name, C.numero_identificacion");
 				$this->db->join('form_aspectos_interes F', 'F.id_form_aspectos_interes = CC.fk_id_form_aspectos_interes_cc ', 'INNER');
 				$this->db->join('candidatos C', 'C.id_candidato = F.fk_id_candidato_fai', 'INNER');
+				if (array_key_exists('estadoFormulario', $arrData)) {
+					$this->db->where('F.estado_form_aspectos_interes', $arrData['estadoFormulario']);
+				}
 				$this->db->order_by('name', 'asc');
-
 				$query = $this->db->get('form_competencias_calculos CC');
 
 				if ($query->num_rows() > 0) {
@@ -575,6 +586,9 @@ class General_model extends CI_Model {
 				$this->db->select("S.*, F.numero_parte_formulario, F.fecha_registro_inicio, F.fecha_registro_fin,  C.id_candidato, CONCAT(nombres, ' ', apellidos) name, C.numero_identificacion");
 				$this->db->join('form_habilidades F', 'F.id_form_habilidades = S.fk_id_form_habilidades_c', 'INNER');
 				$this->db->join('candidatos C', 'C.id_candidato = F.fk_id_candidato_fh', 'INNER');
+				if (array_key_exists('estadoFormulario', $arrData)) {
+					$this->db->where('F.estado_form_habilidades', $arrData['estadoFormulario']);
+				}
 				$this->db->order_by('name', 'asc');
 
 				$query = $this->db->get('form_habilidades_calculos S');

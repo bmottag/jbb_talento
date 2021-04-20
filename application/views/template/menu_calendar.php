@@ -22,22 +22,7 @@
 		}else{
 ?>
 		<li>
-		    <a href="https://jbb.gov.co/"></i> Incio</a>
-		</li>
-		<li>
-		    <a href="http://www.jbb.gov.co/index.php/nuestro-jardin"></i> Nuestro Jardín</a>
-		</li>
-		<li>
-		    <a href="http://www.jbb.gov.co/index.php/productos-y-servicios"></i> Productos y Servicios</a>
-		</li>
-		<li>
-		    <a href="http://www.jbb.gov.co/index.php/servicio-al-ciudadano"></i> Servicio al Ciudadano</a>
-		</li>
-		<li>
-		    <a href="http://www.jbb.gov.co/index.php/gestion-institucional"></i> Gestión Institucional</a>
-		</li>
-		<li>
-		    <a href="http://www.jbb.gov.co/index.php/contactenos"></i> Contáctenos</a>
+		    <a href="<?php echo base_url('menu/salir') ?>"><i class="fa fa-sign-out fa-fw"></i> Salir</a>
 		</li>
 <?php 
 		}

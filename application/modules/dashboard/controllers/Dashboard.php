@@ -15,14 +15,15 @@ class Dashboard extends CI_Controller {
 	public function admin()
 	{				
 			//Candidatos activos
-			$arrParam = array("estadoCandidato" => 1);
+			$arrParam = array('estadoCandidato' => 1);
 			$data['infoCandidatos'] = $this->general_model->get_candidatos_info($arrParam);
 			$data['noCandidatos'] = $data['infoCandidatos']?count($data['infoCandidatos']):0;
 			//procesos activos
-			$arrParam = array("estadoProceso" => 1);
+			$arrParam = array('estadoProceso' => 1);
 			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
 			$data['noProcesos'] = $data['infoProcesos']?count($data['infoProcesos']):0;
 
+			$arrParam = array('estadoFormulario' => 1);
 			$data['infoCalculoFormHabilidades'] = $this->general_model->get_calculos_formulario_habilidades($arrParam);
 			$data['infoCalculoFormAspectos'] = $this->general_model->get_calculos_formulario_aspectos($arrParam);
 			$data['infoCalculoCompetencias'] = $this->general_model->get_calculos_competencias($arrParam);

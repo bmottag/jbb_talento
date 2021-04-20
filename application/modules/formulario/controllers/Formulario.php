@@ -65,7 +65,11 @@ class Formulario extends CI_Controller {
 	 */
 	public function habilidades()
 	{
-			$arrParam = array('idCandidato' => $this->session->id);
+			//buscar por el id del candidato y el fomulario este habilitado
+			$arrParam = array(
+				'idCandidato' => $this->session->id,
+				'estadoFormulario' => 1
+			);
 			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
 
 			$data['infoFormulario'] = $this->general_model->get_formulario_habilidades($arrParam);
@@ -167,7 +171,11 @@ class Formulario extends CI_Controller {
 	 */
 	public function aspectos()
 	{
-			$arrParam = array('idCandidato' => $this->session->id);
+			//buscar por el id del candidato y el fomulario este habilitado
+			$arrParam = array(
+				'idCandidato' => $this->session->id,
+				'estadoFormulario' => 1
+			);
 			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
 			//busco si ya se guardo informacion del formulario
 			$data['infoFormulario'] = $this->general_model->get_formulario_aspectos_interes($arrParam);
