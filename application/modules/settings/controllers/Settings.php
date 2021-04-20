@@ -28,7 +28,7 @@ class Settings extends CI_Controller {
 			$data['info'] = $this->general_model->get_user($arrParam);
 			
 			$data["view"] = 'employee';
-			$this->load->view("layout", $data);
+			$this->load->view("layout_calendar", $data);
 	}
 	
     /**
@@ -453,7 +453,7 @@ class Settings extends CI_Controller {
 			$data['info'] = $this->general_model->get_competencias_variables();
 
 			$data["view"] = 'competencias';
-			$this->load->view("layout", $data);
+			$this->load->view("layout_calendar", $data);
 	}
 	
 	/**

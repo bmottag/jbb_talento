@@ -2,7 +2,7 @@ $( document ).ready( function () {
 		
 	$( "#form" ).validate( {
 		rules: {
-			numeroProceso: 			{ required: true, minlength: 4, maxlength:12 },
+			numeroProceso: 			{ required: true, minlength: 4, maxlength:20 },
 			id_tipo_proceso: 		{ required: true },
 			id_dependencia:	 		{ required: true }
 		},
