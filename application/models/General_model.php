@@ -353,7 +353,7 @@ class General_model extends CI_Model {
 				$this->db->join('param_preguntas_habilidades P', 'P.id_pregunta_habilidad = H.fk_id_pregunta_habilidades ', 'INNER');
 
 				if (array_key_exists("idFormHabilidades", $arrData)) {
-					$this->db->where('H.id_form_habilidades', $arrData["idFormHabilidades"]);
+					$this->db->where('H.fk_id_formulario_habilidades', $arrData["idFormHabilidades"]);
 				}
 				$this->db->order_by('H.fk_id_pregunta_habilidades', 'asc');
 
@@ -473,8 +473,8 @@ class General_model extends CI_Model {
 				$this->db->join('param_aspectos_interes_opciones O', 'O.id_opciones_aspectos_interes = H.fk_id_opciones_aspectos_interes', 'INNER');
 				$this->db->join('param_aspectos_interes_preguntas P', 'P.id_pregunta_aspecto_interes = O.fk_id_pregunta_aspecto_interes', 'INNER');
 
-				if (array_key_exists("idFormulario", $arrData)) {
-					$this->db->where('H.fk_id_formulario_aspectos_interes', $arrData["idFormulario"]);
+				if (array_key_exists('idFormAspectos', $arrData)) {
+					$this->db->where('H.fk_id_formulario_aspectos_interes', $arrData['idFormAspectos']);
 				}
 				$this->db->order_by('P.numero_pregunta_aspecto_interes , O.numero_opcion', 'asc');
 

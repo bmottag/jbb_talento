@@ -236,7 +236,7 @@ if ($retornoError) {
 
                                 if($lista['numero_parte_formulario'] == 2){
                             ?>
-                                    <a class='btn btn-primary btn-xs' href='<?php echo base_url('dashboard/respuestas_habilidades/' . $lista['id_candidato']) ?>'>
+                                    <a class='btn btn-primary btn-xs' href='<?php echo base_url('dashboard/respuestas_habilidades/' . $lista['fk_id_form_habilidades_c']) ?>'>
                                         Ver Respuestas <span class="fa fa-arrow-circle-right" aria-hidden="true">
                                     </a>
                                     <br>
@@ -320,7 +320,7 @@ if ($retornoError) {
                                 echo '<td class="text-center">';
                                 if($lista['numero_parte_formulario'] >= 4) {
                             ?>
-                                    <a class='btn btn-primary btn-xs' href='<?php echo base_url('dashboard/respuestas_aspectos/' . $lista['id_candidato']) ?>'>
+                                    <a class='btn btn-primary btn-xs' href='<?php echo base_url('dashboard/respuestas_aspectos/' . $lista['fk_id_form_aspectos_interes_c']) ?>'>
                                         Ver Respuestas <span class="fa fa-arrow-circle-right" aria-hidden="true">
                                     </a>
                                     <br>

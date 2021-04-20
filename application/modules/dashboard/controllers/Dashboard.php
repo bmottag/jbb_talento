@@ -37,14 +37,11 @@ class Dashboard extends CI_Controller {
      * @since 29/3/2021
      * @author BMOTTAG
 	 */
-	public function respuestas_habilidades($idCandidato)
+	public function respuestas_habilidades($idFormulario)
 	{		
-			$arrParam = array('idCandidato' => $idCandidato);			
+			$arrParam = array('idFormHabilidades' => $idFormulario);			
 			$data['infoFormulario'] = $this->general_model->get_formulario_habilidades($arrParam);
-
-			$arrParam = array('idFormulario' => $data['infoFormulario'][0]['id_form_habilidades']);
 			$data['infoRespuestas'] = $this->general_model->get_respuestas_formulario_habilidades($arrParam);
-
 			$data['view'] ='respuestas_habilidades';
 			$this->load->view('layout_calendar', $data);
 	}
@@ -123,14 +120,11 @@ class Dashboard extends CI_Controller {
      * @since 10/4/2021
      * @author BMOTTAG
 	 */
-	public function respuestas_aspectos($idCandidato)
+	public function respuestas_aspectos($idFormulario)
 	{		
-			$arrParam = array('idCandidato' => $idCandidato);			
+			$arrParam = array('idFormAspectos' => $idFormulario);			
 			$data['infoFormulario'] = $this->general_model->get_formulario_aspectos($arrParam);
-
-			$arrParam = array('idFormulario' => $data['infoFormulario'][0]['id_form_aspectos_interes']);
 			$data['infoRespuestas'] = $this->general_model->get_respuestas_formulario_aspectos($arrParam);
- 
 			$data['view'] ='respuestas_aspectos';
 			$this->load->view('layout_calendar', $data);
 	}
