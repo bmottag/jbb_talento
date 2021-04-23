@@ -135,7 +135,8 @@
                         <form  name="form" id="form" class="form-horizontal" method="post">
                             <input type="hidden" id="hddIdCandidato" name="hddIdCandidato" value="<?php echo $information?$information[0]["id_candidato"]:""; ?>"/>
                             <input type="hidden" id="hddIdFormHabilidades" name="hddIdFormHabilidades" value="<?php echo $idFormularioHabilidades; ?>"/>
-                             <input type="hidden" id="hddIdFormNoParte" name="hddIdFormNoParte" value=1 />
+                            <input type="hidden" id="hddIdTipoProceso" name="hddIdTipoProceso" value="<?php echo  $information?$information[0]["fk_id_tipo_proceso"]:""; ?>"/>
+                            <input type="hidden" id="hddIdFormNoParte" name="hddIdFormNoParte" value=1 />
                             <input type="hidden" id="hddIdNoPreguntas" name="hddIdNoPreguntas" value="<?php echo $noPreguntas; ?>"/>
                             <?php 
                             foreach ($preguntasHabilidades as $lista):

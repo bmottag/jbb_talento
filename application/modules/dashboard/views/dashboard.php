@@ -362,6 +362,7 @@ if ($retornoError) {
                                 <th class='text-center' rowspan='2'>#</th>
                                 <th rowspan='2'>Nombres</th>
                                 <th class='text-center' rowspan='2'>No. Identificación</th>
+                                <th class='text-center primary text-primary' colspan='4'>Orientacion al Ciudadano</th>
                                 <th class='text-center danger text-danger' colspan='3'>Aprendizaje continuo</th>
                                 <th class='text-center info text-info' colspan='3'>Orientación a resultados</th>
                                 <th class='text-center warning text-warning' colspan='3'>Compromiso con la Organización</th>
@@ -369,6 +370,10 @@ if ($retornoError) {
                                 <th class='text-center violeta text-violeta'>Adaptación al cambio</th>
                             </tr>
                             <tr>
+                                <th class='text-center primary text-primary'>ASE</th>
+                                <th class='text-center primary text-primary'>COM</th>
+                                <th class='text-center primary text-primary'>AUT</th>
+                                <th class='text-center primary text-primary'>TOM</th>
                                 <th class='text-center danger text-danger'>AA</th>
                                 <th class='text-center danger text-danger'>GT</th>
                                 <th class='text-center danger text-danger'>CT</th>
@@ -392,6 +397,10 @@ if ($retornoError) {
                                 echo '<td class="text-center">' . $i . '</td>';
                                 echo '<td>' . $lista['name'] . '</td>';
                                 echo '<td class="text-center">' . $lista['numero_identificacion'] . '</td>';
+                                echo '<td class="text-center">' . $lista['ORC-ASE'] . '</td>';
+                                echo '<td class="text-center">' . $lista['ORC-COM'] . '</td>';
+                                echo '<td class="text-center">' . $lista['ORC-AUT'] . '</td>';
+                                echo '<td class="text-center">' . $lista['ORC-TOM'] . '</td>';
                                 echo '<td class="text-center">' . $lista['APC-AA'] . '</td>';
                                 echo '<td class="text-center">' . $lista['APC-GT'] . '</td>';
                                 echo '<td class="text-center">' . $lista['APC-CT'] . '</td>';

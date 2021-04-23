@@ -319,7 +319,10 @@ class Settings extends CI_Controller {
 					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> El número de identificación y el correo ya existen.');
 				}
 			} else {
-				if ($idCandidato = $this->settings_model->saveCandidato()) {
+				if ($idCandidato = $this->settings_model->saveCandidato()) 
+				{
+					//creo registro de calculo de competencias para el candidato
+					$this->formulario_model->saveCalculoCompetenciasRecord($idCandidato);
 					$data["result"] = true;
 					$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
 				} else {

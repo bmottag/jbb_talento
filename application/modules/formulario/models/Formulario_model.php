@@ -238,7 +238,13 @@
 					$this->db->where('fk_id_form_aspectos_interes_c', $idFormulario);
 					$query = $this->db->update('form_aspectos_interes_calculos', $data);
 
-					//busco en la tabla de param_competencias_valores las datos para calculo de las desviacones estandar
+					//actualizo el id del formulario en la tabla de form_competencias_calculos
+					$idCandidato = $this->input->post('hddIdCandidato');
+					$data = array('fk_id_form_aspectos_interes_cc' => $idFormulario);	
+					$this->db->where('fk_id_candidato_cc', $idCandidato);
+					$query = $this->db->update('form_competencias_calculos', $data);
+
+					//busco en la tabla de param_competencias_valores las datos para calculo de las desviaciones estandar
 					//se busca por el valor de la competencia y por el tipo de proceso
 					$idTipoProceso = $this->input->post('hddIdTipoProceso');
 
@@ -285,24 +291,6 @@
 		}
 
 		/**
-		 * Crear registro de valores de las competencias
-		 * @since 16/4/2021
-		 */
-		public function saveCalculoCompetenciasRecord($idFormularioAspectos) 
-		{				
-				$data = array(
-					'fk_id_form_aspectos_interes_cc' => $idFormularioAspectos
-				);	
-				$query = $this->db->insert('form_competencias_calculos', $data);
-
-				if ($query) {
-					return true;
-				} else {
-					return false;
-				}
-		}
-
-		/**
 		 * Aplico la sumatoria y guardo en la base de datos para formulario dde habilidades
 		 * @since 17/4/2021
 		 */
@@ -319,13 +307,58 @@
 					$idFormulario = $arrData['idFormulario'];
 					$campo = $arrData['descripcion'];
 
-					$data = array(
-						$campo => $resultado
-					);	
+					$data = array($campo => $resultado);	
 					$this->db->where('fk_id_form_habilidades_c', $idFormulario);
 					$query = $this->db->update('form_habilidades_calculos', $data);
 
-					if ($query) {
+					if ($query)
+					{
+						//actualizo el id del formulario en la tabla de form_competencias_calculos
+						$idCandidato = $this->input->post('hddIdCandidato');
+						$data = array('fk_id_form_habilidades_cc' => $idFormulario);	
+						$this->db->where('fk_id_candidato_cc', $idCandidato);
+						$query = $this->db->update('form_competencias_calculos', $data);
+						
+						//busco en la tabla de param_competencias_valores las datos para calculo de las desviaciones estandar
+						//se busca por el valor de la competencia y por el tipo de proceso
+						$idTipoProceso = $this->input->post('hddIdTipoProceso');
+
+						$this->db->select();
+						$this->db->join('param_competencias_relacion_formulas R', 'R.id_competencias_relacion = V.fk_id_competencias_relacion', 'INNER');
+						$this->db->join('param_competencias C', 'C.id_competencia = R.fk_id_competencias', 'INNER');
+						$this->db->join('param_competencias_formulas F', 'F.id_competencias_formulas = R.fk_id_competencias_formulas', 'INNER');
+						$this->db->where('V.fk_id_tipo_proceso', $idTipoProceso);
+						$this->db->where('F.descripcion', $campo);
+						$query = $this->db->get('param_competencias_valores V');
+
+						if ($query->num_rows() >= 1) {
+							$datos = $query->result_array();
+							$conteo = count($datos);
+
+							//ACTUALIZO LA TABLA CON LOS DATOS
+							for ($i = 0; $i < $conteo; $i++) 
+							{
+								$media = $datos[$i]['media'];
+								$DS = $datos[$i]['desviacion_estandar'];
+								$alto = $media + $DS;
+								$bajo = $media - $DS;
+								$columna = $datos[$i]['sigla'] . '-' . $datos[$i]['descripcion'];
+
+								if($resultado>$alto){
+									$valor = 'alto';
+								}elseif($resultado<$bajo){
+									$valor = 'bajo';
+								}else{
+									$valor = 'medio';
+								}
+
+								$data = array($columna => $valor);	
+								$this->db->where('fk_id_form_habilidades_cc', $idFormulario);
+								$query = $this->db->update('form_competencias_calculos', $data);
+							}
+						}
+
+
 						return true;
 					} else {
 						return false;

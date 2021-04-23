@@ -215,11 +215,30 @@
 				if ($idCandidato == '') {
 					$data['estado_candidato'] = 1;//si es para adicionar se coloca estado inicial como ACTIVO
 					$query = $this->db->insert('candidatos', $data);
+					$idCandidato = $this->db->insert_id();
 				} else {
 					$data['estado_candidato'] = $this->input->post('state');
 					$this->db->where('id_candidato', $idCandidato);
 					$query = $this->db->update('candidatos', $data);
 				}
+				if ($query) {
+					return $idCandidato;
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Crear registro de valores de las competencias
+		 * @since 16/4/2021
+		 */
+		public function saveCalculoCompetenciasRecord($idCandidato) 
+		{				
+				$data = array(
+					'fk_id_candidato_cc' => $idCandidato
+				);	
+				$query = $this->db->insert('form_competencias_calculos', $data);
+
 				if ($query) {
 					return true;
 				} else {

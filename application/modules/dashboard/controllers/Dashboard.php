@@ -18,6 +18,8 @@ class Dashboard extends CI_Controller {
 			$arrParam = array('estadoCandidato' => 1);
 			$data['infoCandidatos'] = $this->general_model->get_candidatos_info($arrParam);
 			$data['noCandidatos'] = $data['infoCandidatos']?count($data['infoCandidatos']):0;
+			$data['infoCalculoCompetencias'] = $this->general_model->get_calculos_competencias($arrParam);
+			
 			//procesos activos
 			$arrParam = array('estadoProceso' => 1);
 			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
@@ -26,7 +28,6 @@ class Dashboard extends CI_Controller {
 			$arrParam = array('estadoFormulario' => 1);
 			$data['infoCalculoFormHabilidades'] = $this->general_model->get_calculos_formulario_habilidades($arrParam);
 			$data['infoCalculoFormAspectos'] = $this->general_model->get_calculos_formulario_aspectos($arrParam);
-			$data['infoCalculoCompetencias'] = $this->general_model->get_calculos_competencias($arrParam);
 
 			$data["view"] = "dashboard";
 			$this->load->view("layout_calendar", $data);

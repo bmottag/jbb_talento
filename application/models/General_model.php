@@ -562,10 +562,9 @@ class General_model extends CI_Model {
 		public function get_calculos_competencias($arrData)
 		{
 				$this->db->select("CC.*, CONCAT(nombres, ' ', apellidos) name, C.numero_identificacion");
-				$this->db->join('form_aspectos_interes F', 'F.id_form_aspectos_interes = CC.fk_id_form_aspectos_interes_cc ', 'INNER');
-				$this->db->join('candidatos C', 'C.id_candidato = F.fk_id_candidato_fai', 'INNER');
-				if (array_key_exists('estadoFormulario', $arrData)) {
-					$this->db->where('F.estado_form_aspectos_interes', $arrData['estadoFormulario']);
+				$this->db->join('candidatos C', 'C.id_candidato = CC.fk_id_candidato_cc', 'INNER');
+				if (array_key_exists('estadoCandidato', $arrData)) {
+					$this->db->where('C.estado_candidato', $arrData['estadoCandidato']);
 				}
 				$this->db->order_by('name', 'asc');
 				$query = $this->db->get('form_competencias_calculos CC');

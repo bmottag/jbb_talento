@@ -131,11 +131,12 @@ class Formulario extends CI_Controller {
 				$arrParam = array('idFormHabilidades' => $idFormulario);
 				$data['infoRespuestas'] = $this->general_model->get_respuestas_formulario_aspectos($arrParam);
 
-				//busco listado de formulas
+				//busco listado de formulas, para el formulario de HABILIDADES (2)
 				$arrParam = array(
-					"table" => "param_habilidades_formulas",
-					"order" => "id_formula_habilidades",
-					"id" => "x"
+					'table' => 'param_competencias_formulas',
+					'order' => 'id_competencias_formulas ',
+					'column' => 'formulario',
+					'id' => 2
 				);
 				$data['formulas'] = $this->general_model->get_basic_search($arrParam);
 				$conteo = count($data['formulas']);
@@ -197,8 +198,6 @@ class Formulario extends CI_Controller {
 					'idFormulario' => $data['idFormularioAspectos']
 				);
 				$this->formulario_model->saveCalculoRecord($arrParam);
-				//si no hay formulario entonces creo registro de registro de valores competencias
-				$this->formulario_model->saveCalculoCompetenciasRecord($data['idFormularioAspectos']);
 
 				//si es primera vez de ingreso entonces empiza por la primera parte
 				$arrParamForm = array('numeroParte' => 1);
