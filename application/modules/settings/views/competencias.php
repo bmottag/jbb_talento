@@ -27,15 +27,17 @@
 								<th class="text-center">ID</th>
 								<th class="text-center">Competencia</th>
 								<th class="text-center">Variable</th>
+								<th class="text-center">Descripción</th>
 							</tr>
 						</thead>
 						<tbody>							
 						<?php
 							foreach ($info as $lista):
 									echo "<tr>";
-									echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['id_relacion_competencias'] . "</strong></td>";
+									echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['id_competencias_relacion'] . "</strong></td>";
 									echo "<td class='" . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['competencia'] . "</strong></td>";
 									echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['descripcion'] . "<strong></td>";
+									echo "<td class='" . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['nombre_variable'] . "<strong></td>";
 									echo "</tr>";
 							endforeach;
 						?>
