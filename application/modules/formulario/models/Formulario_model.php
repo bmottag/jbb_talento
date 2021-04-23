@@ -238,17 +238,17 @@
 					$this->db->where('fk_id_form_aspectos_interes_c', $idFormulario);
 					$query = $this->db->update('form_aspectos_interes_calculos', $data);
 
-					//busco en la tabla de param_valores_competencias las datos para calculo de las desviacones estandar
+					//busco en la tabla de param_competencias_valores las datos para calculo de las desviacones estandar
 					//se busca por el valor de la competencia y por el tipo de proceso
 					$idTipoProceso = $this->input->post('hddIdTipoProceso');
 
 					$this->db->select();
-					$this->db->join('param_relacion_competencias_aspectos_interes R', 'R.id_relacion_competencias = V.fk_id_relacion_competencias', 'INNER');
+					$this->db->join('param_competencias_relacion_formulas R', 'R.id_competencias_relacion = V.fk_id_competencias_relacion', 'INNER');
 					$this->db->join('param_competencias C', 'C.id_competencia = R.fk_id_competencias', 'INNER');
-					$this->db->join('param_aspectos_interes_formulas F', 'F.id_formula_aspectos_interes = R.fk_id_formula_aspectos_interes ', 'INNER');
+					$this->db->join('param_competencias_formulas F', 'F.id_competencias_formulas = R.fk_id_competencias_formulas', 'INNER');
 					$this->db->where('V.fk_id_tipo_proceso', $idTipoProceso);
 					$this->db->where('F.descripcion', $campo);
-					$query = $this->db->get("param_valores_competencias V");
+					$query = $this->db->get('param_competencias_valores V');
 
 					if ($query->num_rows() >= 1) {
 						$datos = $query->result_array();
@@ -277,10 +277,7 @@
 							$this->db->where('fk_id_form_aspectos_interes_cc', $idFormulario);
 							$query = $this->db->update('form_competencias_calculos', $data);
 						}
-
-
 					}
-
 					return true;
 				} else {
 					return false;

@@ -538,15 +538,15 @@ class General_model extends CI_Model {
 		{			
 				$this->db->select();
 				$this->db->join('param_tipo_proceso T', 'T.id_tipo_proceso = V.fk_id_tipo_proceso', 'INNER');
-				$this->db->join('param_relacion_competencias_aspectos_interes R', 'R.id_relacion_competencias = V.fk_id_relacion_competencias', 'INNER');
+				$this->db->join('param_competencias_relacion_formulas R', 'R.id_competencias_relacion = V.fk_id_competencias_relacion', 'INNER');
 				$this->db->join('param_competencias C', 'C.id_competencia = R.fk_id_competencias', 'INNER');
-				$this->db->join('param_aspectos_interes_formulas F', 'F.id_formula_aspectos_interes = R.fk_id_formula_aspectos_interes ', 'INNER');
+				$this->db->join('param_competencias_formulas F', 'F.id_competencias_formulas = R.fk_id_competencias_formulas ', 'INNER');
 				if(array_key_exists("idTipoProceso", $arrData)){
 					$this->db->where('V.fk_id_tipo_proceso', $arrData["idTipoProceso"]);
 				}
 
 				$this->db->order_by('id_competencia', 'asc');
-				$query = $this->db->get("param_valores_competencias V");
+				$query = $this->db->get("param_competencias_valores V");
 
 				if ($query->num_rows() >= 1) {
 					return $query->result_array();

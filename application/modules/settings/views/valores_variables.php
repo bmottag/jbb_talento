@@ -41,7 +41,7 @@
 									$bajo = $lista['media'] - $lista['desviacion_estandar'];
 
 									echo "<tr>";
-									echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['id_relacion_competencias'] . "</strong></td>";
+									echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['id_competencias_relacion'] . "</strong></td>";
 									echo "<td class='" . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['competencia'] . "</strong></td>";
 									echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['sigla'] . '-' . $lista['descripcion'] . "<strong></td>";
 									echo "<td class='" . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'>" . $lista['formula'] . "</td>";

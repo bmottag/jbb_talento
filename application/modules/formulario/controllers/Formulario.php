@@ -311,11 +311,12 @@ class Formulario extends CI_Controller {
 						$arrParam = array('idFormulario' => $idFormulario);
 						$data['infoRespuestas'] = $this->general_model->get_respuestas_formulario_aspectos($arrParam);
 
-						//busco listado de formulas
+						//busco listado de formulas, para el formulario de ASPECTOS DE INTERES (1)
 						$arrParam = array(
-							"table" => "param_aspectos_interes_formulas",
-							"order" => "id_formula_aspectos_interes ",
-							"id" => "x"
+							'table' => 'param_competencias_formulas',
+							'order' => 'id_competencias_formulas ',
+							'column' => 'formulario',
+							'id' => 1
 						);
 						$data['formulas'] = $this->general_model->get_basic_search($arrParam);
 						$conteo = count($data['formulas']);
