@@ -116,10 +116,10 @@ function deseleccionar_todo(){
 						<?php
 							foreach ($infoCandidatos as $lista):
 								echo '<tr>';
-                                echo '<td class="text-center">' . $lista['nombres'] . '</td>';
-                                echo '<td class="text-center">' . $lista['apellidos'] . '</td>';
+                                echo '<td>' . $lista['nombres'] . '</td>';
+                                echo '<td>' . $lista['apellidos'] . '</td>';
                                 echo '<td class="text-center">' . $lista['numero_identificacion'] . '</td>';
-                                echo '<td class="text-center">' . $lista['correo'] . '</td>';
+                                echo '<td>' . $lista['correo'] . '</td>';
                                 echo '<td class="text-center">' . $lista['nivel_academico'] . '</td>';
                                 echo '<td class="text-center">' . $lista['numero_proceso'] . '</td>';
 								echo '<td class="text-center">';

@@ -111,7 +111,7 @@ $(function(){
 						<?php
 							foreach ($info as $lista):
 									echo "<tr>";
-									echo "<td>" . $lista['id_user'] . "</td>";
+									echo "<td class='text-center'>" . $lista['id_user'] . "</td>";
 									echo "<td>" . $lista['first_name'] . "</td>";
 									echo "<td>" . $lista['last_name'] . "</td>";
 									echo "<td class='text-center'>" . $lista['log_user'] . "</td>";
