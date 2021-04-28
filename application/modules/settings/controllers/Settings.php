@@ -322,7 +322,7 @@ class Settings extends CI_Controller {
 				if ($idCandidato = $this->settings_model->saveCandidato()) 
 				{
 					//creo registro de calculo de competencias para el candidato
-					$this->formulario_model->saveCalculoCompetenciasRecord($idCandidato);
+					$this->settings_model->saveCalculoCompetenciasRecord($idCandidato);
 					$data["result"] = true;
 					$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
 				} else {
