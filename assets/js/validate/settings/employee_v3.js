@@ -8,7 +8,7 @@ $( document ).ready( function () {
 		rules: {
 			firstName: 			{ required: true, minlength: 3, maxlength:25 },
 			lastName: 			{ required: true, minlength: 3, maxlength:25 },
-			user: 				{ required: true, minlength: 4, maxlength:12 },
+			user: 				{ required: true, minlength: 4, maxlength:15 },
 			email: 				{ required: true, email: true, minlength: 6, maxlength:50 },
 			movilNumber: 		{ required: true, minlength: 10, maxlength:10 },
 			id_role: 			{ required: true }
