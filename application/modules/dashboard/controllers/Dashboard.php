@@ -129,6 +129,52 @@ class Dashboard extends CI_Controller {
 			$data['view'] ='respuestas_aspectos';
 			$this->load->view('layout_calendar', $data);
 	}
+
+	/**
+     * Cargo modal - formulario de puntajes
+     * @since 29/04/2021
+     * @author BMOTTAG
+     */
+    public function cargarModalPuntajes() 
+	{
+		header("Content-Type: text/plain; charset=utf-8");
+		$data['infoPuntajes'] = FALSE;
+		$data['idCandidato'] = $this->input->post('idCandidato');
+		$data['idPuntaje'] = $this->input->post('idPuntaje');
+		if ($data["idPuntaje"] != 'x')
+		{
+			$arrParam = array(
+				"idPuntaje" => $data["idPuntaje"]
+			);
+			$data['infoPuntajes'] = $this->general_model->get_mantenimiento_correctivo($arrParam);
+			$data["idEquipo"] = $data['infoCorrectivo'][0]['fk_id_equipo_correctivo'];
+
+		}
+		$this->load->view('puntajes_modal', $data);
+    }
+
+	/**
+	 * Save puntajes
+     * @since 29/4/2021
+     * @author BMOTTAG
+	 */
+	public function save_puntajes()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+					
+			$msj = "Se actualizó el Puntaje del Candidato!";
+
+			if ($this->dashboard_model->savePuntajes()) {
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
+			}
+
+			echo json_encode($data);	
+    }
 	
 	
 	

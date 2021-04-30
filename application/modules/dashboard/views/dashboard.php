@@ -2,36 +2,31 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
-$(function(){ 
-    $(".btn-primary").click(function () {   
-            var oID = $(this).attr("id");
-            $.ajax ({
-                type: 'POST',
-                url: base_url + 'dashboard/cargarModalBuscar',
-                data: {'idLink': oID},
-                cache: false,
-                success: function (data) {
-                    $('#tablaDatos').html(data);
-                }
-            });
-    }); 
-});
-</script>
-
-<script>
-$(function(){ 
-    $(".btn-info").click(function () {   
-            var oID = $(this).attr("id");
-            $.ajax ({
-                type: 'POST',
-                url: base_url + 'dashboard/cargarModalBuscarRango',
-                data: {'idLink': oID},
-                cache: false,
-                success: function (data) {
-                    $('#formRango').html(data);
-                }
-            });
-    }); 
+$(function(){
+    $(".btn-info").click(function () {
+        var oID = $(this).attr("id");
+        $.ajax ({
+            type: 'POST',
+            url: base_url + 'dashboard/cargarModalPuntajes',
+            data: {'idCandidato': oID, 'idPuntaje': 'x'},
+            cache: false,
+            success: function (data) {
+                $('#tablaDatos').html(data);
+            }
+        });
+    });
+    $(".btn-success").click(function () {
+        var oID = $(this).attr("id");
+        $.ajax ({
+            type: 'POST',
+            url: base_url + 'dashboard/cargarModalPuntajes',
+            data: {'idCandidato': '', 'idPuntaje': oID},
+            cache: false,
+            success: function (data) {
+                $('#tablaDatos').html(data);
+            }
+        });
+    });
 });
 </script>
 
@@ -49,65 +44,42 @@ $(function(){
 		<!-- /.col-lg-12 -->
     </div>
 								
-<?php
-$retornoExito = $this->session->flashdata('retornoExito');
-if ($retornoExito) {
-    ?>
-	<div class="row">
-		<div class="col-lg-12">	
-			<div class="alert alert-success ">
-				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-				<strong><?php echo $this->session->userdata("firstname"); ?></strong> <?php echo $retornoExito ?>		
-			</div>
-		</div>
-	</div>
-    <?php
-}
-
-$retornoError = $this->session->flashdata('retornoError');
-if ($retornoError) {
-    ?>
-	<div class="row">
-		<div class="col-lg-12">	
-			<div class="alert alert-danger ">
-				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-				<?php echo $retornoError ?>
-			</div>
-		</div>
-	</div>
-    <?php
-}
-?> 
-
     <!-- /.row -->
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-lg-4">
                         <i class="fa fa-list-ul"></i> <strong>CANDIDATOS ACTIVOS</strong>
                         </div>
-                        <div class="col-lg-2">
-                            <form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaPDF"); ?>" target="_blank">
-                                <input type="hidden" class="form-control" id="bandera" name="bandera" value=1 />
-                                <input type="hidden" class="form-control" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" />
-                            <?php
-                                if($infoProcesos){ 
-                            ?>
-                                <button type="submit" class="btn btn-info btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
-                                    Descargar Listado PDF <span class="fa fa-file-pdf-o" aria-hidden="true" />
-                                </button>
-                            <?php
-                                }
-                            ?>
-                            </form>
-                        </div>
                     </div>
                        
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
+
+<?php
+    $retornoExito = $this->session->flashdata('retornoExito');
+    if ($retornoExito) {
+?>
+        <div class="alert alert-success ">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            <?php echo $retornoExito ?>     
+        </div>
+<?php
+    }
+    $retornoError = $this->session->flashdata('retornoError');
+    if ($retornoError) {
+?>
+        <div class="alert alert-danger ">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <?php echo $retornoError ?>
+        </div>
+<?php
+    }
+?> 
+
 
 <?php
     if(!$infoCandidatos){ 
@@ -131,6 +103,7 @@ if ($retornoError) {
                                 <th>Correo Electrónico</th>
                                 <th class='text-center'>Nivel Académico</th>
                                 <th class='text-center'>Proceso Actual</th>
+                                <th class='text-center'>Puntajes</th>
                             </tr>
                         </thead>
                         <tbody>                         
@@ -145,6 +118,13 @@ if ($retornoError) {
                                 echo '<td>' . $lista['correo'] . '</td>';
                                 echo '<td class="text-center">' . $lista['nivel_academico'] . '</td>';
                                 echo '<td class="text-center">' . $lista['numero_proceso'] . '</td>';
+                                echo '<td class="text-center">';
+                        ?>
+                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_candidato']; ?>" >
+                                    Puntajes <span class="glyphicon glyphicon-briefcase" aria-hidden="true">
+                                </button>
+                        <?php
+                                echo '</td>';
                                 echo '</tr>';
                                 $i++;
                             endforeach;
@@ -157,42 +137,7 @@ if ($retornoError) {
             </div>
 
         </div>
-        <div class="col-lg-3">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <i class="fa fa-bell fa-fw"></i> <strong>INFORMACIÓN GENERAL</strong>
-                </div>
-                <div class="panel-body">
-                    <div class="list-group">
-                        <a href="#" class="list-group-item" disabled>
-                            <p class="text-info"><i class="fa fa-tag fa-fw"></i><strong> No. Procesos</strong>
-                                <span class="pull-right text-muted small"><em><?php echo $noProcesos; ?></em>
-                                </span>
-                            </p>
-                        </a>
 
-                        <a href="#" class="list-group-item" disabled>
-                            <p class="text-success"><i class="fa fa-tag  fa-fw"></i><strong> No. Candidatos</strong>
-                                <span class="pull-right text-muted small"><em><?php echo $noCandidatos; ?></em>
-                                </span>
-                            </p>
-                        </a>
-                    </div>
-                    <!-- /.list-group -->
-
-                    <div class="list-group">
-                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal" id="x">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Candidato
-                        </button>
-
-                        <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#modalRango" id="y">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Proceso
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
 
 <?php
