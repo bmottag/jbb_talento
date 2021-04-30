@@ -10,24 +10,18 @@
 <div class="modal-body">
 	<form name="form" id="form" role="form" method="post" >
 		<input type="hidden" id="hddIdCandidato" name="hddIdCandidato" value="<?php echo $idCandidato; ?>"/>
-		<input type="hidden" id="hddIdPuntaje" name="hddIdPuntaje" value="<?php echo $infoPuntajes?$infoPuntajes[0]['id_puntaje']:""; ?>"/>
-		<?php 
-		if($infoPuntajes){
-			$descripcion = $infoPuntajes[0]['descripcion'];
-			$consideracion = $infoPuntajes[0]['consideracion'];
-		}
-		?>
+		<input type="hidden" id="hddIdPuntaje" name="hddIdPuntaje" value="<?php echo $infoPuntajes?$infoPuntajes[0]['id_puntaje']:""; ?>" />
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="descripcion">Puntaje Experiencia Privada: </label>
-					<input type="number" id="puntajeExperienciaPrivada" name="puntajeExperienciaPrivada" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["nombres"]:""; ?>" placeholder="Puntaje Experiencia Privada" >
+					<input type="number" id="puntajeExperienciaPrivada" name="puntajeExperienciaPrivada" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["puntaje_experiencia_privada"]:""; ?>" placeholder="Puntaje Experiencia Privada" >
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="puntajeExperienciaPublica">Puntaje Experiencia Pública: </label>
-					<input type="number" id="puntajeExperienciaPublica" name="puntajeExperienciaPublica" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["nombres"]:""; ?>" placeholder="Puntaje Experiencia Pública" >
+					<input type="number" id="puntajeExperienciaPublica" name="puntajeExperienciaPublica" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["puntaje_experiencia_publica"]:""; ?>" placeholder="Puntaje Experiencia Pública" >
 				</div>
 			</div>
 		</div>
@@ -37,7 +31,7 @@
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="puntajeEstudios">Puntaje Estudios: </label>
-					<input type="number" id="puntajeEstudios" name="puntajeEstudios" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["nombres"]:""; ?>" placeholder="Puntaje Estudios" >
+					<input type="number" id="puntajeEstudios" name="puntajeEstudios" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["puntaje_estudios"]:""; ?>" placeholder="Puntaje Estudios" >
 				</div>
 			</div>
 		</div>
@@ -46,13 +40,13 @@
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="resultadoPruebaPsicotecnica">Resultado Prueba Psicotécnica: </label>
-					<input type="number" id="resultadoPruebaPsicotecnica" name="resultadoPruebaPsicotecnica" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["nombres"]:""; ?>" placeholder="Puntaje Prueba Psicotécnica" >
+					<input type="number" id="resultadoPruebaPsicotecnica" name="resultadoPruebaPsicotecnica" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["resultado_prueba_psicotecnica"]:""; ?>" placeholder="Puntaje Prueba Psicotécnica" >
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="reultadoEntrevista">Resultado Entrevista: </label>
-					<input type="number" id="reultadoEntrevista" name="reultadoEntrevista" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["nombres"]:""; ?>" placeholder="Resultado Entrevista" >
+					<input type="number" id="reultadoEntrevista" name="reultadoEntrevista" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["resultado_entrevista"]:""; ?>" placeholder="Resultado Entrevista" >
 				</div>
 			</div>
 		</div>

@@ -264,6 +264,7 @@ class General_model extends CI_Model {
 		public function get_candidatos_info($arrData)
 		{
 				$this->db->select();
+				$this->db->join('candidatos_puntajes X', 'X.fk_id_candidato_p  = C.id_candidato', 'LEFT');
 				$this->db->join('param_nivel_academico A', 'A.id_nivel_academico = C.fk_id_nivel_academico', 'INNER');
 				$this->db->join('proceso P', 'P.id_proceso = C.fk_id_proceso', 'INNER');
 				if (array_key_exists("idCandidato", $arrData)) {
@@ -591,6 +592,25 @@ class General_model extends CI_Model {
 				$this->db->order_by('name', 'asc');
 
 				$query = $this->db->get('form_habilidades_calculos S');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Consultar registros de puntajes
+		 * @since 30/4/2021
+		 */
+		public function get_puntaje($arrData)
+		{
+				$this->db->select();
+				if (array_key_exists('idPuntaje', $arrData)) {
+					$this->db->where('P.id_puntaje', $arrData['idPuntaje']);
+				}
+				$query = $this->db->get('candidatos_puntajes P');
 
 				if ($query->num_rows() > 0) {
 					return $query->result_array();

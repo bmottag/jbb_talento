@@ -15,7 +15,7 @@ $(function(){
             }
         });
     });
-    $(".btn-success").click(function () {
+    $(".btn-default").click(function () {
         var oID = $(this).attr("id");
         $.ajax ({
             type: 'POST',
@@ -119,8 +119,14 @@ $(function(){
                                 echo '<td class="text-center">' . $lista['nivel_academico'] . '</td>';
                                 echo '<td class="text-center">' . $lista['numero_proceso'] . '</td>';
                                 echo '<td class="text-center">';
+                                $class = 'btn-info';
+                                $valor = $lista['id_candidato'];
+                                if($lista['id_puntaje']){ 
+                                    $class = 'btn-default';
+                                    $valor = $lista['id_puntaje'];
+                                }
                         ?>
-                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_candidato']; ?>" >
+                                <button type="button" class="btn <?php echo $class; ?> btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_candidato']; ?>" >
                                     Puntajes <span class="glyphicon glyphicon-briefcase" aria-hidden="true">
                                 </button>
                         <?php

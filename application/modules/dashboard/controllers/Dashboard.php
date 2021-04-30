@@ -17,13 +17,12 @@ class Dashboard extends CI_Controller {
 			//Candidatos activos
 			$arrParam = array('estadoCandidato' => 1);
 			$data['infoCandidatos'] = $this->general_model->get_candidatos_info($arrParam);
-			$data['noCandidatos'] = $data['infoCandidatos']?count($data['infoCandidatos']):0;
+
 			$data['infoCalculoCompetencias'] = $this->general_model->get_calculos_competencias($arrParam);
 			
 			//procesos activos
 			$arrParam = array('estadoProceso' => 1);
 			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
-			$data['noProcesos'] = $data['infoProcesos']?count($data['infoProcesos']):0;
 
 			$arrParam = array('estadoFormulario' => 1);
 			$data['infoCalculoFormHabilidades'] = $this->general_model->get_calculos_formulario_habilidades($arrParam);
@@ -141,14 +140,10 @@ class Dashboard extends CI_Controller {
 		$data['infoPuntajes'] = FALSE;
 		$data['idCandidato'] = $this->input->post('idCandidato');
 		$data['idPuntaje'] = $this->input->post('idPuntaje');
-		if ($data["idPuntaje"] != 'x')
+		if ($data['idPuntaje'] != 'x')
 		{
-			$arrParam = array(
-				"idPuntaje" => $data["idPuntaje"]
-			);
-			$data['infoPuntajes'] = $this->general_model->get_mantenimiento_correctivo($arrParam);
-			$data["idEquipo"] = $data['infoCorrectivo'][0]['fk_id_equipo_correctivo'];
-
+			$arrParam = array('idPuntaje' => $data['idPuntaje']);
+			$data['infoPuntajes'] = $this->general_model->get_puntaje($arrParam);
 		}
 		$this->load->view('puntajes_modal', $data);
     }
