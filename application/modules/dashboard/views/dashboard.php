@@ -190,12 +190,26 @@ $(function(){
                                     <a class='btn btn-primary btn-xs' href='<?php echo base_url('dashboard/respuestas_habilidades/' . $lista['fk_id_form_habilidades_c']) ?>'>
                                         Ver Respuestas <span class="fa fa-arrow-circle-right" aria-hidden="true">
                                     </a>
-                                    <br>
+                                    <br><br>
                             <?php
-                                }
-                                echo '<strong>Hora Inicio:</strong><br>' . $lista['fecha_registro_inicio'];
-                                if($lista['numero_parte_formulario'] >= 2) {
-                                    echo '<br><strong>Hora Finalización:</strong><br>' . $lista['fecha_registro_fin'];
+                                    $fechaInicio = $lista['fecha_registro_inicio'];
+                                    $fechaFin = $lista['fecha_registro_fin'];
+                                
+                                    echo '<strong>' . strftime("%b %d, %G",strtotime($fechaInicio)) . '</strong>';
+                                    echo '<br>';
+                                    echo '<strong>Hora Incio: </strong>';
+                                    echo strftime("%I:%M:%S %p",strtotime($fechaInicio));
+                                    echo '<br>';
+                                    echo '<strong>Hora Fin: </strong>';
+                                    echo strftime("%I:%M:%S %p",strtotime($fechaFin));
+                                    $date1 = new DateTime($fechaInicio);
+                                    $date2 = new DateTime($fechaFin);
+                                    $diff = $date1->diff($date2);
+
+                                    echo '<br><strong>Duración: </strong>';
+                                    echo $diff->i . ' minuto(s)';
+                                }else{
+                                    echo '<strong>Hora Inicio: </strong><br>' . $lista['fecha_registro_inicio'];
                                 }
                                 echo '</td>';
                                 echo '</tr>';
@@ -276,12 +290,26 @@ $(function(){
                                     </a>
                                     <br>
                             <?php
-                                }
-                                echo '<strong>Hora Inicio:</strong><br>' . $lista['fecha_registro_inicio'];
-                                if($lista['numero_parte_formulario'] >= 4) {
-                                    echo '<br><strong>Hora Finalización:</strong><br>' . $lista['fecha_registro_fin'];
+                                    $fechaInicio = $lista['fecha_registro_inicio'];
+                                    $fechaFin = $lista['fecha_registro_fin'];
+                                
+                                    echo '<strong>' . strftime("%b %d, %G",strtotime($fechaInicio)) . '</strong>';
+                                    echo '<br>';
+                                    echo '<strong>Hora Incio: </strong>';
+                                    echo strftime("%I:%M:%S %p",strtotime($fechaInicio));
+                                    echo '<br>';
+                                    echo '<strong>Hora Fin: </strong>';
+                                    echo strftime("%I:%M:%S %p",strtotime($fechaFin));
+                                    $date1 = new DateTime($fechaInicio);
+                                    $date2 = new DateTime($fechaFin);
+                                    $diff = $date1->diff($date2);
+
+                                    echo '<br><strong>Duración: </strong>';
+                                    echo $diff->i . ' minuto(s)';
+
                                 }else{
-                                    echo '<br><strong>No. Parte:</strong><br>' . $lista['numero_parte_formulario'];
+                                    echo '<strong>Hora Inicio: </strong><br>' . $lista['fecha_registro_inicio'];
+                                    echo '<br><strong>No. Parte:</strong><br>' . $lista['numero_parte_formulario'] . '/3';
                                 }
                                 echo '</td>';
                                 echo '</tr>';

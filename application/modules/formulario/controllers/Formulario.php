@@ -43,7 +43,7 @@ class Formulario extends CI_Controller {
 			$data = array();
 
 			$idCandidato= $this->input->post('hddIdCandidato');
-			$msj = "Se actualizarón sus datos, por favor contininuar con los cuestionarios.";
+			$msj = "Se actualizarón sus datos, por favor continuar con los cuestionarios.";
 
 			if ($idCandidato = $this->formulario_model->saveCandidato()) 
 			{

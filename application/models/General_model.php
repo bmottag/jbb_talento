@@ -500,6 +500,9 @@ class General_model extends CI_Model {
 				if (array_key_exists('estadoFormulario', $arrData)) {
 					$this->db->where('F.estado_form_aspectos_interes', $arrData['estadoFormulario']);
 				}
+				if (array_key_exists("estadoCandidato", $arrData)) {
+					$this->db->where('C.estado_candidato', $arrData["estadoCandidato"]);
+				}
 				$this->db->order_by('name', 'asc');
 
 				$query = $this->db->get('form_aspectos_interes_calculos S');
@@ -588,6 +591,9 @@ class General_model extends CI_Model {
 				$this->db->join('candidatos C', 'C.id_candidato = F.fk_id_candidato_fh', 'INNER');
 				if (array_key_exists('estadoFormulario', $arrData)) {
 					$this->db->where('F.estado_form_habilidades', $arrData['estadoFormulario']);
+				}
+				if (array_key_exists("estadoCandidato", $arrData)) {
+					$this->db->where('C.estado_candidato', $arrData["estadoCandidato"]);
 				}
 				$this->db->order_by('name', 'asc');
 

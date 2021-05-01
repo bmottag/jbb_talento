@@ -19,12 +19,11 @@ class Dashboard extends CI_Controller {
 			$data['infoCandidatos'] = $this->general_model->get_candidatos_info($arrParam);
 
 			$data['infoCalculoCompetencias'] = $this->general_model->get_calculos_competencias($arrParam);
-			
-			//procesos activos
-			$arrParam = array('estadoProceso' => 1);
-			$data['infoProcesos'] = $this->general_model->get_procesos_info($arrParam);
 
-			$arrParam = array('estadoFormulario' => 1);
+			$arrParam = array(
+				'estadoFormulario' => 1,
+				'estadoCandidato' => 1
+			);
 			$data['infoCalculoFormHabilidades'] = $this->general_model->get_calculos_formulario_habilidades($arrParam);
 			$data['infoCalculoFormAspectos'] = $this->general_model->get_calculos_formulario_aspectos($arrParam);
 
