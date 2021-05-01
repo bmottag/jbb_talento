@@ -3,6 +3,8 @@ $( document ).ready( function () {
 	$("#firstName").bloquearNumeros().maxlength(25);
 	$("#lastName").bloquearNumeros().maxlength(25);		
 	$("#movilNumber").bloquearTexto().maxlength(10);
+	$("#firstName").convertirMayuscula();
+	$("#lastName").convertirMayuscula();
 	
 	$( "#form" ).validate( {
 		rules: {

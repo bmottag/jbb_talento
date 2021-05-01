@@ -4,6 +4,10 @@ $( document ).ready( function () {
 	$("#lastName").bloquearNumeros().maxlength(25);		
 	$("#numeroIdentificacion").bloquearTexto().maxlength(12);
 	$("#movilNumber").bloquearTexto().maxlength(12);
+	$("#firstName").convertirMayuscula();
+	$("#lastName").convertirMayuscula();
+	$("#profesion").convertirMayuscula();
+	
 	$( "#form" ).validate( {
 		rules: {
 			firstName: 					{ required: true, minlength: 3, maxlength:25 },

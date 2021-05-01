@@ -4,6 +4,9 @@ $( document ).ready( function () {
 	$("#lastName").bloquearNumeros().maxlength(25);		
 	$("#numeroIdentificacion").bloquearTexto().maxlength(12);
 	$("#movilNumber").bloquearTexto().maxlength(10);
+	$("#firstName").convertirMayuscula();
+	$("#lastName").convertirMayuscula();
+	$("#profesion").convertirMayuscula();
 	
 	$( "#form" ).validate( {
 		rules: {
