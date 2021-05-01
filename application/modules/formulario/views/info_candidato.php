@@ -28,35 +28,50 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="list-group">
-                        <a href="#" class="list-group-item" disabled>
-                            <p class="text-info"><i class="fa fa-tag fa-fw"></i><strong> No. Proceso</strong>
-                                <span class="pull-right text-muted small"><?php echo $infoProceso[0]['numero_proceso']; ?>
-                                </span>
-                            </p>
-                        </a>
+                        <p class="text-info"><strong> No. Proceso:</strong>
+                            <span class="pull-right text-muted small"><?php echo $infoProceso[0]['numero_proceso']; ?>
+                            </span>
+                        </p>
 
-                        <a href="#" class="list-group-item" disabled>
-                            <p class="text-info"><i class="fa fa-tag  fa-fw"></i><strong> Tipo Proceo</strong>
-                                <span class="pull-right text-muted small"><?php echo $infoProceso[0]['tipo_proceso']; ?>
-                                </span>
-                            </p>
-                        </a>
+                        <p class="text-info"><strong> Tipo Proceo:</strong>
+                            <span class="pull-right text-muted small"><?php echo $infoProceso[0]['tipo_proceso']; ?>
+                            </span>
+                        </p>
 
-                        <a href="#" class="list-group-item" disabled>
-                            <p class="text-info"><i class="fa fa-tag  fa-fw"></i><strong> Dependencia:</strong>
-                                <span class="pull-right text-muted small"><?php echo $infoProceso[0]['dependencia']; ?>
-                                </span>
-                            </p>
-                        </a>
+                        <p class="text-info"><strong> Dependencia:</strong>
+                            <span class="pull-right text-muted small"><?php echo $infoProceso[0]['dependencia']; ?>
+                            </span>
+                        </p>
                     </div>
-                    <!-- /.list-group -->
                 </div>
-                <!-- /.panel-body -->
             </div>
-            <!-- /.panel -->
 		</div>
 
 		<div class="col-lg-9">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-lg-7">  
+                            <i class="fa fa-edit"></i> <strong>BIENVENIDO - PROCESO EVALUACIÓN CANDIDATOS </strong>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <small>
+                        <p>
+                        Agradecemos de disponer de su tiempo, esta prueba tiene una duración de 30 minutos aproximadamente. A continuación se encuentran sus datos personales por favor verificarlos y actualizarlos si es necesario.
+                        </p>
+                        <p>
+                        Una vez actualice su información proceda a diligenciar el Cuentionario de habilidades Sociales y el Cuestionario de Aspectos de Interes.
+                        </p>
+                        <p class="text-danger text-left">Los campos con * son obligatorios.</p>
+                    </small>
+                </div>
+            </div>
+
+
+
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <i class="fa fa-user"></i> <strong>INFORMACIÓN DEL CANDIDATO</strong>

@@ -70,6 +70,31 @@ function valid_inconvenientes()
                     <i class="fa fa-edit"></i> Cuestionario Aspectos de Interes
                 </a>
             </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <i class="fa fa-bell fa-fw"></i> <strong>Información del Proceso</strong>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="list-group">
+                        <p class="text-info"><strong> No. Proceso:</strong>
+                            <span class="pull-right text-muted small"><?php echo $infoProceso[0]['numero_proceso']; ?>
+                            </span>
+                        </p>
+
+                        <p class="text-info"><strong> Tipo Proceo:</strong>
+                            <span class="pull-right text-muted small"><?php echo $infoProceso[0]['tipo_proceso']; ?>
+                            </span>
+                        </p>
+
+                        <p class="text-info"><strong> Dependencia:</strong>
+                            <span class="pull-right text-muted small"><?php echo $infoProceso[0]['dependencia']; ?>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-lg-9">

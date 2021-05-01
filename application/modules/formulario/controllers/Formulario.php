@@ -43,7 +43,7 @@ class Formulario extends CI_Controller {
 			$data = array();
 
 			$idCandidato= $this->input->post('hddIdCandidato');
-			$msj = "Se guardó la información del Candidato!";
+			$msj = "Se actualizarón sus datos, por favor contininuar con los cuestionarios.";
 
 			if ($idCandidato = $this->formulario_model->saveCandidato()) 
 			{
@@ -71,6 +71,9 @@ class Formulario extends CI_Controller {
 				'estadoFormulario' => 1
 			);
 			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
+
+			$arrParam = array('idProceso' => $data['information'][0]['id_proceso']);
+			$data['infoProceso'] = $this->general_model->get_procesos_info($arrParam);
 
 			$data['infoFormulario'] = $this->general_model->get_formulario_habilidades($arrParam);
 
@@ -178,6 +181,10 @@ class Formulario extends CI_Controller {
 				'estadoFormulario' => 1
 			);
 			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
+
+			$arrParam = array('idProceso' => $data['information'][0]['id_proceso']);
+			$data['infoProceso'] = $this->general_model->get_procesos_info($arrParam);
+
 			//busco si ya se guardo informacion del formulario
 			$data['infoFormulario'] = $this->general_model->get_formulario_aspectos_interes($arrParam);
 
