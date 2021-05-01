@@ -85,12 +85,37 @@ function valid_inconvenientes()
                             </div>
                         </div>
                         <div class="panel-body">
-                            <small>
-                                <p>Se registraron sus respuestas para el Cuestionario de Habilidades Sociales
-                                <br>Fecha y hora del Incicio prueba: <strong><?php echo $infoFormulario[0]['fecha_registro_inicio'] ?></strong>
-                                <br>Fecha y hora del finalización prueba: <strong><?php echo $infoFormulario[0]['fecha_registro_fin'] ?></strong>
-                                </p>
-                            </small>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row" align="center">
+                                        <div style="width:70%;" align="center">
+                                            <div class="alert alert-success"> <span class="glyphicon glyphicon-ok">&nbsp;</span>
+                                                Se registraron sus respuestas
+                                                <br><strong>Cuestionario Aspectos de Interes</strong>
+                                                <br><br>
+                                                <?php
+                                                    $fechaInicio = $infoFormulario[0]['fecha_registro_inicio'];
+                                                    $fechaFin = $infoFormulario[0]['fecha_registro_fin'];
+                                                    echo '<strong>Fecha: </strong>';
+                                                    echo strftime("%b %d, %G",strtotime($fechaInicio));
+                                                    echo '<br>';
+                                                    echo '<strong>Hora incicio prueba: </strong>';
+                                                    echo strftime("%I:%M:%S %p",strtotime($fechaInicio));
+                                                    echo '<br>';
+                                                    echo '<strong>Hora finalización prueba: </strong>';
+                                                    echo strftime("%I:%M:%S %p",strtotime($fechaFin));
+                                                    echo '<br>';
+                                                    echo '<strong>Duración: </strong>';
+                                                    $date1 = new DateTime($fechaInicio);
+                                                    $date2 = new DateTime($fechaFin);
+                                                    $diff = $date1->diff($date2);
+                                                    echo $diff->i . ' minuto(s)';
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
                         </div>
                     </div>
 <?php }else{ ?>
