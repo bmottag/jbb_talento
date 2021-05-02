@@ -10,22 +10,13 @@
 		public function savePuntajes() 
 		{
 				$idPuntaje = $this->input->post('hddIdPuntaje');
-				$puntajeExperienciaPrivada = $this->input->post('puntajeExperienciaPrivada');
-				$puntajeExperienciaPrivada = $puntajeExperienciaPrivada?$puntajeExperienciaPrivada:0;
-
-				$puntajeExperienciaPublica =  $this->input->post('puntajeExperienciaPublica');
-				$puntajeExperienciaPublica = $puntajeExperienciaPublica?$puntajeExperienciaPublica:0;
-
-				$totalExperiencia = $puntajeExperienciaPrivada + $puntajeExperienciaPublica;
-				$totalExperiencia = $totalExperiencia>59?60:$totalExperiencia;
 
 				$data = array(
-					'puntaje_experiencia_privada' => $this->input->post('puntajeExperienciaPrivada'),
-					'puntaje_experiencia_publica' => $this->input->post('puntajeExperienciaPublica'),
-					'puntaje_total_experiencia' => $totalExperiencia,
-					'puntaje_estudios' => $this->input->post('puntajeEstudios'),
+					'puntaje_requisitos_minimos' => $this->input->post('puntajeRequisitosMinimos'),
 					'resultado_prueba_psicotecnica' => $this->input->post('resultadoPruebaPsicotecnica'),
-					'resultado_entrevista' => $this->input->post('reultadoEntrevista')
+					'resultado_entrevista' => $this->input->post('reultadoEntrevista'),
+					'criterio_etnias' => $this->input->post('criterioEtnias'),
+					'criterio_desarrollo' => $this->input->post('criterioDesarrollo')
 				);	
 
 				//revisar si es para adicionar o editar

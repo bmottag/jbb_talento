@@ -14,35 +14,19 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="descripcion">Puntaje Experiencia Privada: </label>
-					<input type="number" id="puntajeExperienciaPrivada" name="puntajeExperienciaPrivada" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["puntaje_experiencia_privada"]:""; ?>" placeholder="Puntaje Experiencia Privada" >
+					<label class="control-label" for="puntajeRequisitosMinimos">Puntaje Requisitos Mínimos: </label>
+					<input type="number" id="puntajeRequisitosMinimos" name="puntajeRequisitosMinimos" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["puntaje_requisitos_minimos"]:""; ?>" placeholder="Puntaje Requisitos Mínimos" >
 				</div>
 			</div>
-			<div class="col-sm-6">
-				<div class="form-group text-left">
-					<label class="control-label" for="puntajeExperienciaPublica">Puntaje Experiencia Pública: </label>
-					<input type="number" id="puntajeExperienciaPublica" name="puntajeExperienciaPublica" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["puntaje_experiencia_publica"]:""; ?>" placeholder="Puntaje Experiencia Pública" >
-				</div>
-			</div>
-		</div>
-
-
-		<div class="row">
-			<div class="col-sm-6">
-				<div class="form-group text-left">
-					<label class="control-label" for="puntajeEstudios">Puntaje Estudios: </label>
-					<input type="number" id="puntajeEstudios" name="puntajeEstudios" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["puntaje_estudios"]:""; ?>" placeholder="Puntaje Estudios" >
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="resultadoPruebaPsicotecnica">Resultado Prueba Psicotécnica: </label>
-					<input type="number" id="resultadoPruebaPsicotecnica" name="resultadoPruebaPsicotecnica" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["resultado_prueba_psicotecnica"]:""; ?>" placeholder="Puntaje Prueba Psicotécnica" >
+					<input type="number" id="resultadoPruebaPsicotecnica" name="resultadoPruebaPsicotecnica" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["resultado_prueba_psicotecnica"]:""; ?>" placeholder="Resultado Prueba Psicotécnica" >
 				</div>
 			</div>
+		</div>
+
+		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="reultadoEntrevista">Resultado Entrevista: </label>
@@ -50,6 +34,22 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group text-left">
+					<label class="control-label" for="criterioEtnias">Criterio Dif. Etnias: </label>
+					<input type="number" id="criterioEtnias" name="criterioEtnias" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["criterio_etnias"]:""; ?>" placeholder="Criterio Dif. Etnias" >
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group text-left">
+					<label class="control-label" for="criterioDesarrollo">Criterio Dif. Desarrollo Objeto: </label>
+					<input type="number" id="criterioDesarrollo" name="criterioDesarrollo" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["criterio_desarrollo"]:""; ?>" placeholder="Criterio Dif. Desarrollo Objeto" >
+				</div>
+			</div>
+		</div>
+
 		<div class="form-group">
 			<div id="div_load" style="display:none">		
 				<div class="progress progress-striped active">

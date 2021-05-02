@@ -288,7 +288,7 @@ $(function(){
                                     <a class='btn btn-primary btn-xs' href='<?php echo base_url('dashboard/respuestas_aspectos/' . $lista['fk_id_form_aspectos_interes_c']) ?>'>
                                         Ver Respuestas <span class="fa fa-arrow-circle-right" aria-hidden="true">
                                     </a>
-                                    <br>
+                                     <br><br>
                             <?php
                                     $fechaInicio = $lista['fecha_registro_inicio'];
                                     $fechaFin = $lista['fecha_registro_fin'];

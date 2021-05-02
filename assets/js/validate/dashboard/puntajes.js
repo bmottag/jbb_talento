@@ -2,11 +2,11 @@ $( document ).ready( function () {
 	
 	$( "#form" ).validate( {
 		rules: {
-			puntajeExperienciaPrivada: 		{ minlength: 1, maxlength:5 },
-			puntajeExperienciaPublica: 		{ minlength: 1, maxlength:5 },
-			puntajeEstudios: 				{ minlength: 1, maxlength:5 },
+			puntajeRequisitosMinimos: 		{ minlength: 1, maxlength:5 },
 			resultadoPruebaPsicotecnica: 	{ minlength: 1, maxlength:5 },
-			reultadoEntrevista: 			{ minlength: 1, maxlength:5 }
+			reultadoEntrevista: 			{ minlength: 1, maxlength:5 },
+			criterioEtnias: 				{ minlength: 1, maxlength:5 },
+			criterioDesarrollo: 			{ minlength: 1, maxlength:5 }
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
