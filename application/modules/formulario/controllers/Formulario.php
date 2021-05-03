@@ -72,10 +72,10 @@ class Formulario extends CI_Controller {
 			);
 			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
 
+			$data['infoFormulario'] = $this->general_model->get_formulario_habilidades($arrParam);
+
 			$arrParam = array('idProceso' => $data['information'][0]['id_proceso']);
 			$data['infoProceso'] = $this->general_model->get_procesos_info($arrParam);
-
-			$data['infoFormulario'] = $this->general_model->get_formulario_habilidades($arrParam);
 
 			if($data['infoFormulario'])
 			{
@@ -182,11 +182,11 @@ class Formulario extends CI_Controller {
 			);
 			$data['information'] = $this->general_model->get_candidatos_info($arrParam);
 
-			$arrParam = array('idProceso' => $data['information'][0]['id_proceso']);
-			$data['infoProceso'] = $this->general_model->get_procesos_info($arrParam);
-
 			//busco si ya se guardo informacion del formulario
 			$data['infoFormulario'] = $this->general_model->get_formulario_aspectos_interes($arrParam);
+
+			$arrParam = array('idProceso' => $data['information'][0]['id_proceso']);
+			$data['infoProceso'] = $this->general_model->get_procesos_info($arrParam);
 
 			if($data['infoFormulario'])
 			{
@@ -206,7 +206,7 @@ class Formulario extends CI_Controller {
 				);
 				$this->formulario_model->saveCalculoRecord($arrParam);
 
-				//si es primera vez de ingreso entonces empiza por la primera parte
+				//si es primera vez de ingreso entonces empieza por la primera parte
 				$arrParamForm = array('numeroParte' => 1);
 				$data['infoFormulario'] = $this->general_model->get_formulario_aspectos_interes($arrParam);
 			}

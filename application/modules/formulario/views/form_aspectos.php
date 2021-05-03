@@ -175,12 +175,15 @@ function valid_inconvenientes()
                                 switch ($numeroParte) {
                                     case 1:
                                         $porcentaje = 30;
+                                        $trxtoBoton = "Guardar - Página 1 de 3";
                                         break;
                                     case 2:
                                         $porcentaje = 55;
+                                        $trxtoBoton = "Guardar - Página 2 de 3";
                                         break;
                                     case 3:
                                         $porcentaje = 80;
+                                        $trxtoBoton = "Guardar - Página 3 de 3";
                                         break;
                                 }
                             ?>
@@ -277,7 +280,7 @@ function valid_inconvenientes()
                         <div class="row" align="center">
                             <div style="width:50%;" align="center">
                                 <button type="button" id="btnSubmit" name="btnSubmit" class='btn btn-success'>
-                                            Siguiente <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
+                                            <?php echo $trxtoBoton; ?> <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
                                 </button>
                             </div>
                         </div>
