@@ -271,7 +271,7 @@ class Settings extends CI_Controller {
 			header('Content-Type: application/json');
 			$data = array();
 		
-			$idCandidato = $this->input->post('hddId');
+			$bandera = $idCandidato = $this->input->post('hddId');
 			
 			$msj = "Se adicionó el Candidato!";
 			if ($idCandidato != '') {
@@ -321,8 +321,10 @@ class Settings extends CI_Controller {
 			} else {
 				if ($idCandidato = $this->settings_model->saveCandidato()) 
 				{
-					//creo registro de calculo de competencias para el candidato
-					$this->settings_model->saveCalculoCompetenciasRecord($idCandidato);
+					if ($bandera == '') {
+						//creo registro de calculo de competencias para el candidato
+						$this->settings_model->saveCalculoCompetenciasRecord($idCandidato);
+					}
 					$data["result"] = true;
 					$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
 				} else {
