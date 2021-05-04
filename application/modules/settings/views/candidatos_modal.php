@@ -28,7 +28,7 @@
 			<div class="col-sm-4">
 				<div class="form-group text-left">
 					<label class="control-label" for="numeroIdentificacion">No. Identificación: *</label>
-					<input type="text" id="numeroIdentificacion" name="numeroIdentificacion" class="form-control" value="<?php echo $information?$information[0]["numero_identificacion"]:""; ?>" placeholder="No. Identificación" required >
+					<input type="text" id="numeroIdentificacion" name="numeroIdentificacion" class="form-control" value="<?php echo $information?$information[0]["numero_identificacion"]:""; ?>" max="2147483647" placeholder="No. Identificación" required >
 				</div>
 			</div>
 		</div>
