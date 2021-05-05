@@ -127,13 +127,6 @@ class Formulario extends CI_Controller {
 			{
 				$this->formulario_model->saveRespuestasFormulario();
 
-				//realizo los calculos de datos
-
-				//busco las respuestas
-				$idFormulario = $this->input->post('hddIdFormHabilidades');
-				$arrParam = array('idFormHabilidades' => $idFormulario);
-				$data['infoRespuestas'] = $this->general_model->get_respuestas_formulario_aspectos($arrParam);
-
 				//busco listado de formulas, para el formulario de HABILIDADES (2)
 				$arrParam = array(
 					'table' => 'param_competencias_formulas',
@@ -149,19 +142,16 @@ class Formulario extends CI_Controller {
 						$arrParam = array(
 							'valMin' => $data['formulas'][$i]['valor_minimo'],
 							'valMax' => $data['formulas'][$i]['valor_maximo'],
-							'descripcion' =>$data['formulas'][$i]['descripcion'],
-							'idFormulario' => $idFormulario
+							'descripcion' =>$data['formulas'][$i]['descripcion']
 						);	
 						$data['sumatoria'] = $this->formulario_model->aplicar_formula_habilidades($arrParam);
 				}
 
 				$data["result"] = true;
-				$data["idFormulario"] = $idFormulario;
 				$this->session->set_flashdata('retornoExito', $msj);
 			} else {
 				$data["result"] = "error";
 				$data["mensaje"] = "Error!!! Ask for help.";
-				$data["idFormulario"] = "";
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
 			}
 
@@ -312,10 +302,8 @@ class Formulario extends CI_Controller {
 					//si es la ultima parte entonces realizo los calculos de datos
 					if($NoParte == 3)
 					{
-						//busco las respuestas
-						$idFormulario = $this->input->post('hddIdFormAspectos');
-						$arrParam = array('idFormulario' => $idFormulario);
-						$data['infoRespuestas'] = $this->general_model->get_respuestas_formulario_aspectos($arrParam);
+						//actualizo el id del formulario en la tabla de form_competencias_calculos
+						$this->formulario_model->updateIdFormularioTablaCompetencia();
 
 						//busco listado de formulas, para el formulario de ASPECTOS DE INTERES (1)
 						$arrParam = array(
@@ -327,15 +315,16 @@ class Formulario extends CI_Controller {
 						$data['formulas'] = $this->general_model->get_basic_search($arrParam);
 						$conteo = count($data['formulas']);
 
+						//para cada formula la utilizo y actualizo tabla form_aspectos_interes_calculos
 						for ($i = 0; $i < $conteo; $i++) 
 						{
 								$arrParam = array(
 									'formula' => $data['formulas'][$i]['formula'],
-									'descripcion' =>$data['formulas'][$i]['descripcion'],
-									'idFormulario' => $idFormulario
+									'descripcion' =>$data['formulas'][$i]['descripcion']
 								);	
 								$data['sumatoria'] = $this->formulario_model->aplicar_formula_aspectos_interes($arrParam);
 						}
+
 					}
 
 					$data["result"] = true;

@@ -221,7 +221,9 @@
 		 */
 		public function aplicar_formula_aspectos_interes($arrData)
 		{
-				$sql = "SELECT sum(respuesta_aspectos_interes) resultado FROM form_aspectos_interes_respuestas H INNER JOIN param_aspectos_interes_opciones O ON O.id_opciones_aspectos_interes = H.fk_id_opciones_aspectos_interes WHERE codigo IN(" . $arrData['formula'] . ")";
+				$idFormulario = $this->input->post('hddIdFormAspectos');
+
+				$sql = "SELECT sum(respuesta_aspectos_interes) resultado FROM form_aspectos_interes_respuestas H INNER JOIN param_aspectos_interes_opciones O ON O.id_opciones_aspectos_interes = H.fk_id_opciones_aspectos_interes WHERE fk_id_formulario_aspectos_interes  = " . $idFormulario. " AND codigo IN(" . $arrData['formula'] . ")";
 				$query = $this->db->query($sql);
 
 				if ($query->num_rows() > 0) 
@@ -229,7 +231,6 @@
 					$resultado = $query->result_array();
 					$resultado = $resultado[0]['resultado']?$resultado[0]['resultado']:0;
 
-					$idFormulario = $arrData['idFormulario'];
 					$campo = $arrData['descripcion'];
 
 					$data = array(
@@ -238,11 +239,6 @@
 					$this->db->where('fk_id_form_aspectos_interes_c', $idFormulario);
 					$query = $this->db->update('form_aspectos_interes_calculos', $data);
 
-					//actualizo el id del formulario en la tabla de form_competencias_calculos
-					$idCandidato = $this->input->post('hddIdCandidato');
-					$data = array('fk_id_form_aspectos_interes_cc' => $idFormulario);	
-					$this->db->where('fk_id_candidato_cc', $idCandidato);
-					$query = $this->db->update('form_competencias_calculos', $data);
 
 					//busco en la tabla de param_competencias_valores las datos para calculo de las desviaciones estandar
 					//se busca por el valor de la competencia y por el tipo de proceso
@@ -296,7 +292,9 @@
 		 */
 		public function aplicar_formula_habilidades($arrData)
 		{
-				$sql = "SELECT sum(respuesta_habilidad) resultado FROM form_habilidades_respuestas H WHERE fk_id_formulario_habilidades = " . $arrData['idFormulario'] . " AND fk_id_pregunta_habilidades BETWEEN " . $arrData['valMin'] . " AND " . $arrData['valMax'];
+				$idFormulario = $this->input->post('hddIdFormHabilidades');
+
+				$sql = "SELECT sum(respuesta_habilidad) resultado FROM form_habilidades_respuestas H WHERE fk_id_formulario_habilidades = " . $idFormulario . " AND fk_id_pregunta_habilidades BETWEEN " . $arrData['valMin'] . " AND " . $arrData['valMax'];
 				$query = $this->db->query($sql);
 
 				if ($query->num_rows() > 0) 
@@ -304,7 +302,6 @@
 					$resultado = $query->result_array();
 					$resultado = $resultado[0]['resultado']?$resultado[0]['resultado']:0;
 
-					$idFormulario = $arrData['idFormulario'];
 					$campo = $arrData['descripcion'];
 
 					$data = array($campo => $resultado);	
@@ -366,6 +363,26 @@
 				} else {
 					return true;
 				}
+		}
+
+		/**
+		 * actualizo el id del formulario en la tabla de form_competencias_calculos
+		 * @since 4/5/2021
+		 */
+		public function updateIdFormularioTablaCompetencia() 
+		{
+			$idCandidato = $this->input->post('hddIdCandidato');
+			$idFormulario = $this->input->post('hddIdFormAspectos');
+
+			$data = array('fk_id_form_aspectos_interes_cc' => $idFormulario);	
+			$this->db->where('fk_id_candidato_cc', $idCandidato);
+			$query = $this->db->update('form_competencias_calculos', $data);
+
+			if ($query) {
+				return true;
+			} else{
+				return false;
+			}
 		}
 		
 
