@@ -231,54 +231,94 @@ class Formulario extends CI_Controller {
 			$sumatoria4 = 0;
 			$sumatoria5 = 0;
 			$bandera = false;
+			$error = false;
 
-			for ($i = $noProximaPregunta; $i <= $finalPreguntas; $i++) 
-			{
-				if($NoParte == 1)
+			if($respuesta){
+				for ($i = $noProximaPregunta; $i <= $finalPreguntas; $i++) 
 				{
-					if (array_key_exists($i,$respuesta) )
+					if($NoParte == 1)
 					{
-						if($i >= 1 && $i <= 5){
-							$sumatoria1 = $respuesta[$i] + $sumatoria1;
-						}elseif($i >= 6 && $i <= 10){
-							$sumatoria2 = $respuesta[$i] + $sumatoria2;
-						}elseif($i >= 11 && $i <= 15){
-							$sumatoria3 = $respuesta[$i] + $sumatoria3;
-						}elseif($i >= 16 && $i <= 20){
-							$sumatoria4 = $respuesta[$i] + $sumatoria4;
-						}elseif($i >= 21 && $i <= 25){
-							$sumatoria5 = $respuesta[$i] + $sumatoria5;
+						if (array_key_exists($i,$respuesta) )
+						{
+							if($i >= 1 && $i <= 5){
+								$sumatoria1 = $respuesta[$i] + $sumatoria1;
+							}elseif($i >= 6 && $i <= 10){
+								$sumatoria2 = $respuesta[$i] + $sumatoria2;
+							}elseif($i >= 11 && $i <= 15){
+								$sumatoria3 = $respuesta[$i] + $sumatoria3;
+							}elseif($i >= 16 && $i <= 20){
+								$sumatoria4 = $respuesta[$i] + $sumatoria4;
+							}elseif($i >= 21 && $i <= 25){
+								$sumatoria5 = $respuesta[$i] + $sumatoria5;
+							}
+
+							if($sumatoria1 != 15){
+								$error = "Error pregunta 1.";
+							}elseif($sumatoria2 != 15){
+								$error = "Error pregunta 2.";
+							}elseif($sumatoria3 != 15){
+								$error = "Error pregunta 3.";
+							}elseif($sumatoria4 != 15){
+								$error = "Error pregunta 4.";
+							}elseif($sumatoria5 != 15){
+								$error = "Error pregunta 5.";
+							}
+
 						}
-					}
-				}elseif($NoParte == 2){
-					if (array_key_exists($i,$respuesta) )
-					{
-						if($i >= 26 && $i <= 30){
-							$sumatoria1 = $respuesta[$i] + $sumatoria1;
-						}elseif($i >= 31 && $i <= 35){
-							$sumatoria2 = $respuesta[$i] + $sumatoria2;
-						}elseif($i >= 36 && $i <= 40){
-							$sumatoria3 = $respuesta[$i] + $sumatoria3;
-						}elseif($i >= 41 && $i <= 45){
-							$sumatoria4 = $respuesta[$i] + $sumatoria4;
-						}elseif($i >= 46 && $i <= 50){
-							$sumatoria5 = $respuesta[$i] + $sumatoria5;
+					}elseif($NoParte == 2){
+						if (array_key_exists($i,$respuesta) )
+						{
+							if($i >= 26 && $i <= 30){
+								$sumatoria1 = $respuesta[$i] + $sumatoria1;
+							}elseif($i >= 31 && $i <= 35){
+								$sumatoria2 = $respuesta[$i] + $sumatoria2;
+							}elseif($i >= 36 && $i <= 40){
+								$sumatoria3 = $respuesta[$i] + $sumatoria3;
+							}elseif($i >= 41 && $i <= 45){
+								$sumatoria4 = $respuesta[$i] + $sumatoria4;
+							}elseif($i >= 46 && $i <= 50){
+								$sumatoria5 = $respuesta[$i] + $sumatoria5;
+							}
+
+							if($sumatoria1 != 15){
+								$error = "Error pregunta 6.";
+							}elseif($sumatoria2 != 15){
+								$error = "Error pregunta 7.";
+							}elseif($sumatoria3 != 15){
+								$error = "Error pregunta 8.";
+							}elseif($sumatoria4 != 15){
+								$error = "Error pregunta 9.";
+							}elseif($sumatoria5 != 15){
+								$error = "Error pregunta 10.";
+							}
 						}
-					}
-				}elseif($NoParte == 3)
-				{
-					if (array_key_exists($i,$respuesta) )
+					}elseif($NoParte == 3)
 					{
-						if($i >= 51 && $i <= 55){
-							$sumatoria1 = $respuesta[$i] + $sumatoria1;
-						}elseif($i >= 56 && $i <= 60){
-							$sumatoria2 = $respuesta[$i] + $sumatoria2;
-						}elseif($i >= 61 && $i <= 65){
-							$sumatoria3 = $respuesta[$i] + $sumatoria3;
-						}elseif($i >= 66 && $i <= 70){
-							$sumatoria4 = $respuesta[$i] + $sumatoria4;
-						}elseif($i >= 71 && $i <= 75){
-							$sumatoria5 = $respuesta[$i] + $sumatoria5;
+						if (array_key_exists($i,$respuesta) )
+						{
+							if($i >= 51 && $i <= 55){
+								$sumatoria1 = $respuesta[$i] + $sumatoria1;
+							}elseif($i >= 56 && $i <= 60){
+								$sumatoria2 = $respuesta[$i] + $sumatoria2;
+							}elseif($i >= 61 && $i <= 65){
+								$sumatoria3 = $respuesta[$i] + $sumatoria3;
+							}elseif($i >= 66 && $i <= 70){
+								$sumatoria4 = $respuesta[$i] + $sumatoria4;
+							}elseif($i >= 71 && $i <= 75){
+								$sumatoria5 = $respuesta[$i] + $sumatoria5;
+							}
+
+							if($sumatoria1 != 15){
+								$error = "Error pregunta 11.";
+							}elseif($sumatoria2 != 15){
+								$error = "Error pregunta 12.";
+							}elseif($sumatoria3 != 15){
+								$error = "Error pregunta 13.";
+							}elseif($sumatoria4 != 15){
+								$error = "Error pregunta 14.";
+							}elseif($sumatoria5 != 15){
+								$error = "Error pregunta 15.";
+							}
 						}
 					}
 				}
@@ -286,13 +326,19 @@ class Formulario extends CI_Controller {
 
 			if($sumatoria1 != 15 || $sumatoria2 != 15 || $sumatoria3 != 15 || $sumatoria4 != 15 || $sumatoria5 != 15){
 				$bandera = true;
+				if($sumatoria1 == 0 || $sumatoria2 == 0 || $sumatoria3 == 0 || $sumatoria4 == 0 || $sumatoria5 == 0){
+					$error = false;
+				}
 			}
 
 			if ($bandera)
 			{
 				$data["result"] = "error";
-				$data["mensaje"] = " Error. Las filas por preguntas deben tener respuestas con valores diferentes.";
-				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Las filas por preguntas deben tener respuestas con valores diferentes.');
+				if(!$error){
+					$data["mensaje"] = "Debe contestar todas las preguntas del formulario.";
+				}else{
+					$data["mensaje"] = $error . " Solo se permite una respuesta por columna en cada pregunta.";
+				}
 			} else {
 				//primero actualizar informacion del formulario, en que parte va y la hora de cierre
 				if ($this->formulario_model->updateFormularioAspectosInteres()) 

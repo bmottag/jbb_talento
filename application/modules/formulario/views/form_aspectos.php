@@ -47,7 +47,7 @@ function valid_inconvenientes()
         sumar1 = document.getElementById('pregunta_1').value = valor1+valor2+valor3+valor4+valor5;
 
         if(sumar1 !== 15 && valor1 > 0 && valor2 > 0 && valor3 > 0 && valor4 > 0 && valor5 > 0 ){
-            alert('Error en la pregunta 1');
+            alert('Error en la pregunta 1. Solo se permite una respuesta por columna en cada pregunta.');
         }
 
 }
@@ -161,7 +161,7 @@ function valid_inconvenientes()
                                 </p>
 
                                 <p>
-                                Esta prueba esta dividida en tres partes de cinco (5) items cada una y cada item con 5 opciones que Ud debe escoger de 5 a 1, siendo 5 la de mayor importancia y 1 la que menos le interesa. Solo permite una respuesta por columna, si esta repetida o incompleta el borde del cuadro estará en rojo. 
+                                Esta prueba esta dividida en tres partes de cinco (5) items cada una y cada item con 5 opciones que Ud debe escoger de 5 a 1, siendo 5 la de mayor importancia y 1 la que menos le interesa. Solo permite una respuesta por columna, si esta repetida o incompleta se muestra una alerta. 
                                 </p>
                                 <p class="text-danger text-left">Los campos con * son obligatorios.</p>
                             </small>
@@ -251,7 +251,7 @@ function valid_inconvenientes()
                             <?php
                                 endforeach;
                             ?>
-                            <input type="text" name="<?php echo 'pregunta_' . $nombrePregunta; ?>" id="<?php echo 'pregunta_' . $nombrePregunta; ?>" />
+                            <input type="hidden" name="<?php echo 'pregunta_' . $nombrePregunta; ?>" id="<?php echo 'pregunta_' . $nombrePregunta; ?>" />
                         </div>
                     </div>
 
@@ -270,7 +270,7 @@ function valid_inconvenientes()
                                     </div>
                                 </div>
                                 <div id="div_error" style="display:none">           
-                                    <div class="alert alert-danger"><span class="glyphicon glyphicon-remove" id="span_msj">&nbsp;</span></div>
+                                    <div class="alert alert-danger" id="span_msj"></div>
                                 </div>
                             </div>
                         </div>

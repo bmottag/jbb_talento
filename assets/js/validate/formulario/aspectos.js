@@ -1,15 +1,13 @@
 $( document ).ready( function () {
 
 jQuery.validator.addMethod("fieldSpecify", function(value, element, param) {
-
-alert(value); 
-
+	//alert(value); 
 	if(value != 15){
 		return false;
 	}else{
 		return true;
 	}
-}, "Error en la selección.");
+}, "Error. Solo se permite una respuesta por columna en cada pregunta.");
 			
 	$( "#form" ).validate( {
 		rules: {
