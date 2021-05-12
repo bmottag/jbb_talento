@@ -34,3 +34,4 @@ files/
 images/reservas/
 images/captcha_images/
 *.sql
+public/
