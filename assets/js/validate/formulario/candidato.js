@@ -16,8 +16,9 @@ $( document ).ready( function () {
 			email: 						{ required: true, email: true },
 			movilNumber: 				{ required: true, minlength: 4, maxlength:10 },
 			nivelAcademico: 			{ required: true },
-			profesion: 					{ required: true, minlength: 4, maxlength:50 },
-			ciudad: 					{ required: true, minlength: 4, maxlength:50 }
+			depto:						{ required: true },
+			mcpio:						{ required: true },
+			profesion: 					{ required: true, minlength: 4, maxlength:50 }
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {

@@ -28,6 +28,8 @@ class Formulario extends CI_Controller {
 			);
 			$data['nivelAcademico'] = $this->general_model->get_basic_search($arrParam);
 
+			$data['departamentos'] = $this->general_model->get_dpto_divipola();//listado de departamentos
+
 			$data['view'] = 'info_candidato';
 			$this->load->view('layout_calendar', $data);
 	}

@@ -1,4 +1,5 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/formulario/candidato.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/settings/ajaxMcpio.js"); ?>"></script>
 
 <div id="page-wrapper">
 	<br>
@@ -149,6 +150,29 @@
 
                         <div class="form-group">
                             <div class="col-sm-4">
+                                <label for="depto">Departamento: *</label>
+                                <select name="depto" id="depto" class="form-control" >
+                                    <option value=''>Seleccione...</option>
+                                    <?php for ($i = 0; $i < count($departamentos); $i++) { ?>
+                                        <option value="<?php echo $departamentos[$i]["dpto_divipola"]; ?>" <?php if($information && $information[0]["fk_dpto_divipola"] == $departamentos[$i]["dpto_divipola"]) { echo "selected"; }  ?>><?php echo strtoupper($departamentos[$i]["dpto_divipola_nombre"]); ?></option> 
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="mcpio">Municipio: *</label>
+                                <select name="mcpio" id="mcpio" class="form-control" required>                  
+                                    <?php if($information){ ?>
+                                    <option value=''>Seleccione...</option>
+                                        <option value="<?php echo $information[0]["fk_mpio_divipola"]; ?>" selected><?php echo $information[0]["mpio_divipola_nombre"]; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4">
                                 <label for="numero_inventario">Último nivel académico alcanzado: *</label>
                                 <select name="nivelAcademico" id="nivelAcademico" class="form-control">
                                     <option value="">Seleccione...</option>
@@ -163,10 +187,6 @@
                                 <input type="text" id="profesion" name="profesion" class="form-control" value="<?php echo $information?$information[0]["profesion"]:""; ?>" placeholder="Profesión" >
                             </div>
 
-                            <div class="col-sm-4">
-                                <label for="dependencia">Ciudad: *</label>
-                                <input type="text" id="ciudad" name="ciudad" class="form-control" value="<?php echo $information?$information[0]["ciudad"]:""; ?>" placeholder="Ciudad" >
-                            </div>  
                         </div>
 
 						<div class="form-group">

@@ -17,8 +17,9 @@
 					'numero_celular' => $this->input->post('movilNumber'),
 					'edad' => $this->input->post('edad'),
 					'fk_id_nivel_academico' => $this->input->post('nivelAcademico'),
-					'profesion' => $this->input->post('profesion'),
-					'ciudad' => $this->input->post('ciudad')
+					'fk_dpto_divipola' => $this->input->post('depto'),
+					'fk_mpio_divipola' => $this->input->post('mcpio'),
+					'profesion' => $this->input->post('profesion')
 				);	
 
 				$this->db->where('id_candidato', $idCandidato);
