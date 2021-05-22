@@ -20,8 +20,26 @@
 			</div>
 			<div class="col-sm-6">
 				<div class="form-group text-left">
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group text-left">
 					<label class="control-label" for="resultadoPruebaPsicotecnica">Resultado Prueba Psicotécnica: </label>
 					<input type="number" id="resultadoPruebaPsicotecnica" name="resultadoPruebaPsicotecnica" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["resultado_prueba_psicotecnica"]:""; ?>" placeholder="Resultado Prueba Psicotécnica" >
+				</div>
+			</div>
+
+			<div class="col-sm-6">
+				<div class="form-group text-left">
+						<small><br>
+							<p class="text-danger text-left">Hasta 90 por la escala máxima establecida.
+								<br>Puntaje sobre 20%
+							</p>
+						</small>
 				</div>
 			</div>
 		</div>
@@ -31,6 +49,16 @@
 				<div class="form-group text-left">
 					<label class="control-label" for="reultadoEntrevista">Resultado Entrevista: </label>
 					<input type="number" id="reultadoEntrevista" name="reultadoEntrevista" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["resultado_entrevista"]:""; ?>" placeholder="Resultado Entrevista" >
+				</div>
+			</div>
+
+			<div class="col-sm-6">
+				<div class="form-group text-left">
+						<small><br>
+							<p class="text-danger text-left">Hasta 80 por la escala máxima establecida.
+								<br>Puntaje sobre 30%
+							</p>
+						</small>
 				</div>
 			</div>
 		</div>
@@ -44,8 +72,29 @@
 			</div>
 			<div class="col-sm-6">
 				<div class="form-group text-left">
+						<small><br>
+							<p class="text-danger text-left">Hasta 10 por la escala máxima de afinidad.
+								<br>Puntaje sobre 10%
+							</p>
+						</small>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group text-left">
 					<label class="control-label" for="criterioDesarrollo">Criterio Dif. Desarrollo Objeto: </label>
 					<input type="number" id="criterioDesarrollo" name="criterioDesarrollo" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["criterio_desarrollo"]:""; ?>" placeholder="Criterio Dif. Desarrollo Objeto" >
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group text-left">
+						<small><br>
+							<p class="text-danger text-left">Hasta 10 por la escala máxima de afinidad.
+								<br>Puntaje sobre 10%
+							</p>
+						</small>
 				</div>
 			</div>
 		</div>
