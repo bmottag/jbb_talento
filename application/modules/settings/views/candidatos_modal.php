@@ -1,4 +1,6 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/settings/candidato.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/settings/ajaxMcpio.js"); ?>"></script>
+
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	<h4 class="modal-title" id="exampleModalLabel">Formulario de Candidatos
@@ -89,14 +91,33 @@
 		</div>
 
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="ciudad">Ciudad: </label>
-					<input type="text" id="ciudad" name="ciudad" class="form-control" value="<?php echo $information?$information[0]["ciudad"]:""; ?>" placeholder="Ciudad" >
+					<label class="control-label" for="depto">Departamento: *</label>
+					<select name="depto" id="depto" class="form-control" >
+						<option value=''>Seleccione...</option>
+						<?php for ($i = 0; $i < count($departamentos); $i++) { ?>
+							<option value="<?php echo $departamentos[$i]["dpto_divipola"]; ?>" <?php if($information && $information[0]["fk_dpto_divipola"] == $departamentos[$i]["dpto_divipola"]) { echo "selected"; }  ?>><?php echo strtoupper($departamentos[$i]["dpto_divipola_nombre"]); ?></option>	
+						<?php } ?>
+					</select>
 				</div>
 			</div>
 
-			<div class="col-sm-4">
+			<div class="col-sm-6">
+				<div class="form-group text-left">
+					<label class="control-label" for="mcpio">Municipio: *</label>
+					<select name="mcpio" id="mcpio" class="form-control" required>					
+						<?php if($information){ ?>
+						<option value=''>Seleccione...</option>
+							<option value="<?php echo $information[0]["fk_mpio_divipola"]; ?>" selected><?php echo $information[0]["mpio_divipola_nombre"]; ?></option>
+						<?php } ?>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="numeroProceso">Número Proceso: *</label>
 					<select name="numeroProceso" id="numeroProceso" class="form-control" required>
@@ -109,7 +130,7 @@
 			</div>
 			
 	<?php if($information){ ?>
-			<div class="col-sm-4">
+			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="state">Estado: *</label>
 					<select name="state" id="state" class="form-control" required>

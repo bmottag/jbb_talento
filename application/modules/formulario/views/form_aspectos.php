@@ -161,7 +161,7 @@ function valid_inconvenientes()
                                 </p>
 
                                 <p>
-                                Esta prueba esta dividida en tres partes de cinco (5) items cada una y cada item con 5 opciones que Ud debe escoger de 5 a 1, siendo 5 la de mayor importancia y 1 la que menos le interesa. Solo permite una respuesta por columna, si esta repetida o incompleta se muestra una alerta. 
+                                Esta prueba esta dividida en tres partes de cinco (5) items cada una y cada item con 5 opciones que Ud debe escoger de 5 a 1, siendo 5 la de mayor importancia y 1 la que menos le interesa. Solo permite una respuesta por columna, si está repetida o incompleta se muestra una alerta. 
                                 </p>
                                 <p class="text-danger text-left">Los campos con * son obligatorios.</p>
                             </small>

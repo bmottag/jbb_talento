@@ -17,7 +17,8 @@ $( document ).ready( function () {
 			movilNumber: 				{ required: true, minlength: 10, maxlength:10 },
 			nivelAcademico: 			{ required: true },
 			profesion: 					{ minlength: 4, maxlength:50 },
-			ciudad: 					{ minlength: 4, maxlength:50 },
+			depto:						{ required: true },
+			mcpio:						{ required: true },
 			numeroProceso: 				{ required: true }
 		},
 		errorElement: "em",

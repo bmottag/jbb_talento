@@ -252,6 +252,8 @@ class Settings extends CI_Controller {
 
 			$arrParam = array("estadoProceso" => 1);
 			$data['procesos'] = $this->general_model->get_procesos_info($arrParam);
+
+			$data['departamentos'] = $this->general_model->get_dpto_divipola();//listado de departamentos
 		
 			if ($data["idCandidato"] != 'x') {
 				$arrParam = array("idCandidato" => $data["idCandidato"]);
@@ -474,6 +476,26 @@ class Settings extends CI_Controller {
 			$data["view"] = 'valores_variables';
 			$this->load->view("layout_calendar", $data);
 	}
+
+	/**
+	 * Lista de municipios por departamentos
+     * @since 12/5/2017
+	 */
+    public function mcpioList()
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+
+			$arrParam['idDepto'] = $this->input->post('identificador');
+			$this->load->model("general_model");
+			$lista = $this->general_model->get_municipios_by($arrParam);
+		
+			echo "<option value=''>Seleccione...</option>";
+			if ($lista) {
+				foreach ($lista as $fila) {
+					echo "<option value='" . $fila["idMcpio"] . "' >" . $fila["municipio"] . "</option>";
+				}
+			}
+    }
 	
 	
 }

@@ -267,6 +267,7 @@ class General_model extends CI_Model {
 				$this->db->join('candidatos_puntajes X', 'X.fk_id_candidato_p  = C.id_candidato', 'LEFT');
 				$this->db->join('param_nivel_academico A', 'A.id_nivel_academico = C.fk_id_nivel_academico', 'INNER');
 				$this->db->join('proceso P', 'P.id_proceso = C.fk_id_proceso', 'INNER');
+				$this->db->join('param_divipola D', 'D.mpio_divipola = C.fk_mpio_divipola', 'INNER');
 				if (array_key_exists("idCandidato", $arrData)) {
 					$this->db->where('C.id_candidato', $arrData["idCandidato"]);
 				}
@@ -623,6 +624,61 @@ class General_model extends CI_Model {
 				} else {
 					return false;
 				}
+		}
+
+		/**
+		 * Lista de departamentos
+		 * @since 21/5/2021
+		 */
+		public function get_dpto_divipola() 
+		{
+				$this->db->select('DISTINCT(dpto_divipola), dpto_divipola_nombre');
+
+				$this->db->order_by('dpto_divipola_nombre', 'asc');
+				$query = $this->db->get('param_divipola D');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Municipios por departamento
+		 * @since 21/5/2021
+		 */
+		public function get_municipios_by($arrDatos)
+		{
+				$userRol = $this->session->userdata("rol");
+				$userID = $this->session->userdata("id");
+			
+				$municipios = array();
+				$this->db->select();
+				if (array_key_exists("idDepto", $arrDatos)) {
+					$this->db->where('dpto_divipola', $arrDatos["idDepto"]);
+				}
+				
+				if ($userRol==3) {
+					$this->db->where('fk_id_coordinador_mcpio', $userID);
+				}
+				if ($userRol==6) {
+					$this->db->where('fk_id_operador_mcpio', $userID);
+				}
+				
+				$this->db->order_by('mpio_divipola_nombre', 'asc');
+				$query = $this->db->get('param_divipola');
+					
+				if ($query->num_rows() > 0) {
+					$i = 0;
+					foreach ($query->result() as $row) {
+						$municipios[$i]["idMcpio"] = $row->mpio_divipola;
+						$municipios[$i]["municipio"] = $row->mpio_divipola_nombre;
+						$i++;
+					}
+				}
+				$this->db->close();
+				return $municipios;
 		}
 
 

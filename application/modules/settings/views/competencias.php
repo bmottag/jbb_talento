@@ -33,7 +33,7 @@
 						<tbody>							
 						<?php
 							foreach ($info as $lista):
-									echo "<tr>";
+									echo "<tr class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'>";
 									echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['id_competencias_relacion'] . "</strong></td>";
 									echo "<td class='" . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['competencia'] . "</strong></td>";
 									echo "<td class='text-center " . $lista['estilo_texto']  . " text-" . $lista['estilo_texto'] . "'><strong>" . $lista['descripcion'] . "<strong></td>";
