@@ -7,7 +7,7 @@
 		 * Add/Edit Puntajes
 		 * @since 29/4/2021
 		 */
-		public function savePuntajes() 
+		public function savePuntajes($puntajeDirecto, $puntajeT) 
 		{
 				$idPuntaje = $this->input->post('hddIdPuntaje');
 
@@ -16,7 +16,9 @@
 					'resultado_prueba_psicotecnica' => $this->input->post('resultadoPruebaPsicotecnica'),
 					'resultado_entrevista' => $this->input->post('reultadoEntrevista'),
 					'criterio_etnias' => $this->input->post('criterioEtnias'),
-					'criterio_desarrollo' => $this->input->post('criterioDesarrollo')
+					'criterio_desarrollo' => $this->input->post('criterioDesarrollo'),
+					'puntaje_directo' => $puntajeDirecto,
+					'puntaje_t' => $puntajeT
 				);	
 
 				//revisar si es para adicionar o editar

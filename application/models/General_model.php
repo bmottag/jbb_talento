@@ -504,6 +504,9 @@ class General_model extends CI_Model {
 				if (array_key_exists("estadoCandidato", $arrData)) {
 					$this->db->where('C.estado_candidato', $arrData["estadoCandidato"]);
 				}
+				if (array_key_exists("idCandidato", $arrData)) {
+					$this->db->where('C.id_candidato', $arrData["idCandidato"]);
+				}
 				$this->db->order_by('name', 'asc');
 
 				$query = $this->db->get('form_aspectos_interes_calculos S');
@@ -595,6 +598,9 @@ class General_model extends CI_Model {
 				}
 				if (array_key_exists("estadoCandidato", $arrData)) {
 					$this->db->where('C.estado_candidato', $arrData["estadoCandidato"]);
+				}
+				if (array_key_exists("idCandidato", $arrData)) {
+					$this->db->where('C.id_candidato', $arrData["idCandidato"]);
 				}
 				$this->db->order_by('name', 'asc');
 

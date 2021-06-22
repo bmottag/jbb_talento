@@ -159,7 +159,30 @@ class Dashboard extends CI_Controller {
 					
 			$msj = "Se actualizó el Puntaje del Candidato!";
 
-			if ($this->dashboard_model->savePuntajes()) {
+			//realizar calculo de escala T
+			$arrParam['idCandidato'] = $this->input->post('hddIdCandidato');
+			$infoHabilidades = $this->general_model->get_calculos_formulario_habilidades($arrParam);
+			$infoAspectos = $this->general_model->get_calculos_formulario_aspectos($arrParam);
+
+			$sumaFormHabilidades = 0;
+			$sumaFormAspectos = 0;
+			if($infoHabilidades){
+				$sumaFormHabilidades = $infoHabilidades[0]['ASE'] + $infoHabilidades[0]['COM'] + $infoHabilidades[0]['AUT'] + $infoHabilidades[0]['TOM'];
+			}
+
+			if($infoAspectos){
+				$sumaFormAspectos = $infoAspectos[0]['LOG'] + $infoAspectos[0]['DT'] + $infoAspectos[0]['SUP'] + $infoAspectos[0]['POD'] + $infoAspectos[0]['AA'] + $infoAspectos[0]['GT'] + $infoAspectos[0]['AFI'] + $infoAspectos[0]['ANV'] + $infoAspectos[0]['CT'] + $infoAspectos[0]['A-R'] + $infoAspectos[0]['REQ'] + $infoAspectos[0]['SAL'] + $infoAspectos[0]['REC'] + $infoAspectos[0]['EXP'] + $infoAspectos[0]['PRO'];
+			}
+
+			$puntajeDirecto = ($sumaFormHabilidades*2) + $sumaFormAspectos;
+			$puntajeT = 0;
+			if($puntajeDirecto > 0){
+				$puntajeT = $puntajeDirecto*90/690; 
+			}
+			//fin calculo escala T
+
+			if ($this->dashboard_model->savePuntajes($puntajeDirecto, $puntajeT)) 
+			{
 				$data["result"] = true;
 				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
 			} else {
