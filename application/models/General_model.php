@@ -274,6 +274,9 @@ class General_model extends CI_Model {
 				if (array_key_exists("numeroIdentificacion", $arrData)) {
 					$this->db->where('C.numero_identificacion', $arrData["numeroIdentificacion"]);
 				}
+				if (array_key_exists("idProceso", $arrData)) {
+					$this->db->where('C.fk_id_proceso', $arrData["idProceso"]);
+				}
 				if (array_key_exists("estadoCandidato", $arrData)) {
 					$this->db->where('C.estado_candidato', $arrData["estadoCandidato"]);
 				}
@@ -507,6 +510,9 @@ class General_model extends CI_Model {
 				if (array_key_exists("idCandidato", $arrData)) {
 					$this->db->where('C.id_candidato', $arrData["idCandidato"]);
 				}
+				if (array_key_exists("idProceso", $arrData)) {
+					$this->db->where('C.fk_id_proceso', $arrData["idProceso"]);
+				}
 				$this->db->order_by('name', 'asc');
 
 				$query = $this->db->get('form_aspectos_interes_calculos S');
@@ -574,6 +580,9 @@ class General_model extends CI_Model {
 				if (array_key_exists('estadoCandidato', $arrData)) {
 					$this->db->where('C.estado_candidato', $arrData['estadoCandidato']);
 				}
+				if (array_key_exists("idProceso", $arrData)) {
+					$this->db->where('C.fk_id_proceso', $arrData["idProceso"]);
+				}
 				$this->db->order_by('name', 'asc');
 				$query = $this->db->get('form_competencias_calculos CC');
 
@@ -601,6 +610,9 @@ class General_model extends CI_Model {
 				}
 				if (array_key_exists("idCandidato", $arrData)) {
 					$this->db->where('C.id_candidato', $arrData["idCandidato"]);
+				}
+				if (array_key_exists("idProceso", $arrData)) {
+					$this->db->where('C.fk_id_proceso', $arrData["idProceso"]);
 				}
 				$this->db->order_by('name', 'asc');
 

@@ -59,7 +59,7 @@ $( document ).ready( function () {
 							$("#div_load").css("display", "none");
 							$('#btnSubmit').removeAttr('disabled');
 
-							var url = base_url + "dashboard/admin";
+							var url = base_url + "dashboard/detalle/" + data.idProceso;
 							$(location).attr("href", url);
 						}
 						else
