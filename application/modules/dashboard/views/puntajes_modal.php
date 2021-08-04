@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/dashboard/puntajes_v2.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/dashboard/puntajes.js"); ?>"></script>
 
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -21,25 +21,6 @@
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-sm-6">
-				<div class="form-group text-left">
-					<label class="control-label" for="resultadoPruebaPsicotecnica">Resultado Prueba Psicotécnica: </label>
-					<input type="number" id="resultadoPruebaPsicotecnica" name="resultadoPruebaPsicotecnica" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["resultado_prueba_psicotecnica"]:""; ?>" placeholder="Resultado Prueba Psicotécnica" >
-				</div>
-			</div>
-
-			<div class="col-sm-6">
-				<div class="form-group text-left">
-						<small><br>
-							<p class="text-danger text-left">Hasta 90 por la escala máxima establecida.
-								<br>Puntaje sobre 20%
-							</p>
-						</small>
 				</div>
 			</div>
 		</div>

@@ -3,7 +3,6 @@ $( document ).ready( function () {
 	$( "#form" ).validate( {
 		rules: {
 			puntajeRequisitosMinimos: 		{ minlength: 1, maxlength:5 },
-			resultadoPruebaPsicotecnica: 	{ minlength: 1, maxlength:5 },
 			reultadoEntrevista: 			{ minlength: 1, maxlength:5 },
 			criterioEtnias: 				{ minlength: 1, maxlength:5 },
 			criterioDesarrollo: 			{ minlength: 1, maxlength:5 }

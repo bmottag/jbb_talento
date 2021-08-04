@@ -96,36 +96,55 @@ $(function(){
                     <table width="100%" class="table table-hover" id="dataTables">
                         <thead>
                             <tr>
-                                <th class='text-center'>#</th>
-                                <th>Nombres</th>
-                                <th>Apellidos</th>
+                                <th>Nombre Completo</th>
                                 <th class='text-center'>No. Identificación</th>
                                 <th class='text-center'>Puntaje Requisitos Mínimos</th>
                                 <th class='text-center'>Resultado Prueba Psicotécnica</th>
                                 <th class='text-center'>Resultado Entrevista</th>
                                 <th class='text-center'>Criterio Dif. Etnias</th>
                                 <th class='text-center'>Criterio Dif. Desarrollo Objeto</th>
-                                <th class='text-center'>Puntaje Directo</th>
-                                <th class='text-center'>Puntaje T</th>
+                                <th class='text-center'>Puntaje TOTAL</th>
+                                <th class='text-center'>% TOTAL</th>
                                 <th class='text-center'>Subir Puntajes</th>
                             </tr>
                         </thead>
                         <tbody>                         
                         <?php
-                            $i = 1;
                             foreach ($infoCandidatos as $lista):
+                                $puntajeTotal = $lista['puntaje_requisitos_minimos'] + $lista['resultado_prueba_psicotecnica'] + $lista['resultado_entrevista'] + $lista['criterio_etnias'] + $lista['criterio_desarrollo'];
+                                $porcetajeRequisitos = $lista['puntaje_requisitos_minimos'] * 30 / 70;
+                                $porcentajePsicotecnica = $lista['resultado_prueba_psicotecnica'] * 20 / 90;
+                                $porcentajeEntrevista = $lista['resultado_entrevista'] * 30 / 80;
+                                $porcentajeTotal = $porcetajeRequisitos + $porcentajePsicotecnica + $porcentajeEntrevista + $lista['criterio_etnias'] + $lista['criterio_desarrollo'];
+
                                 echo '<tr>';
-                                echo '<td class="text-center">' . $i . '</td>';
-                                echo '<td>' . $lista['nombres'] . '</td>';
-                                echo '<td>' . $lista['apellidos'] . '</td>';
+                                echo '<td>' . $lista['nombres'] . ' ' . $lista['apellidos'] . '</td>';
                                 echo '<td class="text-center">' . $lista['numero_identificacion'] . '</td>';
-                                echo '<td class="text-center">' . $lista['puntaje_requisitos_minimos'] . '</td>';
-                                echo '<td class="text-center">' . $lista['resultado_prueba_psicotecnica'] . '</td>';
-                                echo '<td class="text-center">' . $lista['resultado_entrevista'] . '</td>';
-                                echo '<td class="text-center">' . $lista['criterio_etnias'] . '</td>';
-                                echo '<td class="text-center">' . $lista['criterio_desarrollo'] . '</td>';
-                                echo '<td class="text-center">' . $lista['puntaje_directo'] . '</td>';
-                                echo '<td class="text-center">' . intval($lista['puntaje_t']) . '</td>';
+                                echo '<td class="text-center">';
+                                echo number_format($lista['puntaje_requisitos_minimos'],1);
+                                echo '<br>' .  number_format($porcetajeRequisitos, 1) . '%';
+                                echo '</td>';
+                                echo '<td class="text-center">';
+                                echo number_format($lista['resultado_prueba_psicotecnica'],1);
+                                echo '<br>' .  number_format($porcentajePsicotecnica, 1) . '%';
+                                echo '</td>';
+                                echo '<td class="text-center">';
+                                echo number_format($lista['resultado_entrevista'],1);
+                                echo '<br>' .  number_format($porcentajeEntrevista, 1) . '%';
+                                echo '</td>';
+
+                                echo '<td class="text-center">';
+                                echo number_format($lista['criterio_etnias'],1);
+                                echo '<br>' .  number_format($lista['criterio_etnias'], 1) . '%';
+                                echo '</td>';
+
+                                echo '<td class="text-center">';
+                                echo number_format($lista['criterio_desarrollo'],1);
+                                echo '<br>' .  number_format($lista['criterio_desarrollo'], 1) . '%';
+                                echo '</td>';
+
+                                echo '<td class="text-center">' . number_format($puntajeTotal,2) . '</td>';
+                                echo '<td class="text-center">' . number_format($porcentajeTotal, 1) . '%</td>';
                                 echo '<td class="text-center">';
                                 $class = 'btn-info';
                                 $valor = $lista['id_candidato'];
@@ -140,7 +159,6 @@ $(function(){
                         <?php
                                 echo '</td>';
                                 echo '</tr>';
-                                $i++;
                             endforeach;
                         ?>
                         </tbody>

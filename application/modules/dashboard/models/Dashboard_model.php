@@ -13,7 +13,7 @@
 
 				$data = array(
 					'puntaje_requisitos_minimos' => $this->input->post('puntajeRequisitosMinimos'),
-					'resultado_prueba_psicotecnica' => $this->input->post('resultadoPruebaPsicotecnica'),
+					'resultado_prueba_psicotecnica' => $puntajeT,
 					'resultado_entrevista' => $this->input->post('reultadoEntrevista'),
 					'criterio_etnias' => $this->input->post('criterioEtnias'),
 					'criterio_desarrollo' => $this->input->post('criterioDesarrollo'),
