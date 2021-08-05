@@ -153,7 +153,7 @@ $(function(){
                                     $valor = $lista['id_puntaje'];
                                 }
                         ?>
-                                <button type="button" class="btn <?php echo $class; ?> btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_candidato']; ?>" >
+                                <button type="button" class="btn <?php echo $class; ?> btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $valor; ?>" >
                                     Puntajes <span class="glyphicon glyphicon-briefcase" aria-hidden="true">
                                 </button>
                         <?php

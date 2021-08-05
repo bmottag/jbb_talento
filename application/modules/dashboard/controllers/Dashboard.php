@@ -92,6 +92,8 @@ class Dashboard extends CI_Controller {
 		{
 			$arrParam = array('idPuntaje' => $data['idPuntaje']);
 			$data['infoPuntajes'] = $this->general_model->get_puntaje($arrParam);
+
+			$data['idCandidato'] = $data['infoPuntajes'][0]['fk_id_candidato_p'];
 		}
 		$this->load->view('puntajes_modal', $data);
     }
