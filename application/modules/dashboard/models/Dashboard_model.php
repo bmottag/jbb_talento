@@ -12,7 +12,8 @@
 				$idPuntaje = $this->input->post('hddIdPuntaje');
 
 				$data = array(
-					'puntaje_requisitos_minimos' => $this->input->post('puntajeRequisitosMinimos'),
+					'puntaje_experiencia' => $this->input->post('puntajeExperiencia'),
+					'puntaje_adicionales' => $this->input->post('puntajeEstudiosAdicionales'),
 					'resultado_prueba_psicotecnica' => $puntajeT,
 					'resultado_entrevista' => $this->input->post('reultadoEntrevista'),
 					'criterio_etnias' => $this->input->post('criterioEtnias'),

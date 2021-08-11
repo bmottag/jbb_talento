@@ -98,7 +98,8 @@ $(function(){
                             <tr>
                                 <th>Nombre Completo</th>
                                 <th class='text-center'>No. Identificación</th>
-                                <th class='text-center'>Puntaje Requisitos Mínimos</th>
+                                <th class='text-center'>Puntaje Experiencia Profesional</th>
+                                <th class='text-center'>Puntaje Estudios Adicionales</th>
                                 <th class='text-center'>Resultado Prueba Psicotécnica</th>
                                 <th class='text-center'>Resultado Entrevista</th>
                                 <th class='text-center'>Criterio Dif. Etnias</th>
@@ -111,18 +112,22 @@ $(function(){
                         <tbody>                         
                         <?php
                             foreach ($infoCandidatos as $lista):
-                                $puntajeTotal = $lista['puntaje_requisitos_minimos'] + $lista['resultado_prueba_psicotecnica'] + $lista['resultado_entrevista'] + $lista['criterio_etnias'] + $lista['criterio_desarrollo'];
-                                $porcetajeRequisitos = $lista['puntaje_requisitos_minimos'] * 30 / 70;
+                                $puntajeTotal = $lista['puntaje_experiencia'] + $lista['puntaje_adicionales'] + $lista['resultado_prueba_psicotecnica'] + $lista['resultado_entrevista'] + $lista['criterio_etnias'] + $lista['criterio_desarrollo'];
+                                $porcetajeExperiencia = $lista['puntaje_experiencia'] * 20 / 70;
                                 $porcentajePsicotecnica = $lista['resultado_prueba_psicotecnica'] * 20 / 90;
                                 $porcentajeEntrevista = $lista['resultado_entrevista'] * 30 / 80;
-                                $porcentajeTotal = $porcetajeRequisitos + $porcentajePsicotecnica + $porcentajeEntrevista + $lista['criterio_etnias'] + $lista['criterio_desarrollo'];
+                                $porcentajeTotal = $porcetajeExperiencia + $lista['puntaje_adicionales'] + $porcentajePsicotecnica + $porcentajeEntrevista + $lista['criterio_etnias'] + $lista['criterio_desarrollo'];
 
                                 echo '<tr>';
                                 echo '<td>' . $lista['nombres'] . ' ' . $lista['apellidos'] . '</td>';
                                 echo '<td class="text-center">' . $lista['numero_identificacion'] . '</td>';
                                 echo '<td class="text-center">';
-                                echo number_format($lista['puntaje_requisitos_minimos'],1);
-                                echo '<br>' .  number_format($porcetajeRequisitos, 1) . '%';
+                                echo number_format($lista['puntaje_experiencia'],1);
+                                echo '<br>' .  number_format($porcetajeExperiencia, 1) . '%';
+                                echo '</td>';
+                                echo '<td class="text-center">';
+                                echo number_format($lista['puntaje_adicionales'],1);
+                                echo '<br>' .  number_format($lista['puntaje_adicionales'], 1) . '%';
                                 echo '</td>';
                                 echo '<td class="text-center">';
                                 echo number_format($lista['resultado_prueba_psicotecnica'],1);

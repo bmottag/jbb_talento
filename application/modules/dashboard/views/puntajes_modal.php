@@ -14,13 +14,35 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="puntajeRequisitosMinimos">Puntaje Requisitos Mínimos: </label>
-					<input type="number" id="puntajeRequisitosMinimos" name="puntajeRequisitosMinimos" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["puntaje_requisitos_minimos"]:""; ?>" placeholder="Puntaje Requisitos Mínimos" >
+					<label class="control-label" for="puntajeExperiencia">Puntaje Experiencia Profesional: </label>
+					<input type="number" max="70" id="puntajeExperiencia" name="puntajeExperiencia" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["puntaje_experiencia"]:""; ?>" placeholder="Puntaje Experiencia Profesional" >
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="form-group text-left">
+						<small><br>
+							<p class="text-danger text-left">Hasta 70 por la escala máxima establecida.
+								<br>Puntaje sobre 20%
+							</p>
+						</small>
+				</div>
+			</div>
+		</div>
 
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group text-left">
+					<label class="control-label" for="puntajeEstudiosAdicionales">Puntaje Estudios Adicionales: </label>
+					<input type="number" max="10" id="puntajeEstudiosAdicionales" name="puntajeEstudiosAdicionales" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["puntaje_adicionales"]:""; ?>" placeholder="Puntaje Estudios Adicionales" >
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group text-left">
+						<small><br>
+							<p class="text-danger text-left">Hasta 10 por la escala máxima establecida.
+								<br>Puntaje sobre 10%
+							</p>
+						</small>
 				</div>
 			</div>
 		</div>
@@ -29,7 +51,7 @@
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="reultadoEntrevista">Resultado Entrevista: </label>
-					<input type="number" id="reultadoEntrevista" name="reultadoEntrevista" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["resultado_entrevista"]:""; ?>" placeholder="Resultado Entrevista" >
+					<input type="number" max="80" id="reultadoEntrevista" name="reultadoEntrevista" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["resultado_entrevista"]:""; ?>" placeholder="Resultado Entrevista" >
 				</div>
 			</div>
 
@@ -48,7 +70,7 @@
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="criterioEtnias">Criterio Dif. Etnias: </label>
-					<input type="number" id="criterioEtnias" name="criterioEtnias" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["criterio_etnias"]:""; ?>" placeholder="Criterio Dif. Etnias" >
+					<input type="number" max="10" id="criterioEtnias" name="criterioEtnias" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["criterio_etnias"]:""; ?>" placeholder="Criterio Dif. Etnias" >
 				</div>
 			</div>
 			<div class="col-sm-6">
@@ -66,7 +88,7 @@
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="criterioDesarrollo">Criterio Dif. Desarrollo Objeto: </label>
-					<input type="number" id="criterioDesarrollo" name="criterioDesarrollo" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["criterio_desarrollo"]:""; ?>" placeholder="Criterio Dif. Desarrollo Objeto" >
+					<input type="number" max="10" id="criterioDesarrollo" name="criterioDesarrollo" class="form-control" value="<?php echo $infoPuntajes?$infoPuntajes[0]["criterio_desarrollo"]:""; ?>" placeholder="Criterio Dif. Desarrollo Objeto" >
 				</div>
 			</div>
 			<div class="col-sm-6">
