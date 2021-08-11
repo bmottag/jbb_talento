@@ -496,6 +496,107 @@ class Settings extends CI_Controller {
 				}
 			}
     }
+
+	/**
+	 * Evio de correo
+     * @since 11/8/2021
+     * @author BMOTTAG
+	 */
+	public function email($idUsuario)
+	{
+			$arrParam = array('idUser' => $idUsuario);
+			$infoUsuario = $this->general_model->get_user($arrParam);
+			$to = $infoUsuario[0]['email'];
+
+			//reiniciar primero la contraseña del usuario a Jardin2021 y estado colocarlo en cero
+			$arrParam['passwd'] = 'Jardin2021';
+			$resetPassword = $this->settings_model->resetEmployeePassword($arrParam);
+
+			//busco datos parametricos de configuracion para envio de correo
+			$arrParam2 = array(
+				"table" => "parametros",
+				"order" => "id_parametro",
+				"id" => "x"
+			);
+			$parametric = $this->general_model->get_basic_search($arrParam2);
+
+			$paramHost = $parametric[0]["parametro_valor"];
+			$paramUsername = $parametric[1]["parametro_valor"];
+			$paramPassword = $parametric[2]["parametro_valor"];
+			$paramFromName = $parametric[3]["parametro_valor"];
+
+			//mensaje del correo
+			$msj = '<p>Sr.(a) ' . $infoUsuario[0]['first_name'] . ' se activo su ingreso a la plataforma de Talento Humano del Jardín Botánico de Bogotá,';
+			$msj .= ' siga el enlace con las credenciales para acceder.</p>';
+			$msj .= '<p>Recuerde cambiar su contraseña para activar su cuenta.</p>';
+			$msj .= '<p><strong>Enlace: </strong>' . base_url('login');
+			$msj .= '<br><strong>Usuario: </strong>' . $infoUsuario[0]['log_user'];
+			$msj .= '<br><strong>Contraseña: </strong>' . $arrParam['passwd'];
+									
+			$mensaje = "<p>$msj</p>
+						<p>Cordialmente,</p>
+						<p><strong>Jardín Botánico de Bogotá</strong></p>";		
+
+			require_once(APPPATH.'libraries/PHPMailer/class.phpmailer.php');
+            $mail = new PHPMailer(true);
+
+            try {
+                    $mail->IsSMTP(); // set mailer to use SMTP
+                    $mail->Host = $paramHost; // specif smtp server
+                    $mail->SMTPSecure= "tls"; // Used instead of TLS when only POP mail is selected
+                    $mail->Port = 587; // Used instead of 587 when only POP mail is selected
+                    $mail->SMTPAuth = true;
+					$mail->Username = $paramUsername; // SMTP username
+                    $mail->Password = $paramPassword; // SMTP password
+                    $mail->FromName = $paramFromName;
+                    $mail->From = $paramUsername;
+                    $mail->AddAddress($to, 'Usuario JJB Talento Humano');
+                    $mail->WordWrap = 50;
+                    $mail->CharSet = 'UTF-8';
+                    $mail->IsHTML(true); // set email format to HTML
+                    $mail->Subject = 'Jardín Botánico de Bogotá - Talento Humano';
+
+                    $mail->Body = nl2br ($mensaje,false);
+
+                    $data['linkBack'] = "settings/employee/1";
+					$data['titulo'] = "<i class='fa fa-unlock fa-fw'></i>CAMBIAR CONTRASEÑA";
+
+                    if($mail->Send())
+                    {
+						$data['msj'] = 'Se actualizó la contraseña del usuario.';
+						$data['msj'] .= '<br>';
+						$data['msj'] .= '<br><strong>Nombre Usuario: </strong>' . $infoUsuario[0]['first_name'];
+						$data['msj'] .= '<br><strong>Contraseña: </strong>' . $arrParam['passwd'];
+						$data['msj'] .= '<br><br><p>La información con los datos de ingreso fue enviada al correo electrónico del usuario, quien debe cambiar la contraseña para activar la cuenta.</p>';
+						$data['clase'] = 'alert-success';
+
+                        $this->session->set_flashdata('retorno_exito', 'Creaci&oacute;n de usuario exitosa!. La informaci&oacute;n para activar su cuenta fu&eacute; enviada al correo registrado, recuerde aceptar los t&eacute;rminos y condiciones y cambiar su contrase&ntilde;a');
+                        //redirect(base_url(), 'refresh');
+                        //exit;
+
+                    }else{
+						$data['msj'] = 'Se actualizó la contraseña del usuario, sin embargo no se pudo enviar el correo electrónico.';
+						$data['msj'] .= '<br>';
+						$data['msj'] .= '<br><strong>Nombre Usuario: </strong>' . $infoUsuario[0]['first_name'];
+						$data['msj'] .= '<br><strong>Contraseña: </strong>' . $arrParam['passwd'];
+						$data['clase'] = 'alert-success';
+
+                        $this->session->set_flashdata('retorno_error', 'Se creo la persona, sin embargo no se pudo enviar el correo electr&oacute;nico');
+                       // redirect(base_url(), 'refresh');
+                       //exit;
+
+                    }
+
+					$data["view"] = "template/answer";
+					$this->load->view("layout", $data);
+
+                }catch (Exception $e){
+                                print_r($e->getMessage());
+                                        exit;
+                }
+
+	}
+
 	
 	
 }

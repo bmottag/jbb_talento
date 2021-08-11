@@ -57,22 +57,20 @@
 				}
 		}
 		
+		
 	    /**
 	     * Reset user´s password
 	     * @author BMOTTAG
-	     * @since  11/1/2017
+	     * @since  20/3/2021
 	     */
-	    public function resetEmployeePassword($idUser)
+	    public function resetEmployeePassword($arrData)
 		{
-				$passwd = '123456';
-				$passwd = md5($passwd);
-				
+				$passwd = md5($arrData['passwd']);
 				$data = array(
 					'password' => $passwd,
 					'state' => 0
 				);
-
-				$this->db->where('id_user', $idUser);
+				$this->db->where('id_user', $arrData['idUser']);
 				$query = $this->db->update('usuarios', $data);
 
 				if ($query) {

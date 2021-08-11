@@ -166,10 +166,7 @@ if($count == 10){
 									echo "</td>";
 									echo "<td class='text-center'>";
 							?>
-									<!-- 
-										Se quita la opcion de resetear la contraseña a 123456
-									<a href="<?php echo base_url("admin/resetPassword/" . $lista['id_user']); ?>" class="btn btn-default btn-xs">Reset <span class="glyphicon glyphicon-lock" aria-hidden="true"></a> 
-									-->
+									<a href="<?php echo base_url("settings/email/" . $lista['id_user']); ?>" class="btn btn-default btn-xs">Reiniciar <span class="glyphicon glyphicon-lock" aria-hidden="true"></a> 
 									<a href="<?php echo base_url("settings/change_password/" . $lista['id_user']); ?>" class="btn btn-default btn-xs">Cambiar Contraseña <span class="glyphicon glyphicon-lock" aria-hidden="true"></a>
 									
 							<?php
