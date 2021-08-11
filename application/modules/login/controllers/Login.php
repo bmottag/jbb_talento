@@ -304,19 +304,38 @@ class Login extends CI_Controller {
 
 			if ($userExist)
 			{
-					$userRole = 1000;
-					$sessionData = array(
-						'auth' => 'OK',
-						'id' => $userExist[0]['id_candidato'],
-						'firstname' => $userExist[0]['nombres'],
-						'lastname' => $userExist[0]['apellidos'],
-						'name' => $userExist[0]['nombres'] . ' ' . $userExist[0]['apellidos'],
-						'logUser' => $userExist[0]['numero_identificacion']
+					/**
+					 * Verificar si el usuario ya contesto los formularios, 
+					 * si es asi no lo dejo ingresar
+					 */
+					$arrParam = array(
+						'idCandidato' => $userExist[0]['id_candidato'],
+						'estadoFormulario' => 1
 					);
-											
-					$this->session->set_userdata($sessionData);
-					
-					redirect("/formulario","location",301);
+					$infoFormularioHabilidades = $this->general_model->get_formulario_habilidades($arrParam);
+					$infoFormularioAspecto = $this->general_model->get_formulario_aspectos_interes($arrParam);
+
+					if($infoFormularioHabilidades && $infoFormularioHabilidades[0]['numero_parte_formulario'] == 2 && $infoFormularioAspecto && $infoFormularioAspecto[0]['numero_parte_formulario'] == 4){
+
+						$data["msj"] = "<strong>" . $login . "</strong> ya se registro su información.";
+						$this->session->sess_destroy();
+						$this->load->view('login_candidato', $data);
+
+					}else{
+						$userRole = 1000;
+						$sessionData = array(
+							'auth' => 'OK',
+							'id' => $userExist[0]['id_candidato'],
+							'firstname' => $userExist[0]['nombres'],
+							'lastname' => $userExist[0]['apellidos'],
+							'name' => $userExist[0]['nombres'] . ' ' . $userExist[0]['apellidos'],
+							'logUser' => $userExist[0]['numero_identificacion']
+						);
+												
+						$this->session->set_userdata($sessionData);
+						
+						redirect("/formulario","location",301);
+					}
 			}else{
 				$data["msj"] = "<strong>" . $login . "</strong> no está registrado.";
 				$this->session->sess_destroy();
