@@ -26,6 +26,8 @@
     <link href="<?php echo base_url("assets/bootstrap/vendor/datatables-plugins/dataTables.bootstrap.css"); ?>" rel="stylesheet">
     <!-- DataTables Responsive CSS -->
     <link href="<?php echo base_url("assets/bootstrap/vendor/datatables-responsive/dataTables.responsive.css"); ?>" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="<?php echo base_url("assets/bootstrap/vendor/morrisjs/morris.css"); ?>" rel="stylesheet">
 
     <!-- jQuery -->
     <script src="<?php echo base_url("assets/bootstrap/vendor/jquery/jquery.min.js"); ?>"></script>
@@ -211,6 +213,11 @@
     <script src="<?php echo base_url("assets/bootstrap/vendor/bootstrap/js/bootstrap.min.js"); ?>"></script>
     <!-- Metis Menu Plugin JavaScript -->
     <script src="<?php echo base_url("assets/bootstrap/vendor/metisMenu/metisMenu.min.js"); ?>"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="<?php echo base_url("assets/bootstrap/vendor/raphael/raphael.min.js"); ?>"></script>
+    <script src="<?php echo base_url("assets/bootstrap/vendor/morrisjs/morris.min.js"); ?>"></script>
+    <script src="<?php echo base_url("assets/bootstrap/data/morris-data.js"); ?>"></script>
     <!-- Custom Theme JavaScript -->
     <script src="<?php echo base_url("assets/bootstrap/dist/js/sb-admin-2.js"); ?>"></script>
     <!-- DataTables JavaScript -->

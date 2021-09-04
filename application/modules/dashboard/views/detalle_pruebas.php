@@ -253,6 +253,22 @@ $(function(){
             </div>
         </div>
     </div>
+
+    <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Habilidades Sociales
+
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="graficaHablidades"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
 <?php  } ?>  
 
 <?php
@@ -469,4 +485,45 @@ $(document).ready(function() {
         "info": false
     });
 });
+</script>
+
+<script>
+$(function() {
+
+    Morris.Line({
+        element: 'graficaHablidades',
+        data: [
+            <?php $i = 1;
+                if($infoCalculoFormHabilidades)
+                {
+                    $i = 1001;
+                    foreach ($infoCalculoFormHabilidades as $lista):
+                            echo "{";
+                            echo "period:'" . $i. ' ' . $lista['name']."',";
+                            echo "ASE:'" . $lista['ASE']."',";
+                            echo "COM:'" . $lista['COM']."',";
+                            echo "AUT:'" . $lista['AUT']."',";
+                            echo "TOM:'" . $lista['TOM']."',";
+                            $media = ($lista['ASE'] + $lista['COM'] + $lista['AUT'] + $lista['TOM'])/4;
+                            echo "MEDIA:'" . $media ."'";
+                            echo "},";
+                            $i++;
+                    endforeach;
+                }
+            ?>
+        ],
+        xkey: 'period',
+        ykeys: ['ASE', 'COM', 'AUT', 'TOM','MEDIA'],
+        labels: ['Asertividad', 'Comunicación', 'Autoestima', 'Toma Decisión','Media'],
+        lineColors: ['blue', 'red','green','yellow','black'],
+        pointSize: 3,
+        hideHover: 'auto',
+        resize: true
+    });
+
+
+
+    
+});
+
 </script>
