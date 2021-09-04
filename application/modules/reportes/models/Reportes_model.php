@@ -3,27 +3,24 @@
 	class Reportes_model extends CI_Model {
 	    
 		/**
-		 * Consulta lista de horarios
-		 * @since 12/2/2021
+		 * Consultar registros de procesos
+		 * @since 19/3/2021
 		 */
-		public function get_horario_info($arrData)
+		public function get_procesos_info($arrData)
 		{
 				$this->db->select();
-				if (array_key_exists("idHorario", $arrData)) {
-					$this->db->where('H.id_horario', $arrData["idHorario"]);
+				$this->db->join('param_dependencias D', 'D.id_dependencia = P.fk_id_dependencia', 'INNER');
+				$this->db->join('param_tipo_proceso T', 'T.id_tipo_proceso = P.fk_id_tipo_proceso', 'INNER');
+				if (array_key_exists("idProceso", $arrData)) {
+					$this->db->where('P.id_proceso ', $arrData["idProceso"]);
 				}
-				if (array_key_exists("estado", $arrData)) {
-					$this->db->where('P.estado', $arrData["estado"]);
+				if (array_key_exists("estadoProceso", $arrData)) {
+					$this->db->where('P.estado_proceso', $arrData["estadoProceso"]);
 				}
-				if (array_key_exists("from", $arrData) && $arrData["from"] != '') {
-					$this->db->where('H.hora_inicial >=', $arrData["from"]);
-				}				
-				if (array_key_exists("to", $arrData) && $arrData["to"] != '' && $arrData["from"] != '') {
-					$this->db->where('H.hora_inicial <', $arrData["to"]);
-				}
-				$this->db->order_by('H.id_horario', 'desc');
 
-				$query = $this->db->get('horarios H');
+				$this->db->order_by('P.numero_proceso', 'asc');
+
+				$query = $this->db->get('proceso P');
 
 				if ($query->num_rows() > 0) {
 					return $query->result_array();
@@ -32,62 +29,38 @@
 				}
 		}
 
-		/**
-		 * Consultar registros de reservas
-		 * @since 15/2/2021
+			/**
+		 * Consulta de candidatos
+		 * @since 19/3/2021
 		 */
-		public function get_reserva_info($arrData)
+		public function get_candidatos_info($arrData)
 		{
-				$this->db->select();
-				$this->db->join('reservas_usuarios U', 'U.fk_id_reserva = R.id_reserva', 'INNER');
-
-				if (array_key_exists("idReserva ", $arrData)) {
-					$this->db->where('R.id_reserva ', $arrData["idReserva"]);
+				$this->db->select("CONCAT(C.nombres, ' ', C.apellidos) nombres, C.numero_identificacion, C.edad, C.profesion, P.numero_proceso, D.dependencia, T.tipo_proceso, FHC.*, FAIC.*, CC.*");
+				$this->db->join('candidatos_puntajes X', 'X.fk_id_candidato_p  = C.id_candidato', 'LEFT');
+				$this->db->join('proceso P', 'P.id_proceso = C.fk_id_proceso', 'INNER');
+				$this->db->join('param_dependencias D', 'D.id_dependencia = P.fk_id_dependencia', 'INNER');
+				$this->db->join('param_tipo_proceso T', 'T.id_tipo_proceso = P.fk_id_tipo_proceso', 'INNER');
+				$this->db->join('form_habilidades FH', 'FH.fk_id_candidato_fh = C.id_candidato', 'LEFT');
+				$this->db->join('form_habilidades_calculos FHC', 'FHC.fk_id_form_habilidades_c = FH.id_form_habilidades', 'INNER');
+				$this->db->join('form_aspectos_interes FAI', 'FAI.fk_id_candidato_fai = C.id_candidato', 'LEFT');
+				$this->db->join('form_aspectos_interes_calculos FAIC', 'FAIC.fk_id_form_aspectos_interes_c = FAI.id_form_aspectos_interes', 'INNER');
+				$this->db->join('form_competencias_calculos CC', 'CC.fk_id_candidato_cc = C.id_candidato', 'LEFT');
+				if (array_key_exists("idCandidato", $arrData)) {
+					$this->db->where('C.id_candidato', $arrData["idCandidato"]);
 				}
-				if (array_key_exists("idHorario", $arrData)) {
-					$this->db->where('R.fk_id_horario', $arrData["idHorario"]);
+				if (array_key_exists("numeroIdentificacion", $arrData)) {
+					$this->db->where('C.numero_identificacion', $arrData["numeroIdentificacion"]);
 				}
-				if (array_key_exists("estadoReserva", $arrData)) {
-					$this->db->where('R.estado_reserva', $arrData["estadoReserva"]);
+				if (array_key_exists("idProceso", $arrData)) {
+					$this->db->where('C.fk_id_proceso', $arrData["idProceso"]);
 				}
-				if (array_key_exists("llave", $arrData)) {
-					$this->db->where('R.qr_code_llave', $arrData["llave"]);
-				}
-
-				$this->db->order_by('R.id_reserva', 'asc');
-
-				$query = $this->db->get('reservas R');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}	
-
-		/**
-		 * Consulta lista de horarios
-		 * @since 12/2/2021
-		 */
-		public function get_info_reservas($arrData)
-		{
-				$this->db->select('H.hora_inicial, H.hora_final, R.correo_electronico, R.numero_contacto, U.nombre_completo');
-				$this->db->join('reservas R', 'R.fk_id_horario = H.id_horario', 'INNER');
-				$this->db->join('reservas_usuarios U', 'U.fk_id_reserva = R.id_reserva', 'INNER');
-				if (array_key_exists("fecha", $arrData) && $arrData["fecha"] != '') {
-					$this->db->like('H.hora_inicial', $arrData["fecha"]); 
-				}
-				if (array_key_exists('from', $arrData) && $arrData['from'] != '') {
-					$this->db->where('H.hora_inicial >=', $arrData["from"]);
-				}				
-				if (array_key_exists('to', $arrData) && $arrData['to'] != '' && $arrData['from'] != '') {
-					$this->db->where('H.hora_inicial <', $arrData["to"]);
+				if (array_key_exists("estadoCandidato", $arrData)) {
+					$this->db->where('C.estado_candidato', $arrData["estadoCandidato"]);
 				}
 
-				$this->db->where('R.estado_reserva', 1); 
-				$this->db->order_by('H.hora_inicial', 'asc');
+				$this->db->order_by('C.nombres, C.apellidos', 'asc');
 
-				$query = $this->db->get('horarios H');
+				$query = $this->db->get('candidatos C');
 
 				if ($query->num_rows() > 0) {
 					return $query->result_array();
@@ -95,8 +68,8 @@
 					return false;
 				}
 		}
-		
-		
+
+
 		
 		
 	    
