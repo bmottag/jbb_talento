@@ -108,7 +108,25 @@ class Reportes extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(10);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
-
+			$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('P')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('R')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('S')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('T')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('U')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('V')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('W')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('X')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('Y')->setWidth(18);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('Z')->setWidth(18);
 
 			// Add conditional formatting
 			$objConditional1 = new PHPExcel_Style_Conditional();

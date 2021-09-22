@@ -49,12 +49,12 @@ $(function(){
         <div class="col-lg-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-lg-4">
-                        <i class="fa fa-list-ul"></i> <strong>CANDIDATOS ACTIVOS</strong>
+                    <i class="fa fa-list-ul"></i> <strong>CANDIDATOS ACTIVOS</strong>
+                    <div class="pull-right">
+                        <div class="btn-group">
+<a class="btn btn-primary btn-xs" href='<?php echo base_url('reportes/generaReporteFinalXLS/' . $infoProcesos[0]['id_proceso']) ?>' target='_blank'><i class="fa fa-file-excel-o"></i> Descargar Reporte Final</a>
                         </div>
-                    </div>
-                       
+                    </div>                       
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
